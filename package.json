@@ -1,0 +1,24 @@
+{
+  "name": "mv_streamer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomanOjha-git/MVstreamer.git"
+  },
+  "author": "roman ojha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RomanOjha-git/MVstreamer/issues"
+  },
+  "homepage": "https://github.com/RomanOjha-git/MVstreamer#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
