@@ -5,6 +5,9 @@ import Google_Icon from "../images/google_icon.svg";
 import Github_Icon from "../images/github_icon.svg";
 
 const LogInPage = () => {
+  const logInwithGoogleAuth = () => {
+    window.open("http://localhost:8080/auth/google", "_self");
+  };
   return (
     <>
       <div className="LoginPage">
@@ -20,7 +23,7 @@ const LogInPage = () => {
               <img src={Facebook_Icon} alt="icon" />
               <h2 style={{ color: "#1877F2" }}>Facebook</h2>
             </div>
-            <div>
+            <div onClick={logInwithGoogleAuth}>
               <img src={Google_Icon} alt="icon" />
               <h2 style={{ color: "#EF6054" }}>Google</h2>
             </div>

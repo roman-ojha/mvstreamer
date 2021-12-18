@@ -24,6 +24,7 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "mongoose": "^6.1.2",
-    "passport": "^0.5.2"
+    "passport": "^0.5.2",
+    "passport-google-oauth2": "^0.2.0"
   }
 }
