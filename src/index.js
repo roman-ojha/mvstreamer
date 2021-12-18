@@ -1,6 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+dotenv.config({ path: "../config.env" });
 const app = express();
-const PORT = 8080;
+app.use(cookieParser());
+app.unsubscribe(express.json());
+const PORT = process.env.PORT;
+
+import("../db/dbConn.js");
 
 app.get("/", (req, res) => {
   res.send("Hello world");
