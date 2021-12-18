@@ -13,15 +13,15 @@ const LogInPage = () => {
           <h1 className="LoginPage_SignIn_Title">Sign In</h1>
           <div className="LoginPage_Button_Container">
             <div>
-              <img src={Github_Icon} />
+              <img src={Github_Icon} alt="icon" />
               <h2>GitHub</h2>
             </div>
             <div>
-              <img src={Facebook_Icon} />
+              <img src={Facebook_Icon} alt="icon" />
               <h2 style={{ color: "#1877F2" }}>Facebook</h2>
             </div>
             <div>
-              <img src={Google_Icon} />
+              <img src={Google_Icon} alt="icon" />
               <h2 style={{ color: "#EF6054" }}>Google</h2>
             </div>
           </div>
