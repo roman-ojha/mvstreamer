@@ -1,11 +1,11 @@
 import React from "react";
 import NavBarANDMiniplayer from "./NavBarANDMiniplayer";
-import HomePage from "../react-components/HomePage";
+import Carousel from "../react-components/Carousel";
 
 const MainPage = () => {
   return (
     <>
-      <HomePage />
+      <Carousel />
       <NavBarANDMiniplayer />
     </>
   );
