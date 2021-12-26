@@ -1,28 +1,10 @@
-// Widget loginButton(
-//     {required Widget icon,
-//     required String label,
-//     required Color labelColor}) {
-//   return ElevatedButton.icon(
-//     onPressed: () {},
-//     icon: icon,
-//     label: Text(
-//       label,
-//       style: TextStyle(color: labelColor),
-//     ),
-//     style: ButtonStyle(
-//       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-//     ),
-//   );
-// }
-
 import 'package:flutter/material.dart';
 import '../assets/icons/login_button_icon_icons.dart';
-import 'app_login/google_login_controller.dart';
+import '../controller/google_login_controller.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -41,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   );
 
   final controller = Get.put(GoogleLoginController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
