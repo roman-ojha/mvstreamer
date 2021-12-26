@@ -37,6 +37,7 @@ dependencies:
   google_sign_in: ^5.2.1
   dio: ^4.0.4
   http: ^0.13.4
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
   assets:
     - assets/images/App_Icon.png
     - assets/icons/google_icon.png
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
