@@ -11,7 +11,7 @@
 
 /* Login Page */
 .LoginPage {
-  background-image: linear-gradient(to bottom right, #5d59ce #f45e6fe3);
+  background-image: linear-gradient(to bottom right, #5d59ce, #f45e6fe3);
   width: 100%;
   height: 100vh;
   display: flex;

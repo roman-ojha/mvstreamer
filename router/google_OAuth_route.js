@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import passport from "passport";
 import session from "express-session";
-import dotenv from "dotenv";
 const router = express.Router();
 import("../middleware/google_OAuth.js");
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_BASE_URL;

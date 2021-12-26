@@ -6,7 +6,7 @@ import Github_Icon from "../images/github_icon.svg";
 
 const LogInPage = () => {
   const logInwithGoogleAuth = () => {
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open(`${process.env.REACT_APP_API_URL}/auth/google`, "_self");
   };
   return (
     <>
