@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'screens/mainPage.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -13,7 +14,8 @@ class MVstreamer extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'MVstreamer',
-      home: LoginPage(),
+      // home: LoginPage(),
+      home: MainPage(),
       debugShowCheckedModeBanner: false,
     );
   }

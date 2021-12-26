@@ -1,8 +1,8 @@
 import React from "react";
-import App_Icon from "../images/App_Icon.png";
-import Facebook_Icon from "../images/facebook_icon.svg";
-import Google_Icon from "../images/google_icon.svg";
-import Github_Icon from "../images/github_icon.svg";
+import App_Icon from "../assets/images/App_Icon.png";
+import Facebook_Icon from "../assets/images/facebook_icon.svg";
+import Google_Icon from "../assets/images/google_icon.svg";
+import Github_Icon from "../assets/images/github_icon.svg";
 
 const LogInPage = () => {
   const logInwithGoogleAuth = () => {

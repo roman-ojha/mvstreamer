@@ -1,6 +1,6 @@
 import React from "react";
-import LogInPage from "./react-components/LogInPage";
-import MainPage from "./react-components/MainPage";
+import LogInPage from "./pages/LogInPage";
+import MainPage from "./pages/MainPage";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {

@@ -62,8 +62,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/App_Icon.png
+    - assets/icons/App_Icon.png
     - assets/icons/google_icon.png
+    - assets/icons/Search_Icon.png
+    - assets/images/user.jpg
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -81,5 +83,8 @@ flutter:
     - family: LoginButtonIcon
       fonts:
         - asset: assets/fonts/LoginButtonIcon.ttf
+    - family: SearchIcon
+      fonts:
+        - asset: assets/fonts/SearchIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
