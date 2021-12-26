@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import googleOauth2 from "passport-google-oauth2";
 import userDetail from "../models/userDetail_Models.js";
 const GoogleStrategy = googleOauth2.Strategy;
-dotenv.config({ path: "../config.env" });
 
 let GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 let GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;

@@ -1,8 +1,8 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
 import cookieParser from "cookie-parser";
 import google_OAuth_route from "../router/google_OAuth_route.js";
-dotenv.config({ path: "../config.env" });
 const app = express();
 app.use(cookieParser());
 app.unsubscribe(express.json());

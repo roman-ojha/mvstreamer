@@ -4,7 +4,6 @@ import session from "express-session";
 import dotenv from "dotenv";
 const router = express.Router();
 import("../middleware/google_OAuth.js");
-dotenv.config({ path: "../config.env" });
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_BASE_URL;
 
 router.use(session({ secret: "cat", resave: true, saveUninitialized: true }));
