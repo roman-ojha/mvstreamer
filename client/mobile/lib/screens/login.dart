@@ -17,6 +17,8 @@
 
 import 'package:flutter/material.dart';
 import '../assets/icons/login_button_icon_icons.dart';
+import 'app_login/google_login_controller.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -37,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     ),
   );
+
+  final controller = Get.put(GoogleLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +127,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 220.0,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  controller.login();
+                },
                 icon: Image.asset(
                   'assets/icons/google_icon.png',
                   width: 20.0,
