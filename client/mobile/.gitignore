@@ -1,3 +1,7 @@
+# Custom ignore
+/ios/GoogleService-Info.plist
+/android/app/google-services.json
+
 
 # Miscellaneous
 *.class
