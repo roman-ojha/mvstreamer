@@ -7,13 +7,17 @@ class GoogleLoginController extends GetxController {
   var googleAccount = Rx<GoogleSignInAccount?>(null);
   login() async {
     googleAccount.value = await _googleSignin.signIn();
-    print(googleAccount.value);
+    // print(googleAccount.value);
     // sending user data into backend
-    AuthService().auth(
-      id: googleAccount.value?.id,
-      name: googleAccount.value?.displayName,
-      email: googleAccount.value?.email,
-      picture: googleAccount.value?.photoUrl,
-    );
+    AuthService()
+        .auth(
+          id: googleAccount.value?.id,
+          name: googleAccount.value?.displayName,
+          email: googleAccount.value?.email,
+          picture: googleAccount.value?.photoUrl,
+        )
+        .then(
+          (data) => {print(data)},
+        );
   }
 }

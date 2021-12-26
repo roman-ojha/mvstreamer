@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+// this content the application login or authetication services
 class AuthService {
   Dio dio = Dio();
 
