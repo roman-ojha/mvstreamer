@@ -27,7 +27,6 @@ router.get(
 router.get("/auth/google/login/success", async (req, res) => {
   try {
     const user = await userDetail.findOne({ email: req.user.email });
-    console.log(user);
     const token = await user.generateToken();
     res.cookie("_tk", token, {
       expires: new Date(Date.now() + 25892000000),

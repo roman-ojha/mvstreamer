@@ -30,7 +30,7 @@ passport.use(
         const createUser = await userData.save();
         return done(null, createUser);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   )

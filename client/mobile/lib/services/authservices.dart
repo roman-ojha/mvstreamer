@@ -5,8 +5,9 @@ import '../models/environment.dart';
 class AuthService {
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
-  auth({name, email, picture, id}) async {
+  signIn({name, email, picture, id}) async {
     var data = {"name": name, "email": email, "picture": picture, "id": id};
+
     try {
       return await dio.post(
         "$apiBaseUrl/signIn",
