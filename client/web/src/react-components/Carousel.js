@@ -1,10 +1,10 @@
 import React from "react";
-import App_Icon from "../images/App_Icon.png";
+import App_Icon from "../assets/images/App_Icon.png";
 import { Icon } from "@iconify/react";
-import User from "../images/user.jpg";
-import Carousel_Image_01 from "../images/carousel_Image_01.jpg";
-import Carousel_Image_02 from "../images/carousel_Image_02.jpg";
-import Carousel_Image_03 from "../images/carousel_Image_03.jpg";
+import User from "../assets/images/user.jpg";
+import Carousel_Image_01 from "../assets/images/carousel_Image_01.jpg";
+import Carousel_Image_02 from "../assets/images/carousel_Image_02.jpg";
+import Carousel_Image_03 from "../assets/images/carousel_Image_03.jpg";
 
 const HomePage = () => {
   return (

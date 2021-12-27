@@ -6,11 +6,10 @@ class AuthService {
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
   auth({name, email, picture, id}) async {
-    print("$apiBaseUrl/auth");
     var data = {"name": name, "email": email, "picture": picture, "id": id};
     try {
       return await dio.post(
-        "$apiBaseUrl/auth",
+        "$apiBaseUrl/signIn",
         data: data,
         options: Options(
           contentType: Headers.formUrlEncodedContentType,

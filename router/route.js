@@ -1,8 +1,15 @@
 import express from "express";
 import userDetail from "../models/userDetail_Models.js";
+import jwt from "jsonwebtoken";
 const router = express.Router();
 
-router.post("/auth", async (req, res) => {
+// const generateToken = (email) => {
+//   return jwt.sign({ email: email }, process.env.ACCESS_TOKEN, {
+//     expiresIn: "30d",
+//   });
+// };
+
+router.post("/signIn", async (req, res) => {
   const { name, email, picture, id } = req.body;
   try {
     if (req.body === undefined) {
@@ -24,18 +31,20 @@ router.post("/auth", async (req, res) => {
         email: email,
         picture: picture,
       });
-      newUser
-        .save()
-        .then((user) => {
-          return res
-            .status(201)
-            .json({ success: true, msg: "Creating user successfully" });
-        })
-        .catch((err) => {
-          // console.log(err);
-        });
+      const user = await newUser.save();
+      // now so if user doesn't exist we have to create the token for the first time
+      const token = await user.generateToken();
+      return res.status(201).json({
+        success: true,
+        msg: "Creating user successfully",
+        accessToken: token,
+      });
     } else {
-      return res.status(201).json({ success: true, msg: "Authenticated" });
+      // else user already exist then we have to create a token and save the token at the same time
+      const token = await userDataRes.generateToken();
+      return res
+        .status(201)
+        .json({ success: true, msg: "SignIn", accessToken: token });
     }
   } catch (err) {
     return res.status(500).json({

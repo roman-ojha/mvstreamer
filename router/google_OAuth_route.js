@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import passport from "passport";
 import session from "express-session";
+import userDetail from "../models/userDetail_Models.js";
 const router = express.Router();
 import("../middleware/google_OAuth.js");
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_BASE_URL;
@@ -24,8 +25,18 @@ router.get(
 );
 
 router.get("/auth/google/login/success", async (req, res) => {
-  console.log("Successful");
-  res.redirect(`${CLIENT_HOME_PAGE_URL}`);
+  try {
+    const user = await userDetail.findOne({ email: req.user.email });
+    console.log(user);
+    const token = await user.generateToken();
+    res.cookie("_tk", token, {
+      expires: new Date(Date.now() + 25892000000),
+      httpOnly: true,
+    });
+    res.redirect(`${CLIENT_HOME_PAGE_URL}`);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.get("/auth/google/login/failed", async (req, res) => {

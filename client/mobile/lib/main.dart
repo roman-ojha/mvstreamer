@@ -14,8 +14,8 @@ class MVstreamer extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'MVstreamer',
-      // home: LoginPage(),
-      home: MainPage(),
+      home: LoginPage(),
+      // home: MainPage(),
       debugShowCheckedModeBanner: false,
     );
   }
