@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../assets/icons/login_button_icon_icons.dart';
 import '../controller/google_login_controller.dart';
 import 'package:get/get.dart';
+import 'mainPage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -109,7 +110,19 @@ class _LoginPageState extends State<LoginPage> {
               width: 220.0,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  controller.login();
+                  controller.login().then(
+                        (loggedIn) => {
+                          if (loggedIn)
+                            {
+                              // if we will success the login process then we want to nevigate the signin page to Main screen
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const MainPage(),
+                                ),
+                              )
+                            }
+                        },
+                      );
                 },
                 icon: Image.asset(
                   'assets/icons/google_icon.png',

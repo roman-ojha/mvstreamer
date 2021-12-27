@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 
 class CacheServices {
   late Box box;
-  saveToken({token}) async {
+  Future saveToken({token}) async {
     // opening box;
     var dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
@@ -13,6 +13,6 @@ class CacheServices {
     // putting data;
     await box.clear();
     box.add(token);
-    await Hive.close();
+    box.close();
   }
 }
