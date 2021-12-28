@@ -89,5 +89,8 @@ flutter:
     - family: SearchIcon
       fonts:
         - asset: assets/fonts/SearchIcon.ttf
+    - family: BottomNavigationBarIcon
+      fonts:
+        - asset: assets/fonts/BottomNavigationBarIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
