@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/appBar.dart';
 import '../widgets/buttomNavPlayer.dart';
+import '../widgets/carouselSlider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -13,9 +14,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: MVAppBar(),
-      bottomNavigationBar: ButtomNavPlayer(),
+    return Scaffold(
+      body: Column(
+        children: const [
+          MVAppBar(),
+          Carousel(),
+        ],
+      ),
+      bottomNavigationBar: const ButtomNavPlayer(),
     );
   }
 }
