@@ -69,6 +69,7 @@ flutter:
     - assets/icons/google_icon.png
     - assets/icons/Search_Icon.png
     - assets/images/user.jpg
+    - assets/icons/playIcon.png
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -92,5 +93,8 @@ flutter:
     - family: BottomNavigationBarIcon
       fonts:
         - asset: assets/fonts/BottomNavigationBarIcon.ttf
+    - family: MiniPlayerIcon
+      fonts:
+        - asset: assets/fonts/MiniPlayerIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

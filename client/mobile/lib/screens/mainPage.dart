@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../widgets/appBar.dart';
-import '../widgets/buttomNavigationBar.dart';
+import '../widgets/buttomNavPlayer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: MVAppBar(),
-      bottomNavigationBar: ButtomNavigationBarWidget(),
+      bottomNavigationBar: ButtomNavPlayer(),
     );
   }
 }
