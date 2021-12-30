@@ -76,6 +76,10 @@
 }
 
 /* Designing NavBar and miniplayer of webview */
+.HomePage {
+  min-height: 2000px;
+}
+
 .MVstreamer_Navbar {
   width: 100%;
   background-image: linear-gradient(to right, #b92e22, #236fd1);
@@ -131,6 +135,7 @@
 /* Designing Carousel */
 .Carousel_Container {
   width: 100%;
+  margin-bottom: 5px;
 }
 .Carousel_UpperBar_Container {
   width: 100%;
@@ -247,6 +252,82 @@
   position: absolute;
   bottom: 40px;
   left: 20px;
+}
+
+/* Designing Song Card */
+
+.SongCard_Caraousel {
+  margin: 0px 5px 0px 5px;
+}
+
+.SongCard_Caraousel h1 {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: 500;
+  /* margin-left: 10px; */
+  margin-top: 15px;
+  font-size: 26px;
+  /* border: 1px solid red; */
+  display: inline-block;
+  padding: 5px 25px 0px 10px;
+  border-radius: 10px 30px 3px 0px;
+  margin-bottom: 0px;
+  background-image: linear-gradient(90deg, #e7e5ee 0%, #f0e7e9 100%);
+}
+
+.SongCard_Carousel_Container {
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 5px 0px 5px;
+  background-image: linear-gradient(25deg, #82b2ef69 0%, #ff977733 100%);
+  border-radius: 0px 15px 15px 15px;
+  margin-top: 0px;
+}
+
+.SongCard {
+  /* border: 1px solid blue; */
+  display: inline-block;
+  border-radius: 13px;
+  background-image: linear-gradient(25deg, #236fd1 0%, #ff3d00 100%);
+  margin: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.432);
+}
+
+.SongCard_Container {
+  /* width: 20rem; */
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 13px;
+  background-color: rgba(0, 0, 0, 0.644);
+}
+
+.SongCard_Image {
+  width: 100%;
+  object-fit: cover;
+  /* margin: 3%; */
+  border-radius: 10px;
+}
+.SongCard_Container .SongCard_SongName,
+.SongCard_SingerName,
+.SongCard_Date_Time {
+  margin-left: 3%;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: white;
+}
+.SongCard_SongName {
+  font-size: 20px;
+  margin-top: 5px;
+}
+.SongCard_SingerName {
+  font-size: 14px;
+}
+.SongCard_Date_Time {
+  font-size: 12px;
 }
 
 @media screen and (min-width: 100px) {
