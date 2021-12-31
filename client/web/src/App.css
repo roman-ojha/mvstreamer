@@ -330,7 +330,7 @@
   font-size: 12px;
 }
 
-/* Designing Music Player Page */
+/* Designing Music Player Page =================================================================*/
 .Music_Player_Background {
   /* position: relative; */
   background-image: url("assets/svg/Music_Player_Background.svg");
@@ -413,14 +413,45 @@ p {
 }
 
 .Music_Player_Volume_Controller {
-  border: 1px solid red;
-  width: 10px;
+  /* border: 1px solid red; */
+  width: 5px;
   height: 280px;
   display: inline-block;
+  background-image: linear-gradient(to bottom, #ff3c0036, #236ed13d);
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 .Music_Player_Volume_Controller_Button {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(233, 233, 233, 0.986);
+  position: relative;
+  left: -10px;
+  bottom: 10px;
+  border-radius: 50%;
+  background-color: #b43108;
+  cursor: pointer;
 }
 .Music_Player_Current_Volume {
+  width: 200%;
+  height: 45%;
+  /* border: 1px solid red; */
+  position: absolute;
+  bottom: 0px;
+  background-image: linear-gradient(to bottom, #ff3d00, #236fd1);
+  border-radius: 5px;
+}
+
+.Music_Player_ProgressBar_Controller {
+  width: 80%;
+  height: 5px;
+  border: 1px solid red;
+}
+.Music_Player_Current_Progress {
+}
+.Music_Player_ProgressBar_Controller_Button {
 }
 
 @media screen and (min-width: 100px) {

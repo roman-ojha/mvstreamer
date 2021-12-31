@@ -4,21 +4,29 @@ import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
 import Song_Image02 from "../assets/images/carousel_Image_01.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
-import Background_Image from "../assets/svg/Music_Player_Background.svg";
 
 const VolumeController = () => {
   return (
     <>
       <div className="Music_Player_Volume_Controller">
-        <div className="Music_Player_Volume_Controller_Button"></div>
-        <div className="Music_Player_Current_Volume"></div>
+        <div className="Music_Player_Current_Volume">
+          <div className="Music_Player_Volume_Controller_Button"></div>
+        </div>
       </div>
     </>
   );
 };
 
 const ProgressBarController = () => {
-  return <></>;
+  return (
+    <>
+      <div className="Music_Player_ProgressBar_Controller">
+        <div className="Music_Player_Current_Progress">
+          <div className="Music_Player_ProgressBar_Controller_Button"></div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 const MusicPlayer = () => {
@@ -41,11 +49,11 @@ const MusicPlayer = () => {
           <h2>Kavhi Khusi Kavhi Gam</h2>
           <p>Sonu Nigam</p>
         </div>
-        {/* <div className="Music_Player_TimeStamp_ProgressBar_Container">
-            <p>1:45</p>
-            <ProgressBarController />
-            <p>3:20</p>
-          </div> */}
+        <div className="Music_Player_TimeStamp_ProgressBar_Container">
+          <p>1:45</p>
+          <ProgressBarController />
+          <p>3:20</p>
+        </div>
         <div className="Music_Player_Pause_Play_Next_Previous_Button_Controller">
           <div></div>
           <Icon
@@ -65,7 +73,7 @@ const MusicPlayer = () => {
           />
           <Icon
             // style={{ margin: "0px 5px 0px 5px" }}
-            width="70px"
+            width="80px"
             icon="bi:play-circle-fill"
           />
           <Icon
