@@ -330,6 +330,99 @@
   font-size: 12px;
 }
 
+/* Designing Music Player Page */
+.Music_Player_Background {
+  /* position: relative; */
+  background-image: url("assets/svg/Music_Player_Background.svg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  filter: blur(8px); /* Adding blur background image */
+}
+.Music_Player_Container {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(255, 255, 255, 0.13);
+  font-size: 30px;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Music_Player_BackButton_And_Profile {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+.Music_Player_BackButton_And_Profile img {
+  width: 65px;
+  height: 65px;
+  filter: none;
+  border-radius: 50%;
+}
+.Music_Player_Volume_And_Song_Image_Container {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Music_Player_Song_Small_Image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.Music_Player_Big_Small_Image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.Music_Player_Song_Title_Container {
+  margin-top: 10px;
+}
+.Music_Player_Song_Title_Container h2,
+p {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.Music_Player_Song_Title_Container h2 {
+  font-size: 25px;
+  font-weight: bold;
+}
+.Music_Player_Song_Title_Container p {
+  font-size: 15px;
+  font-weight: 700;
+}
+.Music_Player_TimeStamp_ProgressBar_Container {
+}
+.Music_Player_Pause_Play_Next_Previous_Button_Controller {
+  border: 1px solid blue;
+  padding: 15px 0px 15px 0px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Music_Player_Volume_Controller {
+  border: 1px solid red;
+  width: 10px;
+  height: 280px;
+  display: inline-block;
+}
+.Music_Player_Volume_Controller_Button {
+}
+.Music_Player_Current_Volume {
+}
+
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;
