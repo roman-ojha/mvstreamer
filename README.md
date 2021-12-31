@@ -1,0 +1,32 @@
+# MVstreamer
+
+## Streaming App From Nodejs server
+### NOTE: Not Completed yet
+
+## UI :
+### Home Page :
+!["HomePage"](design/Home_Page.png)
+### Login Page :
+!["LoginPage"](design/Login_Page.png)
+### Music Streamer Page:
+!["Music Streamer](design/MusicPlayer_Page.png)
+
+<br/>
+
+## How to run Locally:
+
+### API:
+1. `MVstreamer`
+2. Create .env file in Root Directory
+3. Get all the environment variables which are include in .env.example
+4. Run `npm start` to run the server
+
+### React:
+1. `Mvstreamer/client/web`
+2. Run `npm start` to run the server
+
+### Flutter:
+1. `MVstreamer/client/mobile`
+2. Create .env file in Root Directory
+3. Get all the environment variables which are include in .env.example
+4. Run `flutter run` 
