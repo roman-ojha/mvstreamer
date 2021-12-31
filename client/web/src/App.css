@@ -102,6 +102,11 @@
   align-items: center;
   position: absolute;
   bottom: -425px;
+  cursor: pointer;
+  transition-duration: 100ms;
+}
+.MVstreamer_MiniPlayer:hover {
+  transform: scale(1.014);
 }
 .MVstreamer_MiniPlayer_Inner {
   background-color: white;
@@ -350,7 +355,7 @@
   top: 0px;
   background-color: rgba(255, 255, 255, 0.13);
   font-size: 30px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -363,28 +368,73 @@
   margin: 10px;
 }
 .Music_Player_BackButton_And_Profile img {
-  width: 65px;
-  height: 65px;
+  width: 5.5rem;
+  height: 5.5rem;
   filter: none;
   border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 5px;
 }
 .Music_Player_Volume_And_Song_Image_Container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
+
+.Music_Player_Volume_Controller {
+  /* border: 1px solid red; */
+  width: 0.3rem;
+  height: 28rem;
+  display: inline-block;
+  background-image: linear-gradient(to bottom, #ff3c0036, #236ed13d);
+  border-radius: 5px;
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  cursor: pointer;
+}
+.Music_Player_Current_Volume {
+  width: 200%;
+  height: 45%;
+  bottom: 0px;
+  background-image: linear-gradient(to bottom, #ff3d00, #236fd1);
+  border-radius: 5px;
+  display: grid;
+  justify-content: center;
+}
+.Music_Player_Volume_Controller_Button {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(233, 233, 233, 0.986);
+  border-radius: 50%;
+  background-color: #b43108;
+}
+
 .Music_Player_Song_Small_Image {
-  width: 150px;
-  height: 150px;
+  width: 15rem;
+  height: 15rem;
   object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+.Music_Player_Song_Small_Image:hover {
+  transform: scale(1.02);
 }
 .Music_Player_Big_Small_Image {
-  width: 300px;
-  height: 300px;
+  width: 30rem;
+  height: 30rem;
   object-fit: cover;
   border-radius: 50%;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.39);
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+.Music_Player_Big_Small_Image:hover {
+  transform: scale(1.02);
+  /* position: absolute; */
 }
 .Music_Player_Song_Title_Container {
   margin-top: 10px;
@@ -395,68 +445,71 @@ p {
     "Lucida Sans", Arial, sans-serif;
 }
 .Music_Player_Song_Title_Container h2 {
-  font-size: 25px;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 .Music_Player_Song_Title_Container p {
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 .Music_Player_TimeStamp_ProgressBar_Container {
+  display: flex;
+  /* border: 1px solid red; */
+  align-items: center;
+  justify-content: space-evenly;
+}
+.Music_Player_TimeStamp_ProgressBar_Container h1 {
+  font-size: 1.5rem;
+  /* border: 1px solid red; */
+}
+
+.Music_Player_ProgressBar_Controller {
+  width: 90%;
+  height: 0.35rem;
+  /* border: 1px solid red; */
+  background-image: linear-gradient(to left, #ff3c0036, #236ed13d);
+  cursor: pointer;
+}
+.Music_Player_Buffer_Bar {
+  height: 100%;
+  width: 70%;
+  border-radius: 10px;
+  background-image: linear-gradient(to left, #a82a035b, #226dd049);
+  display: flex;
+  align-items: center;
+}
+.Music_Player_Current_Progress {
+  width: 80%;
+  height: 200%;
+  background-color: red;
+  border-radius: 10px;
+  background-image: linear-gradient(to left, #ff3d00, #236fd1);
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.Music_Player_ProgressBar_Controller_Button {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 3px solid rgba(233, 233, 233, 0.986);
+  border-radius: 50%;
+  background-color: #b43108;
 }
 .Music_Player_Pause_Play_Next_Previous_Button_Controller {
-  border: 1px solid blue;
-  padding: 15px 0px 15px 0px;
+  /* border: 1px solid blue; */
+  padding: 15px 0px 20px 0px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.Music_Player_Volume_Controller {
-  /* border: 1px solid red; */
-  width: 5px;
-  height: 280px;
-  display: inline-block;
-  background-image: linear-gradient(to bottom, #ff3c0036, #236ed13d);
-  border-radius: 5px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.Music_Player_Volume_Controller_Button {
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(233, 233, 233, 0.986);
-  position: relative;
-  left: -10px;
-  bottom: 10px;
-  border-radius: 50%;
-  background-color: #b43108;
-  cursor: pointer;
-}
-.Music_Player_Current_Volume {
-  width: 200%;
-  height: 45%;
-  /* border: 1px solid red; */
-  position: absolute;
-  bottom: 0px;
-  background-image: linear-gradient(to bottom, #ff3d00, #236fd1);
-  border-radius: 5px;
-}
-
-.Music_Player_ProgressBar_Controller {
-  width: 80%;
-  height: 5px;
-  border: 1px solid red;
-}
-.Music_Player_Current_Progress {
-}
-.Music_Player_ProgressBar_Controller_Button {
-}
-
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;
+  }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
   }
 }
 
@@ -464,16 +517,28 @@ p {
   * {
     font-size: 6px;
   }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
+  }
 }
 
 @media screen and (min-width: 400px) and (max-width: 500px) {
   * {
     font-size: 7px;
   }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
+  }
 }
 @media screen and (min-width: 500px) and (max-width: 650px) {
   * {
     font-size: 8px;
+  }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
   }
 }
 
@@ -481,11 +546,19 @@ p {
   * {
     font-size: 9px;
   }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
+  }
 }
 
 @media screen and (min-width: 800px) {
   * {
     font-size: 10px;
+  }
+  .Music_Player_Song_Small_Image {
+    visibility: visible;
+    position: static;
   }
 }
 

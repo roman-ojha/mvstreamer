@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import PlayButton from "../assets/svg/PlayButton.svg";
 
 const NavBarANDMiniplayer = () => {
   return (

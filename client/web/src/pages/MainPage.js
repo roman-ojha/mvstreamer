@@ -8,7 +8,7 @@ import MusicPlayer from "./MusicPlayer";
 const MainPage = () => {
   return (
     <>
-      <MusicPlayer />
+      <HomePage />
     </>
   );
 };
