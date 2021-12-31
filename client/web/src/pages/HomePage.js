@@ -1,8 +1,7 @@
 import React from "react";
-import NavBarANDMiniplayer from "../react-components/NavBarANDMiniplayer";
 import Carousel from "../react-components/Carousel";
-import SongCard from "../react-components/SongCard";
 import SongCardCarousel from "../react-components/SongCardCarousel";
+import NavBarANDMiniplayer from "../react-components/NavBarANDMiniplayer";
 
 const HomePage = () => {
   return (
@@ -11,7 +10,6 @@ const HomePage = () => {
         <Carousel />
         <SongCardCarousel />
         <SongCardCarousel />
-        <NavBarANDMiniplayer />
       </div>
     </>
   );

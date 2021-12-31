@@ -2,17 +2,37 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LogInPage from "../pages/LogInPage";
 import MusicPlayer from "../pages/MusicPlayer";
+import MusicPage from "../pages/MusicPage";
+import VideoPage from "../pages/VideoPage";
+import FilePage from "../pages/FilePage";
+import MainPage from "../pages/MainPage";
 
 const MainRoute = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route path="/" element={<MainPage />} />
         <Route exact path="/login" element={<LogInPage />} />
         <Route exact path="/mplayer" element={<MusicPlayer />} />
+        <Route path="/music" element={<MusicPage />} />
+        <Route path="/video" element={<VideoPage />} />
+        <Route path="/file" element={<FilePage />} />
       </Routes>
     </>
   );
 };
 
-export { MainRoute };
+const BottomNavRoute = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/music" element={<MusicPage />} />
+        <Route path="/video" element={<VideoPage />} />
+        <Route path="/file" element={<FilePage />} />
+      </Routes>
+    </>
+  );
+};
+
+export { MainRoute, BottomNavRoute };

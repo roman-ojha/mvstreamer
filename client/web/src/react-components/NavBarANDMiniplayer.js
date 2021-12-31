@@ -1,27 +1,31 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import PlayButton from "../assets/svg/PlayButton.svg";
+import { Link } from "react-router-dom";
 
 const NavBarANDMiniplayer = () => {
   return (
     <>
       <div className="MVstreamer_Navbar">
-        <div className="NavBar_HomePage_Outline">
-          <Icon
-            icon="ant-design:home-filled"
-            color="white"
-            width="55px"
-            height="55px"
-          />
-        </div>
-        <div className="NavBar_Music_Outline">
-          <Icon
-            icon="cib:apple-music"
-            color="white"
-            width="50px"
-            height="50px"
-          />
-        </div>
+        <Link to="/">
+          <div className="NavBar_HomePage_Outline">
+            <Icon
+              icon="ant-design:home-filled"
+              color="white"
+              width="55px"
+              height="55px"
+            />
+          </div>
+        </Link>
+        <Link to="/music">
+          <div className="NavBar_Music_Outline">
+            <Icon
+              icon="cib:apple-music"
+              color="white"
+              width="50px"
+              height="50px"
+            />
+          </div>
+        </Link>
         <div></div>
         <div></div>
         <div></div>
