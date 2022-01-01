@@ -6,6 +6,7 @@ import MusicPage from "../pages/MusicPage";
 import VideoPage from "../pages/VideoPage";
 import FilePage from "../pages/FilePage";
 import MainPage from "../pages/MainPage";
+import Upload from "../pages/Upload";
 
 const MainRoute = () => {
   return (
@@ -19,6 +20,7 @@ const MainRoute = () => {
         </Route>
         <Route exact path="/login" element={<LogInPage />} />
         <Route exact path="/mplayer" element={<MusicPlayer />} />
+        <Route path="/upload" element={<Upload />} />
       </Routes>
     </>
   );

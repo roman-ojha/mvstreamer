@@ -1,9 +1,13 @@
 import React from "react";
+import Carousel from "../react-components/Carousel";
+import SongCardCarousel from "../react-components/SongCardCarousel";
 
 const MusicPage = () => {
   return (
     <div>
-      <h1>MusicPage</h1>
+      <Carousel />
+      <SongCardCarousel />
+      <SongCardCarousel />
     </div>
   );
 };

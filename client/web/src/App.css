@@ -7,6 +7,8 @@
 
 /* Variables */
 :root {
+  --primary-font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 /* Login Page */
@@ -39,8 +41,7 @@
 
 .LoginPage_Container h1 {
   font-size: 3.9em;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: var(--primary-font-family);
 }
 
 .LoginPage_Button_Container {
@@ -503,6 +504,77 @@ p {
   align-items: center;
 }
 
+/* Designing Upload page */
+.Upload_Page_Container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, #6d69d75e, #f9677857);
+}
+.Upload_Page_Input_Field_Container {
+  width: 40rem;
+  height: 50rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: linear-gradient(to right bottom, #6d69d7, #f96778e3);
+  border-radius: 2rem;
+}
+.Upload_Page_Title_Field,
+.Upload_Page_Singer_Name_Field {
+  width: 80%;
+  height: 4rem;
+  /* background-color: violet; */
+  border-radius: 15px;
+  border-width: 0px;
+}
+.Upload_Page_Title_Field,
+.Upload_Page_Singer_Name_Field:read-write {
+  font-family: var(--primary-font-family);
+  font-size: 1.5rem;
+  padding: 0px 1.5rem 0px 1.5rem;
+  outline: none;
+}
+.Upload_Page_Image_Field,
+.Upload_Page_File_Field {
+  visibility: hidden;
+  position: absolute;
+}
+
+.Upload_Page_Image_Field_Picker,
+.Upload_Page_File_Field_Picker {
+  width: 70%;
+  height: 4rem;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Upload_Page_Image_Field_Picker {
+  background-color: #7f3e5f;
+}
+.Upload_Page_File_Field_Picker {
+  background-color: #4e4d6b;
+}
+.Upload_Page_Image_Field_Picker p,
+.Upload_Page_File_Field_Picker p {
+  font-size: 2rem;
+  font-family: var(--primary-font-family);
+  color: white;
+}
+.Upload_Page_Upload_Button {
+  width: 50%;
+  height: 4rem;
+  border-radius: 15px;
+  border-width: 0px;
+  font-size: 2rem;
+  font-family: var(--primary-font-family);
+  background-color: #544799;
+  color: white;
+}
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;
