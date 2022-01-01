@@ -8,6 +8,7 @@ import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
 import Music01 from "../assets/music/audio01.mp3";
 
+const song = new Audio(Music01);
 const VolumeController = () => {
   return (
     <>
@@ -21,9 +22,42 @@ const VolumeController = () => {
 };
 
 const ProgressBarController = () => {
+  const setSongTimeOnClick = (event) => {
+    try {
+      var fullProgressBar;
+      if (
+        event.target.className === "Music_Player_ProgressBar_Controller_Button"
+      ) {
+        // if we are clicking in the button it means that we don't want to move any where so we will return
+        return;
+      } else if (event.target.className === "Music_Player_Current_Progress") {
+        fullProgressBar = event.target.parentNode.parentNode;
+      } else if (event.target.className === "Music_Player_Buffer_Bar") {
+        fullProgressBar = event.target.parentNode;
+      }
+      const totalWidth = fullProgressBar.getBoundingClientRect().width;
+      const clickedWidth =
+        event.clientX - event.target.getBoundingClientRect().left;
+      // getting the position of the mouse where user click in progressive bar according to that element not windows element
+      const getPercentage = (clickedWidth / totalWidth) * 100;
+      // getting the percentage where user clicked on progressive bar
+      if (getPercentage < 0) {
+        getPercentage = 0;
+      } else if (getPercentage > 100) {
+        getPercentage = 100;
+      }
+      const totalSongDuration = song.duration;
+      const getClickTimePosition = (getPercentage / 100) * totalSongDuration;
+      song.currentTime = getClickTimePosition;
+      // setting the time where user had clicked
+    } catch (err) {}
+  };
   return (
     <>
-      <div className="Music_Player_ProgressBar_Controller">
+      <div
+        className="Music_Player_ProgressBar_Controller"
+        onClick={setSongTimeOnClick}
+      >
         <div className="Music_Player_Buffer_Bar">
           <div className="Music_Player_Current_Progress">
             <div className="Music_Player_ProgressBar_Controller_Button"></div>
@@ -33,8 +67,6 @@ const ProgressBarController = () => {
     </>
   );
 };
-
-const song = new Audio(Music01);
 const MusicPlayer = () => {
   const [play, setPlay] = useState(false);
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
@@ -45,12 +77,12 @@ const MusicPlayer = () => {
   const currentSongTimeInMin = `${Math.floor(
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
-  var progressBar;
   useEffect(() => {
-    progressBar = document.getElementsByClassName(
+    const progressBar = document.getElementsByClassName(
       "Music_Player_Current_Progress"
     )[0];
     song.addEventListener("timeupdate", (event) => {
+      // upgrading the song current time and lenght of the progressive bar
       var calPercentage = (song.currentTime / song.duration) * 100;
       setCurrentSongTime(song.currentTime);
       progressBar.style.width = `${calPercentage}%`;
@@ -94,7 +126,12 @@ const MusicPlayer = () => {
           <p>Sonu Nigam</p>
         </div>
         <div className="Music_Player_TimeStamp_ProgressBar_Container">
-          <h1 style={{ marginRight: "1rem" }}>{currentSongTimeInMin}</h1>
+          <h1
+            className="Music_Player_Current_TimeStamp"
+            style={{ marginRight: "1rem" }}
+          >
+            {currentSongTimeInMin}
+          </h1>
           <ProgressBarController />
           <h1 style={{ marginLeft: "1rem" }}>
             {totalSongDurationInMin === "NaN:NaN"

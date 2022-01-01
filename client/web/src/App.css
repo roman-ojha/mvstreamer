@@ -491,7 +491,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: end;
-  transition-duration: 300ms;
+  transition-duration: 150ms;
   position: relative;
 }
 .Music_Player_ProgressBar_Controller_Button {
