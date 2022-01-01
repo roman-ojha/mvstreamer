@@ -8,6 +8,9 @@ const LogInPage = () => {
   const logInwithGoogleAuth = () => {
     window.open(`${process.env.REACT_APP_API_URL}/auth/google`, "_self");
   };
+  const logInWithFacebookAuth = () => {
+    window.open(`${process.env.REACT_APP_API_URL}/auth/facebook`, "_self");
+  };
   return (
     <>
       <div className="LoginPage">
@@ -19,7 +22,7 @@ const LogInPage = () => {
               <img src={Github_Icon} alt="icon" />
               <h2>GitHub</h2>
             </div>
-            <div>
+            <div onClick={logInWithFacebookAuth}>
               <img src={Facebook_Icon} alt="icon" />
               <h2 style={{ color: "#1877F2" }}>Facebook</h2>
             </div>
