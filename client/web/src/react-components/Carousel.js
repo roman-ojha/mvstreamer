@@ -63,7 +63,7 @@ const HomePage = () => {
                   alt="..."
                   style={{ height: "65vh", objectFit: "cover" }}
                 />
-                <div class="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
+                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
                   <h2>Kavhi Khusi Kavhi Gam</h2>
                   <p>Singer: Sonu Nigam</p>
                   <Icon
@@ -81,7 +81,7 @@ const HomePage = () => {
                   alt="..."
                   style={{ height: "65vh", objectFit: "cover" }}
                 />
-                <div class="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
+                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
                   <h2>Kavhi Khusi Kavhi Gam</h2>
                   <p>Singer: Sonu Nigam</p>
                   <Icon
@@ -99,7 +99,7 @@ const HomePage = () => {
                   alt="..."
                   style={{ height: "65vh", objectFit: "cover" }}
                 />
-                <div class="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
+                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
                   <h2>Kavhi Khusi Kavhi Gam</h2>
                   <p>Singer: Sonu Nigam</p>
                   <Icon

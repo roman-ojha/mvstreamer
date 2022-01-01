@@ -78,6 +78,7 @@ const MusicPlayer = () => {
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
   useEffect(() => {
+    var rotateImage = 0;
     const progressBar = document.getElementsByClassName(
       "Music_Player_Current_Progress"
     )[0];
@@ -86,6 +87,11 @@ const MusicPlayer = () => {
       var calPercentage = (song.currentTime / song.duration) * 100;
       setCurrentSongTime(song.currentTime);
       progressBar.style.width = `${calPercentage}%`;
+      rotateImage++;
+      document.getElementsByClassName(
+        "Music_Player_Big_Image"
+      )[0].style = `transform: rotate(${rotateImage / 2}deg);`;
+      // rotating the image according while music playing
     });
   }, []);
   return (
@@ -110,7 +116,7 @@ const MusicPlayer = () => {
             alt="simg01"
           />
           <div></div>
-          <img className="Music_Player_Big_Small_Image" src={Song_Image02} />
+          <img className="Music_Player_Big_Image" src={Song_Image02} />
           <div></div>
           <img
             style={{ boxShadow: " 0px 0px 35px #7c1f007c" }}

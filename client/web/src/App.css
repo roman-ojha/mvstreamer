@@ -424,16 +424,16 @@
 .Music_Player_Song_Small_Image:hover {
   transform: scale(1.02);
 }
-.Music_Player_Big_Small_Image {
+.Music_Player_Big_Image {
   width: 30rem;
   height: 30rem;
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.39);
   cursor: pointer;
-  transition-duration: 200ms;
+  transition-duration: 300ms;
 }
-.Music_Player_Big_Small_Image:hover {
+.Music_Player_Big_Image:hover {
   transform: scale(1.02);
   /* position: absolute; */
 }
