@@ -1,15 +1,21 @@
 # MVstreamer
-
-## Streaming App From Nodejs server
 ### NOTE: Not Completed yet
 
+## Streaming App Using:
+1. ReactJs
+2. NodeJs 
+3. MongoDB (To store auth userDetail)
+4. Firebase (To store images, files)
+5. Flutter
+
+
 ## UI :
+### Music Streamer Page:
+!["Music Streamer](design/MusicPlayer_Page.png)
 ### Home Page :
 !["HomePage"](design/Home_Page.png)
 ### Login Page :
 !["LoginPage"](design/Login_Page.png)
-### Music Streamer Page:
-!["Music Streamer](design/MusicPlayer_Page.png)
 
 <br/>
 
