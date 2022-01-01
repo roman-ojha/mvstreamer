@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
 import Song_Image02 from "../assets/images/carousel_Image_01.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
-import PlayButton from "../assets/svg/PlayButton.svg";
+import PlayButton from "../assets/icons/PlayButton.png";
+import PauseButton from "../assets/icons/PauseButton.png";
+import Music01 from "../assets/music/audio01.mp3";
 
 const VolumeController = () => {
   return (
@@ -32,7 +34,19 @@ const ProgressBarController = () => {
   );
 };
 
+const song = new Audio(Music01);
 const MusicPlayer = () => {
+  const [play, setPlay] = useState(false);
+  console.log(song.currentTime);
+  console.log(song.duration);
+  const totalSongDuration = song.duration;
+  const totalSongDurationInMin = `${Math.floor(
+    totalSongDuration / 60
+  )}:${Math.floor(((totalSongDuration / 60) % 1) * 100)}`;
+  const currentSongTime = song.currentTime;
+  const currentSongTimeInMin = `${Math.floor(
+    currentSongTime / 60
+  )}:${Math.floor(((currentSongTime / 60) % 1) * 100)}`;
   return (
     <>
       <div className="Music_Player_Background"></div>
@@ -69,9 +83,9 @@ const MusicPlayer = () => {
           <p>Sonu Nigam</p>
         </div>
         <div className="Music_Player_TimeStamp_ProgressBar_Container">
-          <h1>1:45</h1>
+          <h1>{currentSongTimeInMin}</h1>
           <ProgressBarController />
-          <h1>3:20</h1>
+          <h1>{totalSongDurationInMin}</h1>
         </div>
         <div className="Music_Player_Pause_Play_Next_Previous_Button_Controller">
           <div></div>
@@ -101,11 +115,31 @@ const MusicPlayer = () => {
             width="7rem"
             icon="bi:play-circle-fill"
           /> */}
-          <img
-            src={PlayButton}
-            alt="PlayButton"
-            style={{ width: "12rem", cursor: "pointer" }}
-          />
+          {play ? (
+            <img
+              src={PauseButton}
+              alt="PauseButton"
+              style={{
+                width: "8.1rem",
+                cursor: "pointer",
+                margin: "1.8rem 1.9rem 1.2rem 1.9rem",
+              }}
+              onClick={() => {
+                song.pause();
+                setPlay(!play);
+              }}
+            />
+          ) : (
+            <img
+              src={PlayButton}
+              alt="PlayButton"
+              style={{ width: "12rem", cursor: "pointer" }}
+              onClick={() => {
+                song.play();
+                setPlay(!play);
+              }}
+            />
+          )}
           <Icon
             // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
