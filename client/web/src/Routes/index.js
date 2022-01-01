@@ -11,28 +11,16 @@ const MainRoute = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage />}>
+          <Route path="" element={<HomePage />} />
+          <Route path="music" element={<MusicPage />} />
+          <Route path="video" element={<VideoPage />} />
+          <Route path="file" element={<FilePage />} />
+        </Route>
         <Route exact path="/login" element={<LogInPage />} />
         <Route exact path="/mplayer" element={<MusicPlayer />} />
-        <Route path="/music" element={<MusicPage />} />
-        <Route path="/video" element={<VideoPage />} />
-        <Route path="/file" element={<FilePage />} />
       </Routes>
     </>
   );
 };
-
-const BottomNavRoute = () => {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/music" element={<MusicPage />} />
-        <Route path="/video" element={<VideoPage />} />
-        <Route path="/file" element={<FilePage />} />
-      </Routes>
-    </>
-  );
-};
-
-export { MainRoute, BottomNavRoute };
+export { MainRoute };

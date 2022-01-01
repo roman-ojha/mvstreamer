@@ -29,7 +29,7 @@ const NavBarANDMiniplayer = () => {
         <div></div>
         <div></div>
         <div></div>
-        <div className="MVstreamer_MiniPlayer">
+        <Link to="/mplayer" className="MVstreamer_MiniPlayer">
           <div className="MVstreamer_MiniPlayer_TimeStamp"></div>
           <div className="MVstreamer_MiniPlayer_Inner">
             <Icon
@@ -54,18 +54,27 @@ const NavBarANDMiniplayer = () => {
               height="55px"
             />
           </div>
-        </div>
-        <div className="NavBar_Video_Outline">
-          <Icon
-            icon="clarity:video-gallery-solid"
-            color="white"
-            width="55px"
-            height="55px"
-          />
-        </div>
-        <div className="NavBar_File_Outline">
-          <Icon icon="bx:bxs-folder" color="white" width="55px" height="55px" />
-        </div>
+        </Link>
+        <Link to="/video">
+          <div className="NavBar_Video_Outline">
+            <Icon
+              icon="clarity:video-gallery-solid"
+              color="white"
+              width="55px"
+              height="55px"
+            />
+          </div>
+        </Link>
+        <Link to="/file">
+          <div className="NavBar_File_Outline">
+            <Icon
+              icon="bx:bxs-folder"
+              color="white"
+              width="55px"
+              height="55px"
+            />
+          </div>
+        </Link>
       </div>
     </>
   );
