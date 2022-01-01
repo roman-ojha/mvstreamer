@@ -462,6 +462,9 @@ p {
 .Music_Player_TimeStamp_ProgressBar_Container h1 {
   font-size: 1.5rem;
   /* border: 1px solid red; */
+  width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Music_Player_ProgressBar_Controller {
@@ -473,21 +476,23 @@ p {
 }
 .Music_Player_Buffer_Bar {
   height: 100%;
-  width: 70%;
+  width: 100%;
   border-radius: 10px;
   background-image: linear-gradient(to left, #a82a035b, #226dd049);
   display: flex;
   align-items: center;
 }
 .Music_Player_Current_Progress {
-  width: 80%;
+  /* width: 10%; */
   height: 200%;
-  background-color: red;
+  /* background-color: red; */
   border-radius: 10px;
   background-image: linear-gradient(to left, #ff3d00, #236fd1);
   display: flex;
   align-items: center;
   justify-content: end;
+  transition-duration: 300ms;
+  position: relative;
 }
 .Music_Player_ProgressBar_Controller_Button {
   width: 2.1rem;
@@ -495,6 +500,8 @@ p {
   border: 3px solid rgba(233, 233, 233, 0.986);
   border-radius: 50%;
   background-color: #b43108;
+  position: absolute;
+  right: -0.5rem;
 }
 .Music_Player_Pause_Play_Next_Previous_Button_Controller {
   /* border: 1px solid blue; */

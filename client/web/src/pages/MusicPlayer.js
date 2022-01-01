@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
@@ -37,16 +37,25 @@ const ProgressBarController = () => {
 const song = new Audio(Music01);
 const MusicPlayer = () => {
   const [play, setPlay] = useState(false);
-  console.log(song.currentTime);
-  console.log(song.duration);
+  const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
   const totalSongDuration = song.duration;
   const totalSongDurationInMin = `${Math.floor(
     totalSongDuration / 60
-  )}:${Math.floor(((totalSongDuration / 60) % 1) * 100)}`;
-  const currentSongTime = song.currentTime;
+  )}:${Math.floor(totalSongDuration % 60)}`;
   const currentSongTimeInMin = `${Math.floor(
     currentSongTime / 60
-  )}:${Math.floor(((currentSongTime / 60) % 1) * 100)}`;
+  )}:${Math.floor(currentSongTime % 60)}`;
+  var progressBar;
+  useEffect(() => {
+    progressBar = document.getElementsByClassName(
+      "Music_Player_Current_Progress"
+    )[0];
+    song.addEventListener("timeupdate", (event) => {
+      var calPercentage = (song.currentTime / song.duration) * 100;
+      setCurrentSongTime(song.currentTime);
+      progressBar.style.width = `${calPercentage}%`;
+    });
+  }, []);
   return (
     <>
       <div className="Music_Player_Background"></div>
@@ -57,7 +66,7 @@ const MusicPlayer = () => {
             icon="eva:arrow-ios-back-outline"
             color="#000000B3"
           />
-          <img src={User_Image} />
+          <img src={User_Image} alt="userimg" />
         </div>
         <div className="Music_Player_Volume_And_Song_Image_Container">
           <VolumeController />
@@ -66,6 +75,7 @@ const MusicPlayer = () => {
             style={{ boxShadow: "0px 0px 35px #0e316071" }}
             className="Music_Player_Song_Small_Image"
             src={Song_Image01}
+            alt="simg01"
           />
           <div></div>
           <img className="Music_Player_Big_Small_Image" src={Song_Image02} />
@@ -74,6 +84,7 @@ const MusicPlayer = () => {
             style={{ boxShadow: " 0px 0px 35px #7c1f007c" }}
             className="Music_Player_Song_Small_Image"
             src={Song_Image03}
+            alt="simg02"
           />
           <div></div>
           <VolumeController />
@@ -83,9 +94,13 @@ const MusicPlayer = () => {
           <p>Sonu Nigam</p>
         </div>
         <div className="Music_Player_TimeStamp_ProgressBar_Container">
-          <h1>{currentSongTimeInMin}</h1>
+          <h1 style={{ marginRight: "1rem" }}>{currentSongTimeInMin}</h1>
           <ProgressBarController />
-          <h1>{totalSongDurationInMin}</h1>
+          <h1 style={{ marginLeft: "1rem" }}>
+            {totalSongDurationInMin === "NaN:NaN"
+              ? "0:0"
+              : totalSongDurationInMin}
+          </h1>
         </div>
         <div className="Music_Player_Pause_Play_Next_Previous_Button_Controller">
           <div></div>
@@ -137,6 +152,7 @@ const MusicPlayer = () => {
               onClick={() => {
                 song.play();
                 setPlay(!play);
+                // clearInterval(updateTime);
               }}
             />
           )}
