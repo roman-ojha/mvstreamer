@@ -11,6 +11,9 @@ const LogInPage = () => {
   const logInWithFacebookAuth = () => {
     window.open(`${process.env.REACT_APP_API_URL}/auth/facebook`, "_self");
   };
+  const logInWithGithubAuth = () => {
+    window.open(`${process.env.REACT_APP_API_URL}/auth/github`, "_self");
+  };
   return (
     <>
       <div className="LoginPage">
@@ -18,7 +21,7 @@ const LogInPage = () => {
           <img src={App_Icon} alt="Logo" className="LoginPage_App_Logo" />
           <h1 className="LoginPage_SignIn_Title">Sign In</h1>
           <div className="LoginPage_Button_Container">
-            <div>
+            <div onClick={logInWithGithubAuth}>
               <img src={Github_Icon} alt="icon" />
               <h2>GitHub</h2>
             </div>
