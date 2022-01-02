@@ -1,8 +1,9 @@
 import { instance as axios } from "../services/axios";
 
-const authenticate = async () => {
-  const res = await axios.get("/auth");
+const userAuth = async () => {
+  const res = await axios.get("/auth", { withCredentials: true });
+  console.log(res.status);
   return res;
 };
 
-export default authenticate;
+export default userAuth;

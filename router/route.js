@@ -1,10 +1,12 @@
 import express from "express";
+import userAuth from "../middleware/userAuth.js";
 import userDetail from "../models/userDetail_Models.js";
-// import authenticate from "../middleware/userAuth.js";
 const router = express.Router();
 
-router.get("/auth", async (req, res) => {
-  res.send("Hello");
+router.get("/auth", userAuth, async (req, res) => {
+  res
+    .status(200)
+    .json({ success: true, user: req.user, msg: "Autorized Successfully" });
 });
 
 // right now this url is use for the flutter google signin

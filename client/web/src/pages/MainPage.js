@@ -1,13 +1,24 @@
 import React, { useEffect } from "react";
 import NavBarANDMiniplayer from "../react-components/NavBarANDMiniplayer";
 import { Outlet } from "react-router-dom";
-import authenticate from "../Middleware/userAuth";
+import userAuth from "../Middleware/userAuth";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   // getting user Data and autheitcating the use
   useEffect(async () => {
-    const res = await authenticate();
-    console.log(await res.data);
+    try {
+      const res = await userAuth();
+      if (res.status !== 200) {
+        // Tost Message
+        console.log("Unauthorized");
+      }
+      const data = await res.data;
+      console.log(data);
+    } catch (err) {
+      navigate("/login");
+    }
   }, []);
   return (
     <div>

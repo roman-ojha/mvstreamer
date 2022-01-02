@@ -10,7 +10,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 const app = express();
 const PORT = process.env.PORT;
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.CLIENT_BASE_URL }));
+// if we are requesting the server from client using {credentials:true} then we have to pass the object in 'cors()'
 app.use(cookieParser());
 app.unsubscribe(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));

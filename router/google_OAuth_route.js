@@ -34,7 +34,7 @@ router.get("/auth/google/login/success", async (req, res) => {
     });
     res.redirect(`${CLIENT_HOME_PAGE_URL}`);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 });
 
