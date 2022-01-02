@@ -6,13 +6,13 @@ import Github_Icon from "../assets/images/github_icon.svg";
 
 const LogInPage = () => {
   const logInwithGoogleAuth = () => {
-    window.open(`${process.env.REACT_APP_API_URL}/auth/google`, "_self");
+    window.open(`${process.env.REACT_APP_BASE_API_URL}/auth/google`, "_self");
   };
   const logInWithFacebookAuth = () => {
-    window.open(`${process.env.REACT_APP_API_URL}/auth/facebook`, "_self");
+    window.open(`${process.env.REACT_APP_BASE_API_URL}/auth/facebook`, "_self");
   };
   const logInWithGithubAuth = () => {
-    window.open(`${process.env.REACT_APP_API_URL}/auth/github`, "_self");
+    window.open(`${process.env.REACT_APP_BASE_API_URL}/auth/github`, "_self");
   };
   return (
     <>

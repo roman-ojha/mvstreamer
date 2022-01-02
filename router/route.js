@@ -1,14 +1,13 @@
 import express from "express";
 import userDetail from "../models/userDetail_Models.js";
-import jwt from "jsonwebtoken";
+// import authenticate from "../middleware/userAuth.js";
 const router = express.Router();
 
-// const generateToken = (email) => {
-//   return jwt.sign({ email: email }, process.env.ACCESS_TOKEN, {
-//     expiresIn: "30d",
-//   });
-// };
+router.get("/auth", async (req, res) => {
+  res.send("Hello");
+});
 
+// right now this url is use for the flutter google signin
 router.post("/signIn", async (req, res) => {
   const { name, email, picture, id } = req.body;
   try {
