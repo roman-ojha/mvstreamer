@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { instance as axios } from "../services/axios";
 
 const getUploadImage = (event) => {
@@ -8,7 +8,6 @@ const getUploadImage = (event) => {
     )[0];
     const imgTitle = viewImage.children[0];
     const imgContainer = viewImage.children[1];
-    console.log(imgContainer);
     imgContainer.style = "visibility:visible; position:static;";
     imgTitle.style = "visibility:hidden;position:absolute";
     const image = URL.createObjectURL(event.target.files[0]);
@@ -18,19 +17,44 @@ const getUploadImage = (event) => {
     console.log(err);
   }
 };
+
 const UploadPage = () => {
+  const [songInfo, setSongInfo] = useState({
+    title: "",
+    singerName: "",
+  });
+
+  const getMediaUploadField = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setSongInfo({
+      ...songInfo,
+      [name]: value,
+    });
+  };
   const uploadMedia = async () => {
     try {
-      const res = await axios.post(
-        "/upload",
-        { name: "Roman" },
-        { withCredentials: true }
-      );
-      console.log(await res.data);
+      const media = document.getElementsByClassName("Upload_Page_File_Field")[0]
+        .files[0];
+      const image = document.getElementsByClassName(
+        "Upload_Page_Image_Field"
+      )[0].files[0];
+      let data = new FormData();
+      data.append("image", image);
+      // data.append("media", media);
+      data.append("title", songInfo.title);
+      data.append("singerName", songInfo.singerName);
+      // const res = await axios.post("/upload", data, { withCredentials: true });
+      const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/upload`, {
+        method: "POST",
+        body: data,
+      });
+      // console.log(await res.data);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="Upload_Page_Container">
@@ -48,11 +72,17 @@ const UploadPage = () => {
             className="Upload_Page_Title_Field"
             type="text"
             placeholder="Song Title"
+            name="title"
+            value={songInfo.title}
+            onChange={getMediaUploadField}
           />
           <input
             className="Upload_Page_Singer_Name_Field"
             type="text"
             placeholder="Singer Name"
+            name="singerName"
+            value={songInfo.singerName}
+            onChange={getMediaUploadField}
           />
           <label
             htmlFor="image-input"
