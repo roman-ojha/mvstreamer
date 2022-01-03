@@ -16,14 +16,14 @@ passport.use(
     },
     async function (request, accessToken, refreshToken, profile, done) {
       try {
-        const userExist = await userDetail.findOne({ email: profile.email });
+        const userExist = await userDetail.findOne({ gmail: profile.email });
         if (userExist) {
           return done(null, userExist);
         }
         const userData = new userDetail({
-          id: profile.id,
+          google_id: profile.id,
           name: profile.displayName,
-          email: profile.email,
+          gmail: profile.email,
           picture: profile.picture,
         });
         const createUser = await userData.save();

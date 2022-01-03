@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDom from "react-dom";
+import { instance as axios } from "../services/axios";
 
 const getUploadImage = (event) => {
   try {
@@ -18,7 +18,19 @@ const getUploadImage = (event) => {
     console.log(err);
   }
 };
-const Upload = () => {
+const UploadPage = () => {
+  const uploadMedia = async () => {
+    try {
+      const res = await axios.post(
+        "/upload",
+        { name: "Roman" },
+        { withCredentials: true }
+      );
+      console.log(await res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="Upload_Page_Container">
@@ -70,10 +82,11 @@ const Upload = () => {
             className="Upload_Page_Upload_Button"
             type="button"
             value="Upload"
+            onClick={uploadMedia}
           />
         </div>
       </div>
     </>
   );
 };
-export default Upload;
+export default UploadPage;
