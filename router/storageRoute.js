@@ -10,8 +10,12 @@ router.post("/upload", async (req, res) => {
     return res
       .status(401)
       .json({ success: false, msg: isAdminAuthenticated.msg });
-  } else if (isAdminAuthenticated.success === true) {
-    console.log(isAdminAuthenticated);
+  }
+  //   else admin is authenticated now admin can upload the media
+  if (!req.body.title && !req.body.singerName && !req.body.file) {
+    return res
+      .status(400)
+      .json({ success: false, msg: "Please Fill the filled properly" });
   }
   res.send("good");
 });
