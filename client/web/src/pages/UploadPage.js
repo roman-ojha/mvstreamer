@@ -40,8 +40,12 @@ const UploadPage = () => {
         "Upload_Page_Image_Field"
       )[0].files[0];
       let data = new FormData();
+      // data.append("file", {
+      //   image: image,
+      //   media: media,
+      // });
       data.append("image", image);
-      // data.append("media", media);
+      data.append("media", media);
       data.append("title", songInfo.title);
       data.append("singerName", songInfo.singerName);
       // const res = await axios.post("/upload", data, { withCredentials: true });

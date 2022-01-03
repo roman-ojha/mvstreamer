@@ -12,7 +12,7 @@ const convertToJpg = async (input) => {
 
 const compressImage = async (filePath) => {
   await imagemin([filePath], {
-    destination: "../db/build",
+    destination: "./db/build",
     plugins: [convertToJpg, mozjpeg({ quality: 70 })],
   });
 };
