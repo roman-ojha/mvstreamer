@@ -12,7 +12,6 @@ const getUploadImage = (event) => {
     imgTitle.style = "visibility:hidden;position:absolute";
     const image = URL.createObjectURL(event.target.files[0]);
     imgContainer.src = image;
-    //   console.log(image);
   } catch (err) {
     console.log(err);
   }
@@ -40,10 +39,6 @@ const UploadPage = () => {
         "Upload_Page_Image_Field"
       )[0].files[0];
       let data = new FormData();
-      // data.append("file", {
-      //   image: image,
-      //   media: media,
-      // });
       data.append("image", image);
       data.append("media", media);
       data.append("title", songInfo.title);
