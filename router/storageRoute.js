@@ -7,6 +7,8 @@ import fs from "fs";
 import path from "path";
 import uuid from "uuid-v4";
 import MVDetail from "../models/Mv_Models.js";
+import getRawBody from "raw-body";
+import mediaserver from "mediaserver";
 const router = express.Router();
 const bucket = storage.bucket();
 
@@ -99,5 +101,24 @@ router.post(
     }
   }
 );
+
+router.get("/get/Audio", async (req, res) => {
+  try {
+    const file = bucket.file(`Video/bff043f26f4d0af62ffb75d1f187755c.mp4`);
+    // const file = bucket.file(`Audio/207317811a272d1c97ebc7854d47ba28.mp3`);
+    const buffer = await getRawBody(file.createReadStream());
+    res.setHeader("content-type", "video/mp4");
+    // res.write(buffer, "binary");
+    // console.log(typeof buffer);
+    res.send(buffer);
+  } catch (err) {
+    console.log(err);
+  }
+});
+// async function getStream() {
+
+// }
+
+// getStream();
 
 export default router;

@@ -78,6 +78,7 @@ const MusicPlayer = () => {
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
   useEffect(() => {
+    console.log(typeof song);
     var rotateImage = 0;
     const progressBar = document.getElementsByClassName(
       "Music_Player_Current_Progress"
