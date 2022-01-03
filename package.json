@@ -20,19 +20,29 @@
   "homepage": "https://github.com/RomanOjha-git/MVstreamer#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "firebase-admin": "^10.0.1",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "is-jpg": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.2",
+    "multer": "^1.4.4",
     "passport": "^0.5.2",
     "passport-facebook": "^3.0.0",
     "passport-github": "^1.1.0",
-    "passport-google-oauth2": "^0.2.0"
+    "passport-google-oauth2": "^0.2.0",
+    "path": "^0.12.7",
+    "sharp": "^0.29.3",
+    "uninstall": "0.0.0",
+    "uuid-v4": "^0.1.0"
   }
 }
