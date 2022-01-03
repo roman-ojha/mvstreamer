@@ -3,8 +3,9 @@
 import jwt from "jsonwebtoken";
 import UserDetail from "../models/userDetail_Models.js";
 
-const authAdmin = async (token) => {
+const authAdmin = async (req, res, next) => {
   try {
+    const token = req.cookies._tk;
     const varifyToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
     const adminID = varifyToken._id;
     const isUser = await UserDetail.findOne({
@@ -12,14 +13,20 @@ const authAdmin = async (token) => {
       "accessToken.token": token,
     });
     if (!isUser) {
-      return { success: false, msg: "User doesn't exist" };
-    } else if (isUser.gmail === process.env.ADMIN_GMAIL) {
+      return res
+        .status(401)
+        .json({ success: false, msg: "User doesn't exist" });
+    } else if (isUser.gmail !== process.env.ADMIN_GMAIL) {
       // here we are checking if the user gmail and the admin gmail to match then we are responsing it as the authorized admin
-      return { success: true, msg: "Authenticated Admin" };
+      return res
+        .status(401)
+        .json({ success: false, msg: "Unauthorized Admin" });
     }
-    return { success: false, msg: "Unauthorized Admin" };
+    next();
   } catch (err) {
-    return { success: false, msg: "Unauthorized: No token provided" };
+    return res
+      .status(401)
+      .json({ success: false, msg: "Unauthorized: No token provided" });
   }
 };
 

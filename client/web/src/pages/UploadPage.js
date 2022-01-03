@@ -48,12 +48,8 @@ const UploadPage = () => {
       data.append("media", media);
       data.append("title", songInfo.title);
       data.append("singerName", songInfo.singerName);
-      // const res = await axios.post("/upload", data, { withCredentials: true });
-      const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/upload`, {
-        method: "POST",
-        body: data,
-      });
-      // console.log(await res.data);
+      const res = await axios.post("/upload", data, { withCredentials: true });
+      console.log(await res.data);
     } catch (err) {
       console.log(err);
     }
