@@ -11,16 +11,16 @@ const authAdmin = async (token) => {
       _id: adminID,
       "accessToken.token": token,
     });
-    //   console.log(adminID);
-    console.log(isUser);
-    console.log(token);
     if (!isUser) {
       return { success: false, msg: "User doesn't exist" };
     } else if (isUser.gmail === process.env.ADMIN_GMAIL) {
+      // here we are checking if the user gmail and the admin gmail to match then we are responsing it as the authorized admin
       return { success: true, msg: "Authenticated Admin" };
     }
     return { success: false, msg: "Unauthorized Admin" };
-  } catch (err) {}
+  } catch (err) {
+    return { success: false, msg: "Unauthorized: No token provided" };
+  }
 };
 
 export default authAdmin;
