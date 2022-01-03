@@ -5,8 +5,8 @@ import compressImage from "../functions/compressImage.js";
 import uploadImage from "../middleware/uploadImage.js";
 import fs from "fs";
 import path from "path";
-import { randomUUID } from "crypto";
 import uuid from "uuid-v4";
+import MVDetail from "../models/Mv_Models.js";
 const router = express.Router();
 const bucket = storage.bucket();
 
@@ -78,6 +78,15 @@ router.post(
       mediaType === "audio"
         ? `Audio/${req.files.media[0].filename}`
         : `Video/${req.files.media[0].filename}`;
+
+    const newSong = new MVDetail({
+      title,
+      singerName,
+      imgUrl,
+      mediaPath,
+    });
+    const resSong = await newSong.save();
+    console.log(resSong);
     res.send("good");
   }
 );
