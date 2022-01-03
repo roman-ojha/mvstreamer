@@ -7,7 +7,7 @@ const serviceAccount = JSON.parse(
 
 const firebaseConfig = {
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "mvstreamer.appspot.com",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 };
 
 admin.initializeApp(firebaseConfig);

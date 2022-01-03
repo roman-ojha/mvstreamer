@@ -38,6 +38,7 @@ router.post(
       },
       cacheControl: "public, max-age=31536000",
     };
+    // uploading song images
     const uploadImgInFirebase = await bucket.upload(
       `./db/build/${req.files.image[0].filename}`,
       {
@@ -47,7 +48,36 @@ router.post(
       }
     );
     fs.unlink(`./db/build/${req.files.image[0].filename}`, (err) => {});
-    console.log(uploadImgInFirebase);
+
+    // uploading Media
+    // if uploading media is audio then we will upload it in different destination if uploading media is video then we will put it in different destination
+    const mediaType = req.files.media[0].mimetype.split("/")[0];
+    const uploadMediaInFirebase = await bucket.upload(
+      `./db/Media/${req.files.media[0].filename}`,
+      {
+        destination:
+          mediaType === "audio"
+            ? `Audio/${req.files.media[0].filename}`
+            : `Video/${req.files.media[0].filename}`,
+        // if media type is audio then we are uploading it in "Audio/" if not "Video/"
+        gzip: true,
+        metadata: metadata,
+      }
+    );
+    fs.unlink(`./db/Media/${req.files.media[0].filename}`, (err) => {});
+    const title = req.body.title;
+    const singerName = req.body.singerName;
+    const imgToken =
+      uploadImgInFirebase[0].metadata.metadata.firebaseStorageDownloadTokens;
+    const imgPath = `Images/${req.files.image[0].filename}`;
+    const imgBucket = process.env.FIREBASE_STORAGE_BUCKET;
+    const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${imgBucket}/o/${encodeURIComponent(
+      imgPath
+    )}?alt=media&token=${imgToken}`;
+    const mediaPath =
+      mediaType === "audio"
+        ? `Audio/${req.files.media[0].filename}`
+        : `Video/${req.files.media[0].filename}`;
     res.send("good");
   }
 );
