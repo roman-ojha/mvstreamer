@@ -19,6 +19,7 @@ router.post(
     { name: "media", maxCount: 1 },
   ]),
   async (req, res) => {
+    console.log(req.files);
     try {
       if (
         req.files.image === undefined ||
@@ -109,11 +110,6 @@ router.post(
 //       res.status(400).send("Require Range header");
 //     }
 
-//     const file = bucket.getFilesStream(
-//       `Audio/207317811a272d1c97ebc7854d47ba28.mp3`
-//     );
-//     console.log(file);
-
 //     // const videoPath;
 //     // const videoSize = fs.statSync("bigbuck.mp4").size;
 
@@ -130,10 +126,9 @@ router.post(
 //     //   "Content-Length": contentLength,
 //     //   "Content-Type": "video/mp4",
 //     // };
-//     // const buffer = await getRawBody(file.createReadStream({ start, end }));
 //     // res.writeHead(206, headers);
 //     // const videoStream=fs.createReadStream(videoPath,{start,end});
-//     // buffer.pipe(res);
+//     // videoStream.pipe(res);
 //     res.send();
 //   } catch (err) {
 //     console.log(err);
@@ -157,14 +152,26 @@ router.post(
 
 router.get("/get/Video", async (req, res) => {
   try {
-    // await storage
-    //   .bucket(process.env.FIREBASE_STORAGE_BUCKET)
-    //   .file("Video/ef277859080e4a5c366bb782531ba76c.mp4")
-    //   .createReadStream()
-    //   .pipe(res)
-    //   .on("finish", () => {
-    //     res.send();
-    //   });
+    const range = req.headers.range;
+    const CHUNK_SIZE = 10 ** 6; // 1MB
+    const videoSize = 3282788;
+    // const start = Number(range.replace(/\D/g, ""));
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+    const contentLength = end - start + 1;
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "audio/mpeg",
+    };
+    const video = storage
+      .bucket(process.env.FIREBASE_STORAGE_BUCKET02)
+      .file("Audio/6abf2b841ecaafddb6d1ffdec1145c7c.mp3");
+    console.log(video.metadata);
+    const videoStream = video.createReadStream();
+    res.writeHead(206, headers);
+    videoStream.pipe(res);
   } catch (err) {
     console.log(err);
   }

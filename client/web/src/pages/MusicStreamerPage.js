@@ -50,6 +50,12 @@ const MusicStreamerPage = () => {
       // });
       const res = fetch("http://localhost:8080/get/Video", {
         responseType: "arraybuffer",
+        // headers: {
+        //   "Content-Type": "audio/mpeg",
+        //   "Content-Length": 325000,
+        //   "Accept-Range": "bytes",
+        //   // "Content-Range": "bytes 100-64656926/64656927",
+        // },
       })
         .then((data) => data.arrayBuffer())
         .then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer))
