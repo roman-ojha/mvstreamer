@@ -1,5 +1,6 @@
 import express from "express";
-import storage from "../db/FirebaseConn.js";
+// import storage from "../db/FirebaseConn.js";
+import storage from "../db/FirebaseConn02.js";
 import authAdmin from "../middleware/authAdmin.js";
 import compressImage from "../functions/compressImage.js";
 import uploadImage from "../middleware/uploadImage.js";
@@ -71,7 +72,7 @@ router.post(
       const imgToken =
         uploadImgInFirebase[0].metadata.metadata.firebaseStorageDownloadTokens;
       const imgPath = `Images/${req.files.image[0].filename}`;
-      const imgBucket = process.env.FIREBASE_STORAGE_BUCKET;
+      const imgBucket = process.env.FIREBASE_STORAGE_BUCKET02;
       const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${imgBucket}/o/${encodeURIComponent(
         imgPath
       )}?alt=media&token=${imgToken}`;
@@ -94,33 +95,76 @@ router.post(
     } catch (err) {
       return res.status(500)({
         success: false,
-        msg: "Sorry, Please try again letter😥😥😥",
+        msg: "Sorry, Please try again later😥😥😥",
       });
     }
   }
 );
 
-router.get("/get/Audio", async (req, res) => {
-  try {
-    // getting audio file from the firebase
-    const file = bucket.file(`Audio/207317811a272d1c97ebc7854d47ba28.mp3`);
-    const buffer = await getRawBody(file.createReadStream());
-    // creating the audio buffer
-    res.setHeader("content-type", "audio/mpeg");
-    // setting the 'content-type' of that audio buffer;
-    // res.write(buffer, "binary");
-    res.send(buffer);
-  } catch (err) {
-    console.log(err);
-  }
-});
+// router.get("/Audio", async (req, res) => {
+//   try {
+//     const range = req.headers.range;
+//     // we need a range header from the request because we can't tell client what part of the video we can't to send back
+//     if (!range) {
+//       res.status(400).send("Require Range header");
+//     }
+
+//     const file = bucket.getFilesStream(
+//       `Audio/207317811a272d1c97ebc7854d47ba28.mp3`
+//     );
+//     console.log(file);
+
+//     // const videoPath;
+//     // const videoSize = fs.statSync("bigbuck.mp4").size;
+
+//     // Parse range
+//     // Example: "bytes=32324-"
+//     // const CHUNK_SIZE = 10 ** 6; // 1MB
+//     // const start = Number(range.replace(/\D/g, ""));
+//     // const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+
+//     // const contentLength = end - start + 1;
+//     // const headers = {
+//     //   "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+//     //   "Accept-Ranges": "bytes",
+//     //   "Content-Length": contentLength,
+//     //   "Content-Type": "video/mp4",
+//     // };
+//     // const buffer = await getRawBody(file.createReadStream({ start, end }));
+//     // res.writeHead(206, headers);
+//     // const videoStream=fs.createReadStream(videoPath,{start,end});
+//     // buffer.pipe(res);
+//     res.send();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
+
+// router.get("/get/Audio", async (req, res) => {
+//   try {
+//     // getting audio file from the firebase
+//     const file = bucket.file(`Audio/207317811a272d1c97ebc7854d47ba28.mp3`);
+//     const buffer = await getRawBody(file.createReadStream());
+//     // creating the audio buffer
+//     res.setHeader("content-type", "audio/mpeg");
+//     // setting the 'content-type' of that audio buffer;
+//     // res.write(buffer, "binary");
+//     res.send(buffer);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 router.get("/get/Video", async (req, res) => {
   try {
-    const file = bucket.file(`Video/bff043f26f4d0af62ffb75d1f187755c.mp4`);
-    const buffer = await getRawBody(file.createReadStream());
-    res.setHeader("content-type", "video/mp4");
-    res.send(buffer);
+    // await storage
+    //   .bucket(process.env.FIREBASE_STORAGE_BUCKET)
+    //   .file("Video/ef277859080e4a5c366bb782531ba76c.mp4")
+    //   .createReadStream()
+    //   .pipe(res)
+    //   .on("finish", () => {
+    //     res.send();
+    //   });
   } catch (err) {
     console.log(err);
   }
