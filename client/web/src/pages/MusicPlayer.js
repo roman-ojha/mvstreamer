@@ -6,9 +6,11 @@ import Song_Image02 from "../assets/images/carousel_Image_01.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
-import Music01 from "../assets/music/audio01.mp3";
+// import Music01 from "../assets/music/audio01.mp3";
 
-const song = new Audio(Music01);
+const song = new Audio(
+  "https://firebasestorage.googleapis.com/v0/b/mvstreamer-2.appspot.com/o/Audio%2F6abf2b841ecaafddb6d1ffdec1145c7c.mp3?alt=media&token=732bb41a-8e06-4cc6-92df-63e93db66e24"
+);
 const VolumeController = () => {
   return (
     <>

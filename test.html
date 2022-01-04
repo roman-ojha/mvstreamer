@@ -7,8 +7,59 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- <video width="650" controls autoplay> -->
+    <!-- <source
+        src="https://firebasestorage.googleapis.com/v0/b/mvstreamer-2.appspot.com/o/Video%2F9c4e841b131862e5e9721ea9014f554e.mp4?alt=media&token=4d2c8007-de60-4a19-8ff8-ceb762dcf912"
+        type="video/mp4"
+      />
+    </video> -->
     <audio controls autoplay>
       <source src="http://localhost:8080/get/Video" type="audio/mpeg" />
     </audio>
+    <button onclick="getSongs()">Submit</button>
+    <script src="./script.js"></script>
   </body>
 </html>
+
+<!-- <p>
+  <audio id="my-audio" controls>
+    <source
+      src="https://firebasestorage.googleapis.com/v0/b/mvstreamer-2.appspot.com/o/Video%2F9c4e841b131862e5e9721ea9014f554e.mp4?alt=media&token=4d2c8007-de60-4a19-8ff8-ceb762dcf912"
+      type="audio/mpeg"
+    />
+    <source
+      src="http://jPlayer.org/audio/mp3/Miaow-07-Bubble.mp3"
+      type="audio/mpeg"
+    />
+  </audio>
+</p>
+<p>
+  <canvas id="my-canvas" width="300" height="20"> </canvas>
+</p>
+<script>
+  window.onload = function () {
+    var myAudio = document.getElementById("my-audio");
+    var myCanvas = document.getElementById("my-canvas");
+    var context = myCanvas.getContext("2d");
+
+    context.fillStyle = "lightgray";
+    context.fillRect(0, 0, myCanvas.width, 20);
+    context.fillStyle = "red";
+    context.strokeStyle = "white";
+
+    var inc = myCanvas.width / myAudio.duration;
+
+    // display TimeRanges
+
+    myAudio.addEventListener("seeked", function () {
+      for (i = 0; i < myAudio.buffered.length; i++) {
+        var startX = myAudio.buffered.start(i) * inc;
+        var endX = myAudio.buffered.end(i) * inc;
+
+        context.fillRect(startX, 0, endX, 20);
+        context.rect(startX, 0, endX, 20);
+        context.stroke();
+      }
+    });
+  };
+</script> -->

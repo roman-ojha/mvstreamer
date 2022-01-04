@@ -63,9 +63,13 @@ router.post(
               : `Video/${req.files.media[0].filename}`,
           // if media type is audio then we are uploading it in "Audio/" if not "Video/"
           gzip: true,
-          metadata: metadata,
+          metadata: {
+            contentType: mediaType === "audio" ? "audio/mpeg" : "video/mp4",
+            firebaseStorageDownloadTokens: uuid(),
+          },
         }
       );
+
       // deleting file from directory after upload
       fs.unlink(`./db/Media/${req.files.media[0].filename}`, (err) => {});
       const title = req.body.title;
@@ -152,28 +156,47 @@ router.post(
 
 router.get("/get/Video", async (req, res) => {
   try {
+    // const Audio = storage
+    //   .bucket(process.env.FIREBASE_STORAGE_BUCKET02)
+    //   .file("Audio/3e5cb31129e3f10d1e317b4436a2e4d0.mp3");
+    // const AudioStream = Audio.createReadStream({ start: 1000, end: 2000 });
+    // AudioStream.on("data", (data) => {
+    //   res.write(data);
+    // });
+    const metadata = await storage
+      .bucket()
+      .file("Audio/e284081744838b545670e4c46ecada41.mp3")
+      .getMetadata();
     const range = req.headers.range;
-    const CHUNK_SIZE = 10 ** 6; // 1MB
-    const videoSize = 3282788;
-    // const start = Number(range.replace(/\D/g, ""));
+    // console.log(range);
+    if (!range) {
+      res.status(400).send("Requires Range headers");
+    }
+    // const videoPath = "./router/music.mp3";
+    // const videoSize = fs.statSync(videoPath).size;
+    const videoSize = metadata[0].size;
+    const CHUNCK_SIZE = 10 ** 7; // 1MB
     const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+    // console.log(start);
+    const end = Math.min(start + CHUNCK_SIZE, videoSize - 1);
     const contentLength = end - start + 1;
     const headers = {
       "Content-Range": `bytes ${start}-${end}/${videoSize}`,
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
       "Content-Type": "audio/mpeg",
+      // "Content-Type": "audio/mpeg",
     };
-    const video = storage
-      .bucket(process.env.FIREBASE_STORAGE_BUCKET02)
-      .file("Audio/6abf2b841ecaafddb6d1ffdec1145c7c.mp3");
-    console.log(video.metadata);
-    const videoStream = video.createReadStream();
+    // console.log(headers);
     res.writeHead(206, headers);
-    videoStream.pipe(res);
+    bucket
+      .file("Audio/e284081744838b545670e4c46ecada41.mp3")
+      .createReadStream({ start, end })
+      .pipe(res);
+    // fs.createReadStream(videoPath, { start, end }).pipe(res);
   } catch (err) {
     console.log(err);
   }
 });
+
 export default router;
