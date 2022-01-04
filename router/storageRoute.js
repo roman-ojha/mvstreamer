@@ -106,79 +106,39 @@ router.post(
   }
 );
 
-// router.get("/Audio", async (req, res) => {
-//   try {
-//     const range = req.headers.range;
-//     // we need a range header from the request because we can't tell client what part of the video we can't to send back
-//     if (!range) {
-//       res.status(400).send("Require Range header");
-//     }
-
-//     // const videoPath;
-//     // const videoSize = fs.statSync("bigbuck.mp4").size;
-
-//     // Parse range
-//     // Example: "bytes=32324-"
-//     // const CHUNK_SIZE = 10 ** 6; // 1MB
-//     // const start = Number(range.replace(/\D/g, ""));
-//     // const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-
-//     // const contentLength = end - start + 1;
-//     // const headers = {
-//     //   "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-//     //   "Accept-Ranges": "bytes",
-//     //   "Content-Length": contentLength,
-//     //   "Content-Type": "video/mp4",
-//     // };
-//     // res.writeHead(206, headers);
-//     // const videoStream=fs.createReadStream(videoPath,{start,end});
-//     // videoStream.pipe(res);
-//     res.send();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// router.get("/get/Audio", async (req, res) => {
-//   try {
-//     // getting audio file from the firebase
-//     const file = bucket.file(`Audio/207317811a272d1c97ebc7854d47ba28.mp3`);
-//     const buffer = await getRawBody(file.createReadStream());
-//     // creating the audio buffer
-//     res.setHeader("content-type", "audio/mpeg");
-//     // setting the 'content-type' of that audio buffer;
-//     // res.write(buffer, "binary");
-//     res.send(buffer);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-router.get("/get/Video", async (req, res) => {
+router.get("/get/test", async (req, res) => {
   try {
-    // const Audio = storage
-    //   .bucket(process.env.FIREBASE_STORAGE_BUCKET02)
-    //   .file("Audio/3e5cb31129e3f10d1e317b4436a2e4d0.mp3");
-    // const AudioStream = Audio.createReadStream({ start: 1000, end: 2000 });
-    // AudioStream.on("data", (data) => {
-    //   res.write(data);
-    // });
+    // getting audio file from the firebase
+    const file = bucket.file(`Audio/e284081744838b545670e4c46ecada41.mp3`);
+    const buffer = await getRawBody(file.createReadStream());
+    // creating the audio buffer
+    res.setHeader("content-type", "audio/mpeg");
+    // setting the 'content-type' of that audio buffer;
+    // res.write(buffer, "binary");
+    res.send(buffer);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/get/Audio", async (req, res) => {
+  try {
+    const range = req.headers.range;
     const metadata = await storage
       .bucket()
       .file("Audio/e284081744838b545670e4c46ecada41.mp3")
       .getMetadata();
-    const range = req.headers.range;
     // console.log(range);
     if (!range) {
       res.status(400).send("Requires Range headers");
     }
-    // const videoPath = "./router/music.mp3";
-    // const videoSize = fs.statSync(videoPath).size;
-    const videoSize = metadata[0].size;
-    const CHUNCK_SIZE = 10 ** 7; // 1MB
+    const videoSize = Number(metadata[0].size);
+    // console.log(videoSize);
+    const CHUNCK_SIZE = 10 ** 6; // 1MB
     const start = Number(range.replace(/\D/g, ""));
-    // console.log(start);
+    console.log(start);
     const end = Math.min(start + CHUNCK_SIZE, videoSize - 1);
+    console.log(end);
     const contentLength = end - start + 1;
     const headers = {
       "Content-Range": `bytes ${start}-${end}/${videoSize}`,
