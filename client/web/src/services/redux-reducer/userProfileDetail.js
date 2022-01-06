@@ -1,6 +1,6 @@
 const initialState = {};
 
-const setUserProfileDetail = (state = initialState, action) => {
+const userProfileDetail = (state = initialState, action) => {
   if (action.type === "userProfileDetail") {
     return action.payload;
   } else {
@@ -8,4 +8,4 @@ const setUserProfileDetail = (state = initialState, action) => {
   }
 };
 
-export default setUserProfileDetail;
+export default userProfileDetail;

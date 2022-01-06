@@ -1,4 +1,4 @@
-export const userProfileDetailAction = (value) => {
+export const setUserProfileDetail = (value) => {
   return {
     type: "userProfileDetail",
     payload: value,

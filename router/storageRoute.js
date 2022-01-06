@@ -100,7 +100,6 @@ router.post(
       });
       // saving songs info in mongodb
       const resSong = await newSong.save();
-      console.log(resSong);
       return res
         .status(200)
         .json({ success: true, msg: "Song Upload Successfully" });
@@ -113,27 +112,12 @@ router.post(
   }
 );
 
-router.get("/get/test", async (req, res) => {
-  try {
-    // getting audio file from the firebase
-    const file = bucket.file(`Audio/e284081744838b545670e4c46ecada41.mp3`);
-    const buffer = await getRawBody(file.createReadStream());
-    // creating the audio buffer
-    res.setHeader("content-type", "audio/mpeg");
-    // setting the 'content-type' of that audio buffer;
-    // res.write(buffer, "binary");
-    res.send(buffer);
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 router.get("/get/Audio", async (req, res) => {
   try {
     const range = req.headers.range;
     const metadata = await storage
       .bucket()
-      .file("Audio/092a17bf7642ff958d5f64fa5ae6c3e3.mp3")
+      .file("Audio/a8562239232ec7c691d1bb6a2bfbe84f.mp3")
       .getMetadata();
     // console.log(range);
     if (!range) {
@@ -157,7 +141,7 @@ router.get("/get/Audio", async (req, res) => {
     // console.log(headers);
     res.writeHead(206, headers);
     bucket
-      .file("Audio/092a17bf7642ff958d5f64fa5ae6c3e3.mp3")
+      .file("Audio/a8562239232ec7c691d1bb6a2bfbe84f.mp3")
       .createReadStream({ start, end })
       .pipe(res);
     // fs.createReadStream(videoPath, { start, end }).pipe(res);

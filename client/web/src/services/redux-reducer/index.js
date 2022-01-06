@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import setUserProfileDetail from "./userProfileDetail";
+import userProfileDetail from "./userProfileDetail";
 
 const rootReducer = combineReducers({
-  setUserProfileDetail,
+  userProfileDetail,
 });
 
 export default rootReducer;

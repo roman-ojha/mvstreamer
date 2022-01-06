@@ -6,10 +6,18 @@ const userAuth = async (req, res, next) => {
     const token = req.cookies._tk;
     const varifyToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
     const userID = varifyToken._id;
-    const findUser = await UserDetail.findOne({
-      _id: userID,
-      "accessToken.token": token,
-    });
+    const findUser = await UserDetail.findOne(
+      {
+        _id: userID,
+        "accessToken.token": token,
+      },
+      {
+        accessToken: 0,
+        date: 0,
+        _id: 0,
+        __v: 0,
+      }
+    );
     if (!findUser) {
       return res.status(401).json({ success: false, msg: "User don't exist" });
     }
