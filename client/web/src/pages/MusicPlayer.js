@@ -10,9 +10,11 @@ import { useParams } from "react-router-dom";
 
 const MusicPlayer = () => {
   const { songID } = useParams();
+  // getting songid from the url parameter
   const [song, setSong] = useState(
     new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`)
   );
+  song.autoplay = true;
   const [play, setPlay] = useState(false);
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
   const totalSongDuration = song.duration;

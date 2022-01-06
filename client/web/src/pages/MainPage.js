@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { instance as axios } from "../services/axios";
 import { setUserProfileDetail } from "../services/redux-actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const MainPage = () => {
   const navigate = useNavigate();

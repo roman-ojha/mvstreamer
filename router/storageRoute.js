@@ -7,7 +7,6 @@ import uploadImage from "../middleware/uploadImage.js";
 import fs from "fs";
 import uuid from "uuid-v4";
 import MVDetail from "../models/Mv_Models.js";
-import getRawBody from "raw-body";
 const router = express.Router();
 const bucket = storage.bucket();
 

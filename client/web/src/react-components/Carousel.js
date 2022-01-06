@@ -1,12 +1,13 @@
 import React from "react";
 import App_Icon from "../assets/images/App_Icon.png";
 import { Icon } from "@iconify/react";
-import User from "../assets/images/user.jpg";
 import Carousel_Image_01 from "../assets/images/carousel_Image_01.jpg";
 import Carousel_Image_02 from "../assets/images/carousel_Image_02.jpg";
 import Carousel_Image_03 from "../assets/images/carousel_Image_03.jpg";
+import { useSelector } from "react-redux";
 
-const HomePage = () => {
+const Carousel = () => {
+  const userProfileDetail = useSelector((state) => state.userProfileDetail);
   return (
     <>
       <div className="Carousel_Container">
@@ -22,7 +23,11 @@ const HomePage = () => {
             <Icon icon="bx:bx-search-alt" width="40" color="white" />
             <input type="text" placeholder="Search.." />
           </div>
-          <img className="Carousel_User_Icon" src={User} alt="icon" />
+          <img
+            className="Carousel_User_Icon"
+            src={userProfileDetail.picture}
+            alt="icon"
+          />
         </div>
 
         <div className="Carousel_Inner_Container">
@@ -143,4 +148,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Carousel;
