@@ -92,7 +92,18 @@
   position: fixed;
   bottom: 0px;
 }
-
+.NavBar_HomePage_Outline {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  transition-duration: 200ms;
+}
+.NavBar_HomePage_Outline:active {
+  background-color: #ffffff33;
+}
 .MVstreamer_MiniPlayer {
   background-image: linear-gradient(to left, #b92e22 30%, #236fd1 70%);
   width: 575px;

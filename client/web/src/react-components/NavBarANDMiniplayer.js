@@ -1,35 +1,51 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBarANDMiniplayer = () => {
+  const designActiveLink = ({ isActive }) => {
+    if (isActive === true) {
+      return {
+        backgroundColor: "#FFFFFF4D",
+        borderRadius: "10px",
+      };
+    }
+  };
   return (
     <>
       <div className="MVstreamer_Navbar">
-        <Link to="/">
+        <NavLink to="/" style={designActiveLink}>
           <div className="NavBar_HomePage_Outline">
             <Icon
               icon="ant-design:home-filled"
-              color="white"
+              color="#FFFFFFDB"
               width="55px"
               height="55px"
+              transform={window.location.pathname === "/" ? "scale(1.05)" : ""}
             />
           </div>
-        </Link>
-        <Link to="/music">
-          <div className="NavBar_Music_Outline">
+        </NavLink>
+        <NavLink
+          to="/music"
+          style={designActiveLink}
+          className="NavBar_Music_Outline"
+        >
+          <div className="NavBar_HomePage_Outline">
             <Icon
               icon="cib:apple-music"
-              color="white"
-              width="50px"
-              height="50px"
+              color="#FFFFFFDB"
+              width="48px"
+              height="48px"
+              transform={
+                window.location.pathname === "/music" ? "scale(1.05)" : ""
+              }
             />
           </div>
-        </Link>
+        </NavLink>
         <div></div>
         <div></div>
         <div></div>
-        <Link to="/mplayer" className="MVstreamer_MiniPlayer">
+        <NavLink to="/mplayer" className="MVstreamer_MiniPlayer">
           <div className="MVstreamer_MiniPlayer_TimeStamp"></div>
           <div className="MVstreamer_MiniPlayer_Inner">
             <Icon
@@ -54,27 +70,41 @@ const NavBarANDMiniplayer = () => {
               height="55px"
             />
           </div>
-        </Link>
-        <Link to="/video">
-          <div className="NavBar_Video_Outline">
+        </NavLink>
+        <NavLink
+          to="/video"
+          style={designActiveLink}
+          className="NavBar_Video_Outline"
+        >
+          <div className="NavBar_HomePage_Outline">
             <Icon
               icon="clarity:video-gallery-solid"
-              color="white"
-              width="55px"
-              height="55px"
+              color="#FFFFFFDB"
+              width="52px"
+              height="52px"
+              transform={
+                window.location.pathname === "/video" ? "scale(1.05)" : ""
+              }
             />
           </div>
-        </Link>
-        <Link to="/file">
-          <div className="NavBar_File_Outline">
+        </NavLink>
+        <NavLink
+          to="/file"
+          style={designActiveLink}
+          className="NavBar_File_Outline"
+        >
+          <div className="NavBar_HomePage_Outline">
             <Icon
               icon="bx:bxs-folder"
-              color="white"
+              color="#FFFFFFDB"
               width="55px"
               height="55px"
+              transform={
+                window.location.pathname === "/file" ? "scale(1.05)" : ""
+              }
             />
           </div>
-        </Link>
+        </NavLink>
       </div>
     </>
   );
