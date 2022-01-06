@@ -8,9 +8,8 @@ import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
 // import Music01 from "../assets/music/audio01.mp3";
 
-const song = new Audio(
-  "https://firebasestorage.googleapis.com/v0/b/mvstreamer-2.appspot.com/o/Audio%2Fvideoplayback.mp3?alt=media&token=23fccd87-1aea-483d-b66e-bbbad487773f"
-);
+const song = new Audio("http://localhost:8080/get/Audio");
+
 const VolumeController = () => {
   return (
     <>
@@ -36,6 +35,10 @@ const ProgressBarController = () => {
         fullProgressBar = event.target.parentNode.parentNode;
       } else if (event.target.className === "Music_Player_Buffer_Bar") {
         fullProgressBar = event.target.parentNode;
+      } else if (
+        event.target.className === "Music_Player_ProgressBar_Controller"
+      ) {
+        fullProgressBar = event.target;
       }
       const totalWidth = fullProgressBar.getBoundingClientRect().width;
       const clickedWidth =
@@ -79,12 +82,18 @@ const MusicPlayer = () => {
   const currentSongTimeInMin = `${Math.floor(
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
+  var songBufferPercentage;
+  song.onprogress = function () {
+    // getting the buffer length of song
+    songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
+  };
+  var calculateTotalBufferWidth = 0;
   useEffect(() => {
-    console.log(typeof song);
     var rotateImage = 0;
     const progressBar = document.getElementsByClassName(
       "Music_Player_Current_Progress"
     )[0];
+    setCurrentSongTime(song.currentTime);
     song.addEventListener("timeupdate", (event) => {
       // upgrading the song current time and lenght of the progressive bar
       var calPercentage = (song.currentTime / song.duration) * 100;
@@ -92,9 +101,17 @@ const MusicPlayer = () => {
       progressBar.style.width = `${calPercentage}%`;
       rotateImage++;
       document.getElementsByClassName(
+        // rotating the image according while music playing
         "Music_Player_Big_Image"
       )[0].style = `transform: rotate(${rotateImage / 2}deg);`;
-      // rotating the image according while music playing
+      calculateTotalBufferWidth =
+        calPercentage + songBufferPercentage >= 100
+          ? 100
+          : calPercentage + songBufferPercentage;
+      document.getElementsByClassName(
+        // setting butter width
+        "Music_Player_Buffer_Bar"
+      )[0].style = `width: ${calculateTotalBufferWidth}%`;
     });
   }, []);
   return (

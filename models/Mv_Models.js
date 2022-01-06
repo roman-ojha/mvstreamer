@@ -13,7 +13,7 @@ const MV_Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  mediaPath: {
+  mediaUrl: {
     type: String,
     required: true,
   },

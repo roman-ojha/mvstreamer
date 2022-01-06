@@ -3,7 +3,7 @@ import crypto from "crypto";
 import path from "path";
 
 const storage = multer.diskStorage({
-  filename: function (req, file, callback) {
+  filename: async function (req, file, callback) {
     crypto.randomBytes(16, (err, buf) => {
       const filename = buf.toString("hex") + path.extname(file.originalname);
       callback(null, filename);

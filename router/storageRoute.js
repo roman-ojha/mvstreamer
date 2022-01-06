@@ -19,7 +19,7 @@ router.post(
     { name: "media", maxCount: 1 },
   ]),
   async (req, res) => {
-    console.log(req.files);
+    // console.log(req.files);
     try {
       if (
         req.files.image === undefined ||
@@ -33,23 +33,21 @@ router.post(
       }
       await compressImage(req.files.image[0].path);
       fs.unlink(`./db/Images/${req.files.image[0].filename}`, (err) => {});
-      const metadata = {
-        metadata: {
-          firebaseStorageDownloadTokens: uuid(),
-        },
-        cacheControl: "public, max-age=31536000",
-      };
-      // uploading song images
+      // // uploading song images
       const uploadImgInFirebase = await bucket.upload(
         `./db/build/${req.files.image[0].filename}`,
         {
           destination: `Images/${req.files.image[0].filename}`,
           gzip: true,
-          metadata: metadata,
+          metadata: {
+            metadata: {
+              firebaseStorageDownloadTokens: uuid(),
+            },
+            cacheControl: "public, max-age=31536000",
+          },
         }
       );
       fs.unlink(`./db/build/${req.files.image[0].filename}`, (err) => {});
-
       // uploading Media
       // if uploading media is audio then we will upload it in different destination if uploading media is video then we will put it in different destination
       const mediaType = req.files.media[0].mimetype.split("/")[0];
@@ -62,14 +60,15 @@ router.post(
               ? `Audio/${req.files.media[0].filename}`
               : `Video/${req.files.media[0].filename}`,
           // if media type is audio then we are uploading it in "Audio/" if not "Video/"
-          gzip: true,
           metadata: {
-            contentType: mediaType === "audio" ? "audio/mpeg" : "video/mp4",
-            firebaseStorageDownloadTokens: uuid(),
+            contentType: req.files.media[0].mimetype,
+            metadata: {
+              firebaseStorageDownloadTokens: uuid(),
+            },
+            cacheControl: "public, max-age=31536000",
           },
         }
       );
-
       // deleting file from directory after upload
       fs.unlink(`./db/Media/${req.files.media[0].filename}`, (err) => {});
       const title = req.body.title;
@@ -81,19 +80,27 @@ router.post(
       const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${imgBucket}/o/${encodeURIComponent(
         imgPath
       )}?alt=media&token=${imgToken}`;
+      const mediaToken =
+        uploadMediaInFirebase[0].metadata.metadata
+          .firebaseStorageDownloadTokens;
       const mediaPath =
         mediaType === "audio"
           ? `Audio/${req.files.media[0].filename}`
           : `Video/${req.files.media[0].filename}`;
+      const mediaBucket = process.env.FIREBASE_STORAGE_BUCKET02;
+      const mediaUrl = `https://firebasestorage.googleapis.com/v0/b/${mediaBucket}/o/${encodeURIComponent(
+        mediaPath
+      )}?alt=media&token=${mediaToken}`;
 
       const newSong = new MVDetail({
         title,
         singerName,
         imgUrl,
-        mediaPath,
+        mediaUrl,
       });
       // saving songs info in mongodb
       const resSong = await newSong.save();
+      console.log(resSong);
       return res
         .status(200)
         .json({ success: true, msg: "Song Upload Successfully" });
@@ -126,7 +133,7 @@ router.get("/get/Audio", async (req, res) => {
     const range = req.headers.range;
     const metadata = await storage
       .bucket()
-      .file("Audio/e284081744838b545670e4c46ecada41.mp3")
+      .file("Audio/092a17bf7642ff958d5f64fa5ae6c3e3.mp3")
       .getMetadata();
     // console.log(range);
     if (!range) {
@@ -136,9 +143,9 @@ router.get("/get/Audio", async (req, res) => {
     // console.log(videoSize);
     const CHUNCK_SIZE = 10 ** 6; // 1MB
     const start = Number(range.replace(/\D/g, ""));
-    console.log(start);
+    // console.log(start);
     const end = Math.min(start + CHUNCK_SIZE, videoSize - 1);
-    console.log(end);
+    // console.log(end);
     const contentLength = end - start + 1;
     const headers = {
       "Content-Range": `bytes ${start}-${end}/${videoSize}`,
@@ -150,7 +157,7 @@ router.get("/get/Audio", async (req, res) => {
     // console.log(headers);
     res.writeHead(206, headers);
     bucket
-      .file("Audio/e284081744838b545670e4c46ecada41.mp3")
+      .file("Audio/092a17bf7642ff958d5f64fa5ae6c3e3.mp3")
       .createReadStream({ start, end })
       .pipe(res);
     // fs.createReadStream(videoPath, { start, end }).pipe(res);

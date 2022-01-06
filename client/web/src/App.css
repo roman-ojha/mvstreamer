@@ -472,11 +472,12 @@ p {
   height: 0.35rem;
   /* border: 1px solid red; */
   background-image: linear-gradient(to left, #ff3c0036, #236ed13d);
+  position: relative;
   cursor: pointer;
 }
 .Music_Player_Buffer_Bar {
   height: 100%;
-  width: 100%;
+  width: 0%;
   border-radius: 10px;
   background-image: linear-gradient(to left, #a82a035b, #226dd049);
   display: flex;
@@ -492,7 +493,7 @@ p {
   align-items: center;
   justify-content: end;
   transition-duration: 150ms;
-  position: relative;
+  position: absolute;
 }
 .Music_Player_ProgressBar_Controller_Button {
   width: 2.1rem;
