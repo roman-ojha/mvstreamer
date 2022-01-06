@@ -2,24 +2,26 @@ import React, { useEffect } from "react";
 import Carousel from "../react-components/Carousel";
 import SongCardCarousel from "../react-components/SongCardCarousel";
 import { instance as axios } from "../services/axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setHomePageSongsDetail } from "../services/redux-actions";
 
 const HomePage = () => {
   const homePageSongDetail = useDispatch();
+  const homePageSongDetailStore = useSelector(
+    (state) => state.homePageSongsDetail
+  );
   useEffect(async () => {
     try {
       const songRes = await axios("/");
       const songResData = await songRes.data;
-      // console.log(songResData);
-      homePageSongDetail(setHomePageSongsDetail(songResData));
+      homePageSongDetail(setHomePageSongsDetail(songResData.songs));
     } catch (err) {}
   }, []);
   return (
     <>
       <div className="HomePage" onClick={() => {}}>
         <Carousel />
-        <SongCardCarousel />
+        <SongCardCarousel songsDetail={homePageSongDetailStore} />
       </div>
     </>
   );

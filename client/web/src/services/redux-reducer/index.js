@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import userProfileDetail from "./userProfileDetail";
-import homePageSongDetail from "./homePageSongsDetail";
+import homePageSongsDetail from "./homePageSongsDetail";
 
 const rootReducer = combineReducers({
   userProfileDetail,
-  homePageSongDetail,
+  homePageSongsDetail,
 });
 
 export default rootReducer;

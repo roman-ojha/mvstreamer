@@ -5,9 +5,15 @@ import MVDetail from "../models/Mv_Models.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const getSongs = await MVDetail.find();
-  console.log(getSongs);
-  res.send("Hello");
+  try {
+    const getSongs = await MVDetail.find();
+    if (!getSongs) {
+      return res.status(500).json({ success: false, msg: "Server Error" });
+    }
+    return res.status(200).json({ songs: getSongs });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: "Server Error" });
+  }
 });
 
 router.get("/auth", userAuth, async (req, res) => {

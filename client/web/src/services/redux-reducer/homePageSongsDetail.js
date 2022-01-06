@@ -1,4 +1,4 @@
-const initialState = {};
+const initialState = [];
 
 const homePageSongsDetail = (state = initialState, action) => {
   if (action.type === "homePageSongsDetail") {
