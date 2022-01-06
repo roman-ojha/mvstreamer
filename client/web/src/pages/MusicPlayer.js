@@ -8,7 +8,7 @@ import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
 // import Music01 from "../assets/music/audio01.mp3";
 
-const song = new Audio("http://localhost:8080/get/Audio");
+const song = new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio`);
 
 const VolumeController = () => {
   return (
