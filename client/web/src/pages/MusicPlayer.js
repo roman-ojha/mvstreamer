@@ -17,8 +17,14 @@ const MusicPlayer = () => {
     new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`)
   );
   song.autoplay = true;
-  const [play, setPlay] = useState(true);
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
+  const [buttonValue, setButtonValue] = useState({
+    playSong: true,
+    loopSong: false,
+    favoriteSong: false,
+    randomSong: false,
+  });
+  song.loop = buttonValue.loopSong;
   const totalSongDuration = song.duration;
   const totalSongDurationInMin = `${Math.floor(
     totalSongDuration / 60
@@ -170,12 +176,21 @@ const MusicPlayer = () => {
             width="3.7rem"
             icon="cil:loop-1"
             cursor="pointer"
-            color="rgb(125 148 173 / 56%)"
+            color={
+              buttonValue.loopSong ? "#1976D2CC" : "rgb(125 148 173 / 56%)"
+            }
+            onClick={(event) => {
+              setButtonValue({
+                ...buttonValue,
+                loopSong: !buttonValue.loopSong,
+              });
+            }}
           />
+
           <Icon
             // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
-            icon="ic:round-favorite"
+            icon="bx:bxs-playlist"
             cursor="pointer"
             color="rgb(125 148 173 / 56%)"
           />
@@ -191,14 +206,17 @@ const MusicPlayer = () => {
             width="7rem"
             icon="bi:play-circle-fill"
           /> */}
-          {play ? (
+          {buttonValue.playSong ? (
             <img
               src={PauseButton}
               alt="PauseButton"
               style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
                 song.pause();
-                setPlay(!play);
+                setButtonValue({
+                  ...buttonValue,
+                  playSong: !buttonValue.playSong,
+                });
               }}
             />
           ) : (
@@ -208,7 +226,10 @@ const MusicPlayer = () => {
               style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
                 song.play();
-                setPlay(!play);
+                setButtonValue({
+                  ...buttonValue,
+                  playSong: !buttonValue.playSong,
+                });
               }}
             />
           )}
@@ -222,16 +243,33 @@ const MusicPlayer = () => {
           <Icon
             // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
-            icon="bx:bxs-playlist"
+            icon="ic:round-favorite"
             cursor="pointer"
-            color="rgb(188 126 121 / 76%)"
+            color={
+              buttonValue.favoriteSong ? "#DB392CCC" : "rgb(188 126 121 / 70%)"
+            }
+            onClick={() => {
+              setButtonValue({
+                ...buttonValue,
+                favoriteSong: !buttonValue.favoriteSong,
+              });
+            }}
           />
           <Icon
             // style={{ margin: "0px 5px 0px 5px" }}
-            width="3.7rem"
+            width="3.6rem"
             icon="fa-solid:random"
             cursor="pointer"
-            color="rgb(188 126 121 / 76%)"
+            color="rgb(188 126 121 / 70%)"
+            color={
+              buttonValue.randomSong ? "#DB392CCC" : "rgb(188 126 121 / 70%)"
+            }
+            onClick={() => {
+              setButtonValue({
+                ...buttonValue,
+                randomSong: !buttonValue.randomSong,
+              });
+            }}
           />
           <div></div>
         </div>
