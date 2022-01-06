@@ -80,23 +80,16 @@ router.post(
       const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${imgBucket}/o/${encodeURIComponent(
         imgPath
       )}?alt=media&token=${imgToken}`;
-      const mediaToken =
-        uploadMediaInFirebase[0].metadata.metadata
-          .firebaseStorageDownloadTokens;
       const mediaPath =
         mediaType === "audio"
           ? `Audio/${req.files.media[0].filename}`
           : `Video/${req.files.media[0].filename}`;
-      const mediaBucket = process.env.FIREBASE_STORAGE_BUCKET02;
-      const mediaUrl = `https://firebasestorage.googleapis.com/v0/b/${mediaBucket}/o/${encodeURIComponent(
-        mediaPath
-      )}?alt=media&token=${mediaToken}`;
 
       const newSong = new MVDetail({
         title,
         singerName,
         imgUrl,
-        mediaUrl,
+        mediaPath,
       });
       // saving songs info in mongodb
       const resSong = await newSong.save();

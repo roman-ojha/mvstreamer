@@ -10,19 +10,47 @@ import PauseButton from "../assets/icons/PauseButton.png";
 
 const song = new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio`);
 
-const VolumeController = () => {
-  return (
-    <>
-      <div className="Music_Player_Volume_Controller">
-        <div className="Music_Player_Current_Volume">
-          <div className="Music_Player_Volume_Controller_Button"></div>
-        </div>
-      </div>
-    </>
-  );
-};
+const MusicPlayer = () => {
+  const [play, setPlay] = useState(false);
+  const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
+  const totalSongDuration = song.duration;
+  const totalSongDurationInMin = `${Math.floor(
+    totalSongDuration / 60
+  )}:${Math.floor(totalSongDuration % 60)}`;
+  const currentSongTimeInMin = `${Math.floor(
+    currentSongTime / 60
+  )}:${Math.floor(currentSongTime % 60)}`;
+  var songBufferPercentage;
+  song.onprogress = function () {
+    // getting the buffer length of song
+    songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
+  };
+  var calculateTotalBufferWidth = 0;
+  useEffect(() => {
+    var rotateImage = 0;
+    song.addEventListener("timeupdate", (event) => {
+      // upgrading the song current time and lenght of the progressive bar
+      var calPercentage = (song.currentTime / song.duration) * 100;
+      setCurrentSongTime(song.currentTime);
+      document.getElementsByClassName(
+        "Music_Player_Current_Progress"
+      )[0].style.width = `${calPercentage}%`;
+      rotateImage++;
+      document.getElementsByClassName(
+        // rotating the image according while music playing
+        "Music_Player_Big_Image"
+      )[0].style = `transform: rotate(${rotateImage / 2}deg);`;
+      calculateTotalBufferWidth =
+        calPercentage + songBufferPercentage >= 100
+          ? 100
+          : calPercentage + songBufferPercentage;
+      document.getElementsByClassName(
+        // setting butter width
+        "Music_Player_Buffer_Bar"
+      )[0].style = `width: ${calculateTotalBufferWidth}%`;
+    });
+  }, []);
 
-const ProgressBarController = () => {
   const setSongTimeOnClick = (event) => {
     try {
       var fullProgressBar;
@@ -57,63 +85,18 @@ const ProgressBarController = () => {
       // setting the time where user had clicked
     } catch (err) {}
   };
-  return (
-    <>
-      <div
-        className="Music_Player_ProgressBar_Controller"
-        onClick={setSongTimeOnClick}
-      >
-        <div className="Music_Player_Buffer_Bar">
-          <div className="Music_Player_Current_Progress">
-            <div className="Music_Player_ProgressBar_Controller_Button"></div>
+
+  const VolumeController = () => {
+    return (
+      <>
+        <div className="Music_Player_Volume_Controller">
+          <div className="Music_Player_Current_Volume">
+            <div className="Music_Player_Volume_Controller_Button"></div>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
-const MusicPlayer = () => {
-  const [play, setPlay] = useState(false);
-  const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
-  const totalSongDuration = song.duration;
-  const totalSongDurationInMin = `${Math.floor(
-    totalSongDuration / 60
-  )}:${Math.floor(totalSongDuration % 60)}`;
-  const currentSongTimeInMin = `${Math.floor(
-    currentSongTime / 60
-  )}:${Math.floor(currentSongTime % 60)}`;
-  var songBufferPercentage;
-  song.onprogress = function () {
-    // getting the buffer length of song
-    songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
+      </>
+    );
   };
-  var calculateTotalBufferWidth = 0;
-  useEffect(() => {
-    var rotateImage = 0;
-    const progressBar = document.getElementsByClassName(
-      "Music_Player_Current_Progress"
-    )[0];
-    setCurrentSongTime(song.currentTime);
-    song.addEventListener("timeupdate", (event) => {
-      // upgrading the song current time and lenght of the progressive bar
-      var calPercentage = (song.currentTime / song.duration) * 100;
-      setCurrentSongTime(song.currentTime);
-      progressBar.style.width = `${calPercentage}%`;
-      rotateImage++;
-      document.getElementsByClassName(
-        // rotating the image according while music playing
-        "Music_Player_Big_Image"
-      )[0].style = `transform: rotate(${rotateImage / 2}deg);`;
-      calculateTotalBufferWidth =
-        calPercentage + songBufferPercentage >= 100
-          ? 100
-          : calPercentage + songBufferPercentage;
-      document.getElementsByClassName(
-        // setting butter width
-        "Music_Player_Buffer_Bar"
-      )[0].style = `width: ${calculateTotalBufferWidth}%`;
-    });
-  }, []);
   return (
     <>
       <div className="Music_Player_Background"></div>
@@ -158,7 +141,16 @@ const MusicPlayer = () => {
           >
             {currentSongTimeInMin}
           </h1>
-          <ProgressBarController />
+          <div
+            className="Music_Player_ProgressBar_Controller"
+            onClick={setSongTimeOnClick}
+          >
+            <div className="Music_Player_Buffer_Bar">
+              <div className="Music_Player_Current_Progress">
+                <div className="Music_Player_ProgressBar_Controller_Button"></div>
+              </div>
+            </div>
+          </div>
           <h1 style={{ marginLeft: "1rem" }}>
             {totalSongDurationInMin === "NaN:NaN"
               ? "0:0"

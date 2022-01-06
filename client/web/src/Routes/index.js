@@ -7,7 +7,6 @@ import VideoPage from "../pages/VideoPage";
 import FilePage from "../pages/FilePage";
 import MainPage from "../pages/MainPage";
 import UploadPage from "../pages/UploadPage";
-import MusicStreamer from "../pages/MusicStreamerPage";
 
 const MainRoute = () => {
   return (
@@ -20,8 +19,9 @@ const MainRoute = () => {
           <Route path="file" element={<FilePage />} />
         </Route>
         <Route exact path="/login" element={<LogInPage />} />
-        <Route path="mstream" element={<MusicStreamer />} />
-        <Route exact path="/mplayer" element={<MusicPlayer />} />
+        <Route path="/mplayer" element={<MusicPlayer />}>
+          <Route path=":name" element={<MusicPlayer />} />
+        </Route>
         <Route path="/upload" element={<UploadPage />} />
       </Routes>
     </>
