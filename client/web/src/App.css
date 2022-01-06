@@ -136,7 +136,6 @@
   border-width: 10px;
   border-style: solid;
   border-color: transparent transparent transparent transparent;
-  /* background-color: white; */
 }
 .MVstreamer_MiniPlayer_Icons1,
 .MVstreamer_MiniPlayer_Icons2,
@@ -160,7 +159,6 @@
   /* background-color: blue; */
   display: flex;
   align-items: center;
-  /* justify-content: space-around; */
   position: absolute;
   z-index: 3;
 }
@@ -238,7 +236,6 @@
   height: 65vh;
   position: absolute;
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.596));
-  /* z-index: 2; */
 }
 
 .carousel_MV_Info_and_Play_Button {
@@ -281,7 +278,6 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-weight: 500;
-  /* margin-left: 10px; */
   margin-top: 15px;
   font-size: 26px;
   /* border: 1px solid red; */
@@ -301,12 +297,12 @@
   background-image: linear-gradient(25deg, #82b2ef69 0%, #ff977733 100%);
   border-radius: 0px 15px 15px 15px;
   margin-top: 0px;
-
   flex-wrap: wrap;
 }
 
 .SongCard {
   /* border: 1px solid blue; */
+  width: 30rem;
   display: inline-block;
   border-radius: 13px;
   background-image: linear-gradient(25deg, #236fd1 0%, #ff3d00 100%);
@@ -321,8 +317,9 @@
 }
 
 .SongCard_Container {
-  /* width: 20rem; */
   /* border: 1px solid red; */
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -332,8 +329,8 @@
 
 .SongCard_Image {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  /* margin: 3%; */
   border-radius: 10px;
 }
 .SongCard_Container .SongCard_SongName,

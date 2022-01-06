@@ -1,5 +1,4 @@
 import React from "react";
-import Card_Image from "../assets/images/card_image.jpg";
 import { useNavigate } from "react-router-dom";
 
 const SongCard = (props) => {
@@ -9,7 +8,9 @@ const SongCard = (props) => {
       <div
         className="SongCard"
         onClick={() => {
-          navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`);
+          navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
+            state: props.songDetail,
+          });
         }}
       >
         <div className="SongCard_Container">
