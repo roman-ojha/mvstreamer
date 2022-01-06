@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { instance as axios } from "../services/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const getUploadImage = (event) => {
   try {
@@ -44,14 +46,56 @@ const UploadPage = () => {
       data.append("title", songInfo.title);
       data.append("singerName", songInfo.singerName);
       const res = await axios.post("/upload", data, { withCredentials: true });
-      console.log(await res.data);
+      const resData = await res.data;
+      if (res.status === 204) {
+        console.log("hello");
+        toast.warn("Please Fill the field properly", {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      if (resData.success) {
+        toast.success(resData.msg, {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (err) {
-      console.log(err);
+      toast.error("UnAuthorized", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="Upload_Page_Container">
         <div className="Upload_Page_Image_Container">
           <h1 style={{ visibility: "visible", position: "static" }}>Image</h1>

@@ -4,3 +4,10 @@ export const setUserProfileDetail = (value) => {
     payload: value,
   };
 };
+
+export const setHomePageSongsDetail = (value) => {
+  return {
+    type: "homePageSongsDetail",
+    payload: value,
+  };
+};

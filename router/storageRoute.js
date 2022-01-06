@@ -26,7 +26,7 @@ router.post(
         req.body.singerName === ""
       ) {
         return res
-          .status(401)
+          .status(204)
           .json({ success: false, msg: "Please Fill the field properly" });
       }
       await compressImage(req.files.image[0].path);
@@ -92,7 +92,7 @@ router.post(
       // saving songs info in mongodb
       const resSong = await newSong.save();
       return res
-        .status(200)
+        .status(201)
         .json({ success: true, msg: "Song Upload Successfully" });
     } catch (err) {
       return res.status(500)({

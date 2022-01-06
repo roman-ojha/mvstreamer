@@ -1,7 +1,14 @@
 import express from "express";
 import userAuth from "../middleware/userAuth.js";
 import userDetail from "../models/userDetail_Models.js";
+import MVDetail from "../models/Mv_Models.js";
 const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const getSongs = await MVDetail.find();
+  console.log(getSongs);
+  res.send("Hello");
+});
 
 router.get("/auth", userAuth, async (req, res) => {
   res
