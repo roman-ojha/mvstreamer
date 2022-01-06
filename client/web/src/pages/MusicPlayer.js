@@ -4,9 +4,8 @@ import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
 import Song_Image02 from "../assets/images/carousel_Image_01.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
-import PlayButton from "../assets/icons/PlayButton.png";
-import PauseButton from "../assets/icons/PauseButton.png";
-// import Music01 from "../assets/music/audio01.mp3";
+import PlayButton from "../assets/svg/PlayButton.svg";
+import PauseButton from "../assets/svg/PauseButton.svg";
 import { useParams } from "react-router-dom";
 
 const MusicPlayer = () => {
@@ -192,12 +191,7 @@ const MusicPlayer = () => {
             <img
               src={PauseButton}
               alt="PauseButton"
-              style={{
-                width: "8.1rem",
-                cursor: "pointer",
-                margin: "1.8rem 1.9rem 1.2rem 1.9rem",
-              }}
-              className="Music_PlayerPage_Pause_Button"
+              style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
                 song.pause();
                 setPlay(!play);
@@ -207,11 +201,10 @@ const MusicPlayer = () => {
             <img
               src={PlayButton}
               alt="PlayButton"
-              className="Music_PlayerPage_Play_Button"
+              style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
                 song.play();
                 setPlay(!play);
-                // clearInterval(updateTime);
               }}
             />
           )}
