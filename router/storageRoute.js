@@ -105,12 +105,12 @@ router.post(
   }
 );
 
-router.get("/get/Audio", async (req, res) => {
+router.get("/get/Audio/:songID", async (req, res) => {
   try {
     const range = req.headers.range;
     const metadata = await storage
       .bucket()
-      .file("Audio/a8562239232ec7c691d1bb6a2bfbe84f.mp3")
+      .file(`Audio/${req.params.songID}`)
       .getMetadata();
     // console.log(range);
     if (!range) {
@@ -118,7 +118,7 @@ router.get("/get/Audio", async (req, res) => {
     }
     const videoSize = Number(metadata[0].size);
     // console.log(videoSize);
-    const CHUNCK_SIZE = 10 ** 6; // 1MB
+    const CHUNCK_SIZE = 10 ** 5; // 1MB
     const start = Number(range.replace(/\D/g, ""));
     // console.log(start);
     const end = Math.min(start + CHUNCK_SIZE, videoSize - 1);
@@ -134,7 +134,7 @@ router.get("/get/Audio", async (req, res) => {
     // console.log(headers);
     res.writeHead(206, headers);
     bucket
-      .file("Audio/a8562239232ec7c691d1bb6a2bfbe84f.mp3")
+      .file(`Audio/${req.params.songID}`)
       .createReadStream({ start, end })
       .pipe(res);
     // fs.createReadStream(videoPath, { start, end }).pipe(res);

@@ -517,6 +517,16 @@ p {
   align-items: center;
 }
 
+.Music_PlayerPage_Pause_Button {
+  width: "12rem";
+  cursor: "pointer";
+}
+.Music_PlayerPage_Play_Button {
+  width: "8.1rem";
+  cursor: "pointer";
+  margin: "1.8rem 1.9rem 1.2rem 1.9rem";
+}
+
 /* Designing Upload page */
 
 .Upload_Page_Container {

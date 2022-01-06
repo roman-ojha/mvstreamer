@@ -20,7 +20,7 @@ const MainRoute = () => {
         </Route>
         <Route exact path="/login" element={<LogInPage />} />
         <Route path="/mplayer" element={<MusicPlayer />}>
-          <Route path=":name" element={<MusicPlayer />} />
+          <Route path=":songID" element={<MusicPlayer />} />
         </Route>
         <Route path="/upload" element={<UploadPage />} />
       </Routes>

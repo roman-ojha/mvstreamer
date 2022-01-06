@@ -7,10 +7,13 @@ import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
 // import Music01 from "../assets/music/audio01.mp3";
-
-const song = new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio`);
+import { useParams } from "react-router-dom";
 
 const MusicPlayer = () => {
+  const { songID } = useParams();
+  const [song, setSong] = useState(
+    new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`)
+  );
   const [play, setPlay] = useState(false);
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
   const totalSongDuration = song.duration;
@@ -194,6 +197,7 @@ const MusicPlayer = () => {
                 cursor: "pointer",
                 margin: "1.8rem 1.9rem 1.2rem 1.9rem",
               }}
+              className="Music_PlayerPage_Pause_Button"
               onClick={() => {
                 song.pause();
                 setPlay(!play);
@@ -203,7 +207,7 @@ const MusicPlayer = () => {
             <img
               src={PlayButton}
               alt="PlayButton"
-              style={{ width: "12rem", cursor: "pointer" }}
+              className="Music_PlayerPage_Play_Button"
               onClick={() => {
                 song.play();
                 setPlay(!play);
