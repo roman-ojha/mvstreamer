@@ -78,7 +78,8 @@
 
 /* Designing NavBar and miniplayer of webview */
 .HomePage {
-  min-height: 2000px;
+  min-height: auto;
+  padding-bottom: 11rem;
 }
 
 .MVstreamer_Navbar {

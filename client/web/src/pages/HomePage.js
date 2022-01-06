@@ -19,7 +19,7 @@ const HomePage = () => {
   }, []);
   return (
     <>
-      <div className="HomePage" onClick={() => {}}>
+      <div className="HomePage">
         <Carousel />
         <SongCardCarousel songsDetail={homePageSongDetailStore} />
       </div>

@@ -14,8 +14,6 @@
 !["Music Streamer](design/MusicPlayer_Page.png)
 ### Home Page :
 !["HomePage"](design/Home_Page.png)
-### Login Page :
-!["LoginPage"](design/Login_Page.png)
 
 <br/>
 
@@ -25,7 +23,8 @@
 1. `MVstreamer`
 2. Create .env file in Root Directory
 3. Get all the environment variables which are include in .env.example
-4. Run `npm start` to run the server
+4. Get Firebase SDK Service Account Key & Connect MongoDB
+5. Run `npm start` to run the server
 
 ### React:
 1. `Mvstreamer/client/web`
