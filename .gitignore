@@ -1,4 +1,3 @@
 node_modules
 *.env
 /db/Firebase_serviceAccountKey.json
-/db/Firebase_serviceAccountKey02.json

@@ -1,6 +1,5 @@
 import express from "express";
-// import storage from "../db/FirebaseConn.js";
-import storage from "../db/FirebaseConn02.js";
+import storage from "../db/FirebaseConn.js";
 import authAdmin from "../middleware/authAdmin.js";
 import compressImage from "../functions/compressImage.js";
 import uploadImage from "../middleware/uploadImage.js";
@@ -75,7 +74,7 @@ router.post(
       const imgToken =
         uploadImgInFirebase[0].metadata.metadata.firebaseStorageDownloadTokens;
       const imgPath = `Images/${req.files.image[0].filename}`;
-      const imgBucket = process.env.FIREBASE_STORAGE_BUCKET02;
+      const imgBucket = process.env.FIREBASE_STORAGE_BUCKET;
       const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${imgBucket}/o/${encodeURIComponent(
         imgPath
       )}?alt=media&token=${imgToken}`;

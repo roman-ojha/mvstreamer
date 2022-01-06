@@ -8,7 +8,6 @@ const HomePage = () => {
       <div className="HomePage" onClick={() => {}}>
         <Carousel />
         <SongCardCarousel />
-        <SongCardCarousel />
       </div>
     </>
   );
