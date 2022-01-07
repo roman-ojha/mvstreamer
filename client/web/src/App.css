@@ -647,7 +647,6 @@ p {
 .VideoPlayer_Field {
   width: 100vw;
   height: 100vh;
-  border-radius: 20px;
   /* border: 3px solid blue; */
 }
 .VideoPlayer_Page_NavBar_Plus_BottomBar_Container {
@@ -662,22 +661,110 @@ p {
 }
 
 .VideoPlayer_Page_NavBar_Container {
-  width: 50rem;
-  height: 7rem;
+  width: 45%;
+  height: 6.5rem;
   /* border: 1px solid red; */
   margin-top: 1.5rem;
   background-color: white;
   border-radius: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.VideoPlayer_Page_NavBar_Container img {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 1.2rem;
+}
+.VideoPlayer_NavBar_TitleSName_Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--primary-font-family);
+  /* border: 1px solid red; */
+}
+.VideoPlayer_NavBar_TitleSName_Container h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+.VideoPlayer_NavBar_TitleSName_Container p {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 .VideoPlayer_Page_BottomBar_Controller_Container {
-  width: 70rem;
+  width: 70%;
   height: 10rem;
   /* border: 1px solid blue; */
   margin-bottom: 4rem;
   background-color: white;
   border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;
+  justify-content: space-between; */
+}
+.Video_Player_TimeStamp_ProgressBar_Container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0rem 0rem 0rem;
+  /* border: 1px solid red; */
+  padding: 0px 1rem 0px 1rem;
+}
+.Video_Player_TimeStamp_ProgressBar_Container h1 {
+  font-size: 1.5rem;
 }
 
+.Video_Player_ProgressBar_Controller {
+  width: 85%;
+  height: 0.35rem;
+  /* border: 1px solid red; */
+  background-image: linear-gradient(to left, #ff3c0036, #236ed13d);
+  position: relative;
+  cursor: pointer;
+}
+.Video_Player_Buffer_Bar {
+  height: 100%;
+  width: 50%;
+  border-radius: 10px;
+  background-image: linear-gradient(to left, #a82a035b, #226dd049);
+  display: flex;
+  align-items: center;
+}
+.Video_Player_Current_Progress {
+  width: 30%;
+  height: 180%;
+  /* background-color: red; */
+  border-radius: 10px;
+  background-image: linear-gradient(to left, #ff3d00, #236fd1);
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  transition-duration: 150ms;
+  position: absolute;
+}
+.Video_Player_ProgressBar_Controller_Button {
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 3px solid rgba(233, 233, 233, 0.986);
+  border-radius: 50%;
+  background-color: #b43108;
+  position: absolute;
+  right: -0.5rem;
+}
+
+.VideoPlayer_Pause_Play_Next_Previous_Button_Controller {
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;
