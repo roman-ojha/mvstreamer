@@ -625,6 +625,11 @@ p {
 
 /* Designing Video Player Page ================================================= */
 
+.Video_Plus_Background_Container {
+  width: 100vw;
+  height: 100vh;
+}
+
 .Video_Player_Background {
   background-image: linear-gradient(to bottom right, #ff3d003b, #236fd173);
   width: 100%;
@@ -643,7 +648,11 @@ p {
   top: 0px;
   left: 0px;
 }
-
+.VideoPlayer_Page_Container:fullscreen {
+  position: relative;
+  border: 10px solid blue;
+  top: 100px;
+}
 .VideoPlayer_Field {
   width: 100vw;
   height: 100vh;
@@ -658,6 +667,7 @@ p {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 3000;
 }
 
 .VideoPlayer_Page_NavBar_Container {
@@ -765,6 +775,7 @@ p {
   justify-content: space-evenly;
   align-items: center;
 }
+
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;

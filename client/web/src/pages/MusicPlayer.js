@@ -171,14 +171,13 @@ const MusicPlayer = () => {
         <div className="Music_Player_Pause_Play_Next_Previous_Button_Controller">
           <div></div>
           <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
             width="3.7rem"
             icon="cil:loop-1"
             cursor="pointer"
             color={
               buttonValue.loopSong ? "#1976D2CC" : "rgb(125 148 173 / 56%)"
             }
-            onClick={(event) => {
+            onClick={() => {
               setButtonValue({
                 ...buttonValue,
                 loopSong: !buttonValue.loopSong,
@@ -187,24 +186,17 @@ const MusicPlayer = () => {
           />
 
           <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
             icon="bx:bxs-playlist"
             cursor="pointer"
             color="rgb(125 148 173 / 56%)"
           />
           <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
             icon="fluent:previous-24-filled"
             color="#1976D2CC"
             cursor="pointer"
           />
-          {/* <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
-            width="7rem"
-            icon="bi:play-circle-fill"
-          /> */}
           {buttonValue.playSong ? (
             <img
               src={PauseButton}
@@ -233,14 +225,12 @@ const MusicPlayer = () => {
             />
           )}
           <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
             icon="fluent:next-24-filled"
             color="#DB392CCC"
             cursor="pointer"
           />
           <Icon
-            // style={{ margin: "0px 5px 0px 5px" }}
             width="4rem"
             icon="ic:round-favorite"
             cursor="pointer"
