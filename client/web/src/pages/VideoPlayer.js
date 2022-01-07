@@ -81,7 +81,7 @@ const VideoPlayer = () => {
         document.getElementsByClassName(
           "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
         )[0].style.visibility = "hidden";
-      }, 500);
+      }, 1000);
     });
 
     // controlling on keyboard press
