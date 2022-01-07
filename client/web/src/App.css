@@ -747,7 +747,7 @@ p {
   align-items: center;
 }
 .Video_Player_Current_Progress {
-  width: 30%;
+  width: 0%;
   height: 180%;
   /* background-color: red; */
   border-radius: 10px;

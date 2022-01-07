@@ -6,7 +6,7 @@ import PlayButton from "../assets/svg/PlayButton.svg";
 import Video01 from "../assets/video/Video01.mp4";
 
 const VideoPlayer = () => {
-  const [video, setVideo] = useState();
+  // creating video element
   const [buttonValue, setButtonValue] = useState({
     playVideo: false,
     loopVideo: false,
@@ -15,7 +15,21 @@ const VideoPlayer = () => {
     volume: false,
     frequency: false,
   });
+  const [video] = useState(document.createElement("video"));
+  const [currentVideoTime, setCurrentVideoTime] = useState(video.currentTime);
+  const [totalVideoDuration, setTotalVideoDuration] = useState(0);
+  // const [totalVideoDurationInMin, setTotalVideoDurationInMin] = useState(0);
+  const currentVideoTimeInMin = `${Math.floor(
+    currentVideoTime / 60
+  )}:${Math.floor(currentVideoTime % 60)}`;
+  const totalVideoDurationInMin = `${Math.floor(
+    totalVideoDuration / 60
+  )}:${Math.floor(totalVideoDuration % 60)}`;
+  var songBufferPercentage;
+  var calculateTotalBufferWidth = 0;
+
   function exitHandler() {
+    // event triggered when exiting fullscreen
     if (
       !document.fullscreenElement &&
       !document.webkitIsFullScreen &&
@@ -28,20 +42,35 @@ const VideoPlayer = () => {
       });
     }
   }
-  useEffect(() => {}, []);
-
+  useEffect(() => {
+    // setting attribute for the video element
+    video.setAttribute("src", Video01);
+    video.id = "VideoPlayerPage_VideoPlayer";
+    video.className = "VideoPlayer_Field";
+    const vContainerElm = document.getElementsByClassName(
+      "VideoPlayer_Page_Container"
+    )[0];
+    // appending video element
+    vContainerElm.append(video);
+    video.addEventListener("timeupdate", (event) => {
+      setTotalVideoDuration(video.duration);
+      setCurrentVideoTime(video.currentTime);
+      var calPercentage = (video.currentTime / video.duration) * 100;
+      document.getElementsByClassName(
+        "Video_Player_Current_Progress"
+      )[0].style.width = `${calPercentage}%`;
+    });
+  }, []);
   return (
     <>
       <div className="Video_Player_Plus_Background_Container">
         <div className="Video_Player_Background"></div>
         <div className="VideoPlayer_Page_Container">
-          <video
-            src={Video01}
+          {/* <video
+            // src={Video01}
             id="VideoPlayerPage_VideoPlayer"
             className="VideoPlayer_Field"
-          >
-            <iframe frameBorder="0" allowFullScreen />
-          </video>
+          ></video> */}
           <div className="VideoPlayer_Page_NavBar_Plus_BottomBar_Container">
             <div className="VideoPlayer_Page_NavBar_Container">
               <Icon
@@ -58,7 +87,17 @@ const VideoPlayer = () => {
             </div>
             <div className="VideoPlayer_Page_BottomBar_Controller_Container">
               <div className="Video_Player_TimeStamp_ProgressBar_Container">
-                <h1 style={{ marginRight: "1rem" }}>1:45</h1>
+                <h1
+                  style={{
+                    marginRight: "1rem",
+                    width: "6rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {currentVideoTimeInMin}
+                </h1>
                 <div className="Video_Player_ProgressBar_Controller">
                   <div className="Video_Player_Buffer_Bar">
                     <div className="Video_Player_Current_Progress">
@@ -66,7 +105,18 @@ const VideoPlayer = () => {
                     </div>
                   </div>
                 </div>
-                <h1 style={{ marginLeft: "1rem" }}> 5:13</h1>
+                <h1
+                  style={{
+                    marginLeft: "1rem",
+                    width: "6rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  {totalVideoDurationInMin}
+                </h1>
               </div>
               <div className="VideoPlayer_Pause_Play_Next_Previous_Button_Controller">
                 <Icon
