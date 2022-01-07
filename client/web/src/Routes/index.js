@@ -7,6 +7,7 @@ import VideoPage from "../pages/VideoPage";
 import FilePage from "../pages/FilePage";
 import MainPage from "../pages/MainPage";
 import UploadPage from "../pages/UploadPage";
+import VideoPlayer from "../pages/VideoPlayer";
 
 const MainRoute = () => {
   return (
@@ -22,6 +23,7 @@ const MainRoute = () => {
         <Route path="/mplayer" element={<MusicPlayer />}>
           <Route path=":songID" element={<MusicPlayer />} />
         </Route>
+        <Route path="/vplayer" element={<VideoPlayer />}></Route>
         <Route path="/upload" element={<UploadPage />} />
       </Routes>
     </>

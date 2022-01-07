@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
-import Song_Image02 from "../assets/images/carousel_Image_01.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
