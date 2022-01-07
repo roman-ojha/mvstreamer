@@ -61,6 +61,41 @@ const VideoPlayer = () => {
       )[0].style.width = `${calPercentage}%`;
     });
   }, []);
+
+  const setVideoTimeOnClick = (event) => {
+    try {
+      var fullProgressBar;
+      if (
+        event.target.className === "Video_Player_ProgressBar_Controller_Button"
+      ) {
+        // if we are clicking in the button it means that we don't want to move any where so we will return
+        return;
+      } else if (event.target.className === "Video_Player_Current_Progress") {
+        fullProgressBar = event.target.parentNode.parentNode;
+      } else if (event.target.className === "Video_Player_Buffer_Bar") {
+        fullProgressBar = event.target.parentNode;
+      } else if (
+        event.target.className === "Video_Player_ProgressBar_Controller"
+      ) {
+        fullProgressBar = event.target;
+      }
+      const totalWidth = fullProgressBar.getBoundingClientRect().width;
+      const clickedWidth =
+        event.clientX - event.target.getBoundingClientRect().left;
+      // getting the position of the mouse where user click in progressive bar according to that element not windows element
+      const getPercentage = (clickedWidth / totalWidth) * 100;
+      // getting the percentage where user clicked on progressive bar
+      if (getPercentage < 0) {
+        getPercentage = 0;
+      } else if (getPercentage > 100) {
+        getPercentage = 100;
+      }
+      const totalSongDuration = video.duration;
+      const getClickTimePosition = (getPercentage / 100) * totalSongDuration;
+      video.currentTime = getClickTimePosition;
+      // setting the time where user had clicked
+    } catch (err) {}
+  };
   return (
     <>
       <div className="Video_Player_Plus_Background_Container">
@@ -98,7 +133,10 @@ const VideoPlayer = () => {
                 >
                   {currentVideoTimeInMin}
                 </h1>
-                <div className="Video_Player_ProgressBar_Controller">
+                <div
+                  className="Video_Player_ProgressBar_Controller"
+                  onClick={setVideoTimeOnClick}
+                >
                   <div className="Video_Player_Buffer_Bar">
                     <div className="Video_Player_Current_Progress">
                       <div className="Video_Player_ProgressBar_Controller_Button"></div>
