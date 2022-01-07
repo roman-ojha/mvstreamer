@@ -15,9 +15,21 @@ const VideoPlayer = () => {
     volume: false,
     frequency: false,
   });
-  useEffect(() => {
-    setVideo(document.querySelector("video"));
-  }, []);
+  function exitHandler() {
+    if (
+      !document.fullscreenElement &&
+      !document.webkitIsFullScreen &&
+      !document.mozFullScreen &&
+      !document.msFullscreenElement
+    ) {
+      setButtonValue({
+        ...buttonValue,
+        fullScreen: !buttonValue.fullScreen,
+      });
+    }
+  }
+  useEffect(() => {}, []);
+
   return (
     <>
       <div className="Video_Player_Plus_Background_Container">
@@ -106,7 +118,7 @@ const VideoPlayer = () => {
                       video.pause();
                       setButtonValue({
                         ...buttonValue,
-                        playVideo: !buttonValue.playVideo,
+                        playVideo: false,
                       });
                     }}
                   />
@@ -118,7 +130,7 @@ const VideoPlayer = () => {
                       video.play();
                       setButtonValue({
                         ...buttonValue,
-                        playVideo: !buttonValue.playVideo,
+                        playVideo: true,
                       });
                     }}
                   />
@@ -153,10 +165,22 @@ const VideoPlayer = () => {
                     icon="mdi:fullscreen-exit"
                     onClick={() => {
                       document.exitFullscreen();
-                      setButtonValue({
-                        ...buttonValue,
-                        fullScreen: !buttonValue.fullScreen,
-                      });
+                      document.addEventListener(
+                        "fullscreenchange",
+                        exitHandler
+                      );
+                      document.addEventListener(
+                        "webkitfullscreenchange",
+                        exitHandler
+                      );
+                      document.addEventListener(
+                        "mozfullscreenchange",
+                        exitHandler
+                      );
+                      document.addEventListener(
+                        "MSFullscreenChange",
+                        exitHandler
+                      );
                     }}
                   />
                 ) : (
