@@ -12,6 +12,8 @@
 ## UI :
 ### Music Streamer Page:
 !["Music Streamer](design/MusicPlayer_Page.png)
+### Video Streamer Page :
+!["HomePage"](design/VideoPlayer.png)
 ### Home Page :
 !["HomePage"](design/Home_Page.png)
 
