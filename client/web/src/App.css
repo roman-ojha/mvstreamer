@@ -668,6 +668,7 @@ p {
   justify-content: space-between;
   align-items: center;
   z-index: 3000;
+  visibility: visible;
 }
 
 .VideoPlayer_Page_NavBar_Container {
