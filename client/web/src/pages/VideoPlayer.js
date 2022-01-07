@@ -53,6 +53,7 @@ const VideoPlayer = () => {
     )[0];
     // appending video element
     vContainerElm.append(video);
+    // controlling state on video time update
     video.addEventListener("timeupdate", (event) => {
       setTotalVideoDuration(video.duration);
       setCurrentVideoTime(video.currentTime);
@@ -62,6 +63,7 @@ const VideoPlayer = () => {
       )[0].style.width = `${calPercentage}%`;
     });
 
+    // hiding and make visible when mouse is out and mouse is move event
     document.addEventListener("mousemove", () => {
       var calPercentage = (video.currentTime / video.duration) * 100;
       document.getElementsByClassName(
@@ -80,6 +82,79 @@ const VideoPlayer = () => {
           "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
         )[0].style.visibility = "hidden";
       }, 500);
+    });
+
+    // controlling on keyboard press
+    document.addEventListener("keydown", (e) => {
+      if (e.key === " ") {
+        if (!video.paused) {
+          video.pause();
+          setButtonValue({
+            ...buttonValue,
+            playVideo: false,
+          });
+        } else {
+          video.play();
+          setButtonValue({
+            ...buttonValue,
+            playVideo: true,
+          });
+        }
+      } else if (e.key === "ArrowRight") {
+        video.currentTime = video.currentTime + 5;
+      } else if (e.key === "ArrowLeft") {
+        video.currentTime = video.currentTime - 5;
+      } else if (e.key === "ArrowUp") {
+        if (video.volume < 0.9) {
+          video.volume = video.volume + 0.07;
+        } else {
+          video.volume = 1;
+        }
+      } else if (e.key === "ArrowDown") {
+        if (video.volume > 0.1) {
+          video.volume = video.volume - 0.07;
+        } else {
+          video.volume = 0;
+        }
+      }
+      // setting interval if use holding press button and need to do action over and over again
+      const keyInterval = setInterval(() => {
+        if (e.key === " ") {
+          if (!video.paused) {
+            video.pause();
+            setButtonValue({
+              ...buttonValue,
+              playVideo: false,
+            });
+          } else {
+            video.play();
+            setButtonValue({
+              ...buttonValue,
+              playVideo: true,
+            });
+          }
+        } else if (e.key === "ArrowRight") {
+          video.currentTime = video.currentTime + 5;
+        } else if (e.key === "ArrowLeft") {
+          video.currentTime = video.currentTime - 5;
+        } else if (e.key === "ArrowUp") {
+          if (video.volume < 0.9) {
+            video.volume = video.volume + 0.07;
+          } else {
+            video.volume = 1;
+          }
+        } else if (e.key === "ArrowDown") {
+          if (video.volume > 0.1) {
+            video.volume = video.volume - 0.07;
+          } else {
+            video.volume = 0;
+          }
+        }
+      }, 500);
+      document.addEventListener("keyup", () => {
+        // need to stop the interval if use stop pressing the key button
+        clearInterval(keyInterval);
+      });
     });
   }, []);
   const setVideoTimeOnClick = (event) => {
