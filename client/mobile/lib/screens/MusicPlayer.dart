@@ -22,6 +22,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
   bool audioPlaying = false;
   String currentAudioTime = "0:0";
   String audioDuration = "0:0";
+  int? audioDurationInSec;
+  double? progressPercentage = 0.0;
 
   @override
   void initState() {
@@ -44,11 +46,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
         int sec = (duration.inSeconds) % 60;
         int min = (duration.inSeconds) ~/ 60;
         currentAudioTime = "$min:$sec";
+        progressPercentage =
+            ((duration.inSeconds / audioDurationInSec!) * 100) / 100;
       });
     });
 
     audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
+        audioDurationInSec = duration.inSeconds;
         int sec = (duration.inSeconds) % 60;
         int min = (duration.inSeconds) ~/ 60;
         audioDuration = "$min:$sec";
@@ -121,13 +126,13 @@ class _MusicPlayerState extends State<MusicPlayer> {
                         ),
                         padding: EdgeInsets.only(
                           left: 15,
-                          top: 5,
+                          top: 15,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(
                           right: 15,
-                          top: 5,
+                          top: 15,
                         ),
                         child: CircleAvatar(
                           backgroundImage: AssetImage("assets/images/user.jpg"),
@@ -157,92 +162,186 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircleAvatar(
-                        backgroundImage:
-                            AssetImage("assets/images/carousel_Image_01.jpg"),
-                        radius: 100,
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        (currentAudioTime),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      // FutureBuilder(
-                      //   // For audio total duration
-                      //   future: _getDuration(),
-                      //   builder: (BuildContext context,
-                      //       AsyncSnapshot<int> snapshot) {
-                      //     switch (snapshot.connectionState) {
-                      //       case ConnectionState.none:
-                      //         return const Text("0:0");
-                      //       case ConnectionState.active:
-                      //         return const Text("0:0");
-                      //       case ConnectionState.waiting:
-                      //         return const Text("0:0");
-                      //       case ConnectionState.done:
-                      //         if (snapshot.hasData) {
-                      //           int duration = snapshot.data!;
-                      //           int audioDurationMin = duration ~/ 1000 ~/ 60;
-                      //           int audioDurationSec = duration ~/ 1000 % 60;
-                      //           // getting audio duration in min and second
-                      //           return Text(
-                      //             "$audioDurationMin:$audioDurationSec",
-                      //           );
-                      //         } else {
-                      //           return const Text("0:0");
-                      //         }
-                      //     }
-                      //   },
-                      // ),
-
-                      Flexible(
-                        child: Stack(
-                          children: [
-                            FractionallySizedBox(
-                              widthFactor: 0.5,
-                              // heightFactor: 0.1,
-                              child: Container(
-                                height: 4.0,
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    stops: [0.0, 1.0],
-                                    colors: [
-                                      Color.fromRGBO(35, 110, 209, 0.30),
-                                      Color.fromRGBO(255, 60, 0, 0.30)
-                                    ],
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     CircleAvatar(
+                  //       backgroundImage:
+                  //           AssetImage("assets/images/carousel_Image_01.jpg"),
+                  //       radius: 110,
+                  //     )
+                  //   ],
+                  // ),
+                  Flexible(
+                    child: FractionallySizedBox(
+                      heightFactor: 0.6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    "assets/images/carousel_Image_01.jpg"),
+                                radius: 110,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    MusicPlayerIcon.playlist,
+                                    size: 28,
+                                    color: Color.fromRGBO(125, 148, 173, 0.70),
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(2.0),
+                                  SizedBox(
+                                    width: 30.0,
+                                  ),
+                                  Icon(
+                                    Icons.favorite_rounded,
+                                    size: 28,
+                                    color: Color.fromRGBO(188, 126, 121, 0.7),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 30.0,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            (currentAudioTime),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+
+                        // FutureBuilder(
+                        //   // For audio total duration
+                        //   future: _getDuration(),
+                        //   builder: (BuildContext context,
+                        //       AsyncSnapshot<int> snapshot) {
+                        //     switch (snapshot.connectionState) {
+                        //       case ConnectionState.none:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.active:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.waiting:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.done:
+                        //         if (snapshot.hasData) {
+                        //           int duration = snapshot.data!;
+                        //           int audioDurationMin = duration ~/ 1000 ~/ 60;
+                        //           int audioDurationSec = duration ~/ 1000 % 60;
+                        //           // getting audio duration in min and second
+                        //           return Text(
+                        //             "$audioDurationMin:$audioDurationSec",
+                        //           );
+                        //         } else {
+                        //           return const Text("0:0");
+                        //         }
+                        //     }
+                        //   },
+                        // ),
+
+                        Flexible(
+                          // Progress bar =====================================
+                          child: Stack(
+                            alignment: AlignmentDirectional.centerStart,
+                            children: [
+                              FractionallySizedBox(
+                                widthFactor: 0.9,
+                                // heightFactor: 0.1,
+                                child: Container(
+                                  height: 4.0,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      stops: [0.0, 1.0],
+                                      colors: [
+                                        Color.fromRGBO(35, 110, 209, 0.30),
+                                        Color.fromRGBO(255, 60, 0, 0.30)
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(2.0),
+                                    ),
                                   ),
                                 ),
                               ),
+                              Stack(
+                                alignment: AlignmentDirectional.centerEnd,
+                                children: [
+                                  FractionallySizedBox(
+                                    widthFactor: progressPercentage,
+                                    child: AnimatedContainer(
+                                      duration:
+                                          const Duration(microseconds: 200),
+                                      height: 8.0,
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          stops: [0.0, 1.0],
+                                          colors: [
+                                            Color.fromRGBO(35, 111, 209, 1),
+                                            Color.fromRGBO(255, 61, 0, 1)
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 18.0,
+                                    width: 18.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromRGBO(180, 49, 8, 1),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: const Color.fromRGBO(
+                                              233, 233, 233, 0.986)),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(9.0),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 30.0,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            (audioDuration),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        (audioDuration),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Padding(
+                    // Bottoms Bar Buttons =========================================================
                     padding: const EdgeInsets.only(
-                      bottom: 15,
+                      bottom: 30,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -290,8 +389,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           color: Color.fromRGBO(219, 56, 44, 0.8),
                         ),
                         const Icon(
-                          Icons.favorite,
-                          size: 28,
+                          MusicPlayerIcon.random,
+                          size: 23,
                           color: Color.fromRGBO(188, 126, 121, 0.7),
                         ),
                       ],
