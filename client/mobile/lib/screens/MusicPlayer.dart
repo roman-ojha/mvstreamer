@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import "../assets/icons/music_player_icons.dart";
+import "package:google_fonts/google_fonts.dart";
 
 class MusicPlayer extends StatefulWidget {
   const MusicPlayer({Key? key}) : super(key: key);
@@ -68,17 +69,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
-                          "Aa Jaane Ki Zid Na Karo",
-                          style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
+                          "Aaj Jaane Ki Zid Na Karo",
+                          style: GoogleFonts.libreFranklin(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.italic,
                           ),
                         ),
                         Text(
                           "Ariji sing",
-                          style: TextStyle(
+                          style: GoogleFonts.libreFranklin(
                             fontSize: 15,
                           ),
                         )
