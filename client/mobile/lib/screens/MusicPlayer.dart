@@ -8,6 +8,8 @@ import "../assets/icons/music_player_icons.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:audioplayers/audioplayers.dart";
 
+final _fullProgressBar = GlobalKey();
+
 class MusicPlayer extends StatefulWidget {
   const MusicPlayer({Key? key}) : super(key: key);
 
@@ -24,6 +26,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
   String audioDuration = "0:0";
   int? audioDurationInSec;
   double? progressPercentage = 0.0;
+  double? _currentTapPosition;
+  double? _totalProgressBarLenght;
+  double? _tapPositionPercentage;
 
   @override
   void initState() {
@@ -35,12 +40,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
     if (Platform.isIOS) {
       audioCache.fixedPlayer?.notificationService.startHeadlessService();
     }
-
     audioCache = AudioCache(fixedPlayer: audioPlayer);
     audioPlayer.onPlayerStateChanged.listen((event) {
       // print("hello");
     });
-
     audioPlayer.onAudioPositionChanged.listen((duration) {
       setState(() {
         int sec = (duration.inSeconds) % 60;
@@ -50,7 +53,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
             ((duration.inSeconds / audioDurationInSec!) * 100) / 100;
       });
     });
-
     audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
         audioDurationInSec = duration.inSeconds;
@@ -259,51 +261,93 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           child: Stack(
                             alignment: AlignmentDirectional.centerStart,
                             children: [
-                              FractionallySizedBox(
-                                widthFactor: 0.9,
-                                // heightFactor: 0.1,
-                                child: Container(
-                                  height: 4.0,
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      stops: [0.0, 1.0],
-                                      colors: [
-                                        Color.fromRGBO(35, 110, 209, 0.30),
-                                        Color.fromRGBO(255, 60, 0, 0.30)
-                                      ],
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(2.0),
+                              GestureDetector(
+                                // detecting on tap event on progress bar
+                                key: _fullProgressBar,
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.9,
+                                  child: Container(
+                                    height: 4.0,
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        stops: [0.0, 1.0],
+                                        colors: [
+                                          Color.fromRGBO(35, 110, 209, 0.30),
+                                          Color.fromRGBO(255, 60, 0, 0.30)
+                                        ],
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(2.0),
+                                      ),
                                     ),
                                   ),
                                 ),
+                                onPanUpdate: (position) {
+                                  _currentTapPosition =
+                                      position.localPosition.dx;
+                                  _totalProgressBarLenght = _fullProgressBar
+                                      .currentContext!.size!.width;
+                                  _tapPositionPercentage =
+                                      _currentTapPosition! /
+                                          _totalProgressBarLenght!;
+                                  if (_tapPositionPercentage! >= 1.0) {
+                                    _tapPositionPercentage = 1.0;
+                                  }
+                                  audioPlayer.seek(
+                                    Duration(
+                                        seconds: (audioDurationInSec! *
+                                                _tapPositionPercentage!)
+                                            .toInt()),
+                                  );
+                                },
                               ),
                               Stack(
                                 alignment: AlignmentDirectional.centerEnd,
                                 children: [
-                                  FractionallySizedBox(
-                                    widthFactor: progressPercentage,
-                                    child: AnimatedContainer(
-                                      duration:
-                                          const Duration(microseconds: 200),
-                                      height: 8.0,
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          stops: [0.0, 1.0],
-                                          colors: [
-                                            Color.fromRGBO(35, 111, 209, 1),
-                                            Color.fromRGBO(255, 61, 0, 1)
-                                          ],
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(4.0),
+                                  GestureDetector(
+                                    child: FractionallySizedBox(
+                                      widthFactor: progressPercentage,
+                                      child: AnimatedContainer(
+                                        duration:
+                                            const Duration(microseconds: 200),
+                                        height: 8.0,
+                                        decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            stops: [0.0, 1.0],
+                                            colors: [
+                                              Color.fromRGBO(35, 111, 209, 1),
+                                              Color.fromRGBO(255, 61, 0, 1)
+                                            ],
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(4.0),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                    onPanUpdate: (position) {
+                                      _currentTapPosition =
+                                          position.localPosition.dx;
+                                      _totalProgressBarLenght = _fullProgressBar
+                                          .currentContext!.size!.width;
+                                      _tapPositionPercentage =
+                                          _currentTapPosition! /
+                                              _totalProgressBarLenght!;
+
+                                      if (_tapPositionPercentage! >= 1.0) {
+                                        _tapPositionPercentage = 1.0;
+                                      }
+                                      audioPlayer.seek(
+                                        Duration(
+                                            seconds: (audioDurationInSec! *
+                                                    _tapPositionPercentage!)
+                                                .toInt()),
+                                      );
+                                    },
                                   ),
                                   Container(
                                     height: 18.0,

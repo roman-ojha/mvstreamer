@@ -3,8 +3,12 @@ import 'screens/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/mainPage.dart';
 import 'screens/MusicPlayer.dart';
+import "package:flutter/services.dart";
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await dotenv.load(fileName: ".env");
   runApp(const MVstreamer());
 }
