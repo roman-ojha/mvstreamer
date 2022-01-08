@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "../assets/icons/music_player_icons.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:audioplayers/audioplayers.dart";
 
 class MusicPlayer extends StatefulWidget {
   const MusicPlayer({Key? key}) : super(key: key);
@@ -11,6 +14,60 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
+  AudioPlayer audioPlayer = AudioPlayer();
+  late AudioCache audioCache;
+  String audioPath = "music/Music01.mp3";
+  // String audioPath = "music/Music01.mp3";
+  bool audioPlaying = false;
+
+  var currentAudioTime = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (kIsWeb) {
+      return;
+    }
+    if (Platform.isIOS) {
+      audioCache.fixedPlayer?.notificationService.startHeadlessService();
+    }
+
+    audioCache = AudioCache(fixedPlayer: audioPlayer);
+    audioPlayer.onPlayerStateChanged.listen((event) {
+      // print("hello");
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((event) {
+      // setState(() async {
+      //   currentAudioTime = await audioPlayer.getCurrentPosition();
+      // });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.release();
+    audioPlayer.dispose();
+    audioCache.clearAll();
+  }
+
+  playAudio() async {
+    await audioCache.play(audioPath);
+  }
+
+  pauseAudio() async {
+    await audioPlayer.pause();
+  }
+
+  Future<int> _getDuration() async {
+    final uri = await audioCache.load(audioPath);
+    await audioPlayer.setUrl(uri.toString());
+    final audioDuration = audioPlayer.getDuration();
+    return audioDuration;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,16 +112,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircleAvatar(
-                        backgroundImage:
-                            AssetImage("assets/images/carousel_Image_01.jpg"),
-                        radius: 100,
-                      )
-                    ],
-                  ),
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -87,22 +134,53 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       ],
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircleAvatar(
+                        backgroundImage:
+                            AssetImage("assets/images/carousel_Image_01.jpg"),
+                        radius: 100,
+                      )
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
-                          "0:31",
-                          style: TextStyle(
+                          "$currentAudioTime",
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text(
-                          "6:31",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                        FutureBuilder(
+                          // For audio total duration
+                          future: _getDuration(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<int> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return const Text("0:0");
+                              case ConnectionState.active:
+                                return const Text("0:0");
+                              case ConnectionState.waiting:
+                                return const Text("0:0");
+                              case ConnectionState.done:
+                                if (snapshot.hasData) {
+                                  int duration = snapshot.data!;
+                                  int audioDurationMin = duration ~/ 1000 ~/ 60;
+                                  int audioDurationSec = duration ~/ 1000 % 60;
+                                  // getting audio duration in min and second
+                                  return Text(
+                                    "$audioDurationMin:$audioDurationSec",
+                                  );
+                                } else {
+                                  return const Text("0:0");
+                                }
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -113,71 +191,53 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            MusicPlayerIcon.loop,
-                            size: 25,
-                            color: Color.fromRGBO(125, 148, 173, 0.70),
-                          ),
+                      children: [
+                        const Icon(
+                          MusicPlayerIcon.loop,
+                          size: 25,
+                          color: Color.fromRGBO(125, 148, 173, 0.70),
                         ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            MusicPlayerIcon.playlist,
-                            size: 28,
-                            color: Color.fromRGBO(125, 148, 173, 0.70),
-                          ),
+                        const Icon(
+                          MusicPlayerIcon.previous,
+                          size: 30,
+                          color: Color.fromRGBO(25, 117, 210, 0.8),
                         ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            MusicPlayerIcon.previous,
-                            size: 30,
-                            color: Color.fromRGBO(25, 117, 210, 0.8),
-                          ),
+                        audioPlaying
+                            ? IconButton(
+                                icon: const Image(
+                                  image: AssetImage(
+                                      "assets/images/PauseButton.png"),
+                                ),
+                                iconSize: 70,
+                                onPressed: () {
+                                  pauseAudio();
+                                  setState(() {
+                                    audioPlaying = false;
+                                  });
+                                },
+                              )
+                            : IconButton(
+                                icon: const Image(
+                                  image: AssetImage(
+                                      "assets/images/PlayButton.png"),
+                                ),
+                                onPressed: () {
+                                  playAudio();
+                                  setState(() {
+                                    audioPlaying = true;
+                                  });
+                                },
+                                iconSize: 70,
+                              ),
+                        const Icon(
+                          MusicPlayerIcon.next,
+                          size: 30,
+                          color: Color.fromRGBO(219, 56, 44, 0.8),
                         ),
-                        Flexible(
-                          flex: 2,
-                          fit: FlexFit.loose,
-                          child: Image(
-                            image: AssetImage(
-                              "assets/images/PlayButton.png",
-                            ),
-                            width: 75,
-                            height: 75,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            MusicPlayerIcon.next,
-                            size: 30,
-                            color: Color.fromRGBO(219, 56, 44, 0.8),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            Icons.favorite,
-                            size: 28,
-                            color: Color.fromRGBO(188, 126, 121, 0.7),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Icon(
-                            MusicPlayerIcon.random,
-                            size: 25,
-                            color: Color.fromRGBO(188, 126, 121, 0.7),
-                          ),
+                        const Icon(
+                          Icons.favorite,
+                          size: 28,
+                          color: Color.fromRGBO(188, 126, 121, 0.7),
                         ),
                       ],
                     ),

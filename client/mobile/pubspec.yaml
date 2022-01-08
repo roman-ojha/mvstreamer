@@ -44,6 +44,7 @@ dependencies:
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
   google_fonts: ^2.2.0
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
     - assets/icons/App_Icon.png
     - assets/icons/google_icon.png
     - assets/icons/Search_Icon.png
@@ -79,6 +81,7 @@ flutter:
     - assets/images/Music_Player_Background.png
     - assets/images/PauseButton.png
     - assets/images/PlayButton.png
+    - assets/music/Music01.mp3
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
