@@ -65,11 +65,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   playAudio() async {
-    // await audioCache.play(audioPath);
     await audioPlayer.play(
         "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b");
-
-    // print(audioPlayer.getDuration());
   }
 
   pauseAudio() async {
@@ -81,13 +78,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
   //       "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b"));
   //   final dir = await getApplicationDocumentsDirectory();
   //   final file = File('${dir.path}/audio.mp3');
-
   //   await file.writeAsBytes(bytes);
   //   if (file.existsSync()) {
   //     setState(() => audioPath = file.path);
   //   }
   // }
-
   // Future<int> _getDuration() async {
   //   final uri = await audioCache.load(
   //       "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b");
@@ -172,52 +167,78 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       )
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          (currentAudioTime),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        (currentAudioTime),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
                         ),
-                        // FutureBuilder(
-                        //   // For audio total duration
-                        //   future: _getDuration(),
-                        //   builder: (BuildContext context,
-                        //       AsyncSnapshot<int> snapshot) {
-                        //     switch (snapshot.connectionState) {
-                        //       case ConnectionState.none:
-                        //         return const Text("0:0");
-                        //       case ConnectionState.active:
-                        //         return const Text("0:0");
-                        //       case ConnectionState.waiting:
-                        //         return const Text("0:0");
-                        //       case ConnectionState.done:
-                        //         if (snapshot.hasData) {
-                        //           int duration = snapshot.data!;
-                        //           int audioDurationMin = duration ~/ 1000 ~/ 60;
-                        //           int audioDurationSec = duration ~/ 1000 % 60;
-                        //           // getting audio duration in min and second
-                        //           return Text(
-                        //             "$audioDurationMin:$audioDurationSec",
-                        //           );
-                        //         } else {
-                        //           return const Text("0:0");
-                        //         }
-                        //     }
-                        //   },
-                        // ),
-                        Text(
-                          (audioDuration),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                      ),
+
+                      // FutureBuilder(
+                      //   // For audio total duration
+                      //   future: _getDuration(),
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<int> snapshot) {
+                      //     switch (snapshot.connectionState) {
+                      //       case ConnectionState.none:
+                      //         return const Text("0:0");
+                      //       case ConnectionState.active:
+                      //         return const Text("0:0");
+                      //       case ConnectionState.waiting:
+                      //         return const Text("0:0");
+                      //       case ConnectionState.done:
+                      //         if (snapshot.hasData) {
+                      //           int duration = snapshot.data!;
+                      //           int audioDurationMin = duration ~/ 1000 ~/ 60;
+                      //           int audioDurationSec = duration ~/ 1000 % 60;
+                      //           // getting audio duration in min and second
+                      //           return Text(
+                      //             "$audioDurationMin:$audioDurationSec",
+                      //           );
+                      //         } else {
+                      //           return const Text("0:0");
+                      //         }
+                      //     }
+                      //   },
+                      // ),
+
+                      Flexible(
+                        child: Stack(
+                          children: [
+                            FractionallySizedBox(
+                              widthFactor: 0.5,
+                              // heightFactor: 0.1,
+                              child: Container(
+                                height: 4.0,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    stops: [0.0, 1.0],
+                                    colors: [
+                                      Color.fromRGBO(35, 110, 209, 0.30),
+                                      Color.fromRGBO(255, 60, 0, 0.30)
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(2.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        (audioDuration),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
