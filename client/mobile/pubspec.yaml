@@ -43,6 +43,7 @@ dependencies:
   path_provider: ^2.0.8
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
+  google_fonts: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,9 @@ flutter:
     - assets/images/carousel_Image_01.jpg
     - assets/images/carousel_Image_02.jpg
     - assets/images/carousel_Image_03.jpg
+    - assets/images/Music_Player_Background.png
+    - assets/images/PauseButton.png
+    - assets/images/PlayButton.png
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -101,5 +105,8 @@ flutter:
     - family: MiniPlayerIcon
       fonts:
         - asset: assets/fonts/MiniPlayerIcon.ttf
+    - family: MusicPlayerIcon
+      fonts:
+        - asset: assets/fonts/MusicPlayerIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
