@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// import 'package:http/http.dart';
+// import 'package:path_provider/path_provider.dart';
 import "../assets/icons/music_player_icons.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:audioplayers/audioplayers.dart";
@@ -17,10 +19,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
   String audioPath = "music/Music01.mp3";
-  // String audioPath = "music/Music01.mp3";
   bool audioPlaying = false;
-
-  var currentAudioTime = 0;
+  String currentAudioTime = "0:0";
+  String audioDuration = "0:0";
 
   @override
   void initState() {
@@ -38,10 +39,20 @@ class _MusicPlayerState extends State<MusicPlayer> {
       // print("hello");
     });
 
-    audioPlayer.onAudioPositionChanged.listen((event) {
-      // setState(() async {
-      //   currentAudioTime = await audioPlayer.getCurrentPosition();
-      // });
+    audioPlayer.onAudioPositionChanged.listen((duration) {
+      setState(() {
+        int sec = (duration.inSeconds) % 60;
+        int min = (duration.inSeconds) ~/ 60;
+        currentAudioTime = "$min:$sec";
+      });
+    });
+
+    audioPlayer.onDurationChanged.listen((duration) {
+      setState(() {
+        int sec = (duration.inSeconds) % 60;
+        int min = (duration.inSeconds) ~/ 60;
+        audioDuration = "$min:$sec";
+      });
     });
   }
 
@@ -54,19 +65,36 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   playAudio() async {
-    await audioCache.play(audioPath);
+    // await audioCache.play(audioPath);
+    await audioPlayer.play(
+        "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b");
+
+    // print(audioPlayer.getDuration());
   }
 
   pauseAudio() async {
     await audioPlayer.pause();
   }
 
-  Future<int> _getDuration() async {
-    final uri = await audioCache.load(audioPath);
-    await audioPlayer.setUrl(uri.toString());
-    final audioDuration = audioPlayer.getDuration();
-    return audioDuration;
-  }
+  // Future _loadFile() async {
+  //   final bytes = await readBytes(Uri.parse(
+  //       "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b"));
+  //   final dir = await getApplicationDocumentsDirectory();
+  //   final file = File('${dir.path}/audio.mp3');
+
+  //   await file.writeAsBytes(bytes);
+  //   if (file.existsSync()) {
+  //     setState(() => audioPath = file.path);
+  //   }
+  // }
+
+  // Future<int> _getDuration() async {
+  //   final uri = await audioCache.load(
+  //       "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b");
+  //   await audioPlayer.setUrl(uri.toString());
+  //   final audioDuration = audioPlayer.getDuration();
+  //   return audioDuration;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -150,37 +178,43 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "$currentAudioTime",
+                          (currentAudioTime),
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        FutureBuilder(
-                          // For audio total duration
-                          future: _getDuration(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<int> snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.none:
-                                return const Text("0:0");
-                              case ConnectionState.active:
-                                return const Text("0:0");
-                              case ConnectionState.waiting:
-                                return const Text("0:0");
-                              case ConnectionState.done:
-                                if (snapshot.hasData) {
-                                  int duration = snapshot.data!;
-                                  int audioDurationMin = duration ~/ 1000 ~/ 60;
-                                  int audioDurationSec = duration ~/ 1000 % 60;
-                                  // getting audio duration in min and second
-                                  return Text(
-                                    "$audioDurationMin:$audioDurationSec",
-                                  );
-                                } else {
-                                  return const Text("0:0");
-                                }
-                            }
-                          },
+                        // FutureBuilder(
+                        //   // For audio total duration
+                        //   future: _getDuration(),
+                        //   builder: (BuildContext context,
+                        //       AsyncSnapshot<int> snapshot) {
+                        //     switch (snapshot.connectionState) {
+                        //       case ConnectionState.none:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.active:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.waiting:
+                        //         return const Text("0:0");
+                        //       case ConnectionState.done:
+                        //         if (snapshot.hasData) {
+                        //           int duration = snapshot.data!;
+                        //           int audioDurationMin = duration ~/ 1000 ~/ 60;
+                        //           int audioDurationSec = duration ~/ 1000 % 60;
+                        //           // getting audio duration in min and second
+                        //           return Text(
+                        //             "$audioDurationMin:$audioDurationSec",
+                        //           );
+                        //         } else {
+                        //           return const Text("0:0");
+                        //         }
+                        //     }
+                        //   },
+                        // ),
+                        Text(
+                          (audioDuration),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     ),
