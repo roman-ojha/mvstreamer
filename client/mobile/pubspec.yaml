@@ -45,6 +45,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   google_fonts: ^2.2.0
   audioplayers: ^0.20.1
+  flutter_custom_clippers: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -78,7 +79,6 @@ flutter:
     - assets/images/Music_Player_Background.png
     - assets/images/PauseButton.png
     - assets/images/PlayButton.png
-    - assets/music/Music01.mp3
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

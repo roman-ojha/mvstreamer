@@ -20,7 +20,8 @@ class MusicPlayer extends StatefulWidget {
 class _MusicPlayerState extends State<MusicPlayer> {
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
-  String audioPath = "music/Music01.mp3";
+  String audioPath =
+      "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b";
   String currentAudioTime = "0:0";
   String audioDuration = "0:0";
   int? audioDurationInSec;
@@ -91,8 +92,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   playAudio() async {
-    await audioPlayer.play(
-        "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Audio%2F8578a84b7e52b66e7bdf9ef0c46628da.mp3?alt=media&token=1106944d-0601-4dd2-9c29-1e784ec3b16b");
+    await audioPlayer.play(audioPath);
   }
 
   pauseAudio() async {
