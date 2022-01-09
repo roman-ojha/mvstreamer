@@ -30,6 +30,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   double? _tapPositionPercentage;
 
   final _totalPercentageWidthOfProgressBar = 0.9;
+  final _totalPercentageHeightOfVolumeController = 0.5;
 
   // Controller bool value
   bool _audioPlaying = false;
@@ -68,7 +69,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
           progressPercentage = _totalPercentageWidthOfProgressBar;
         }
       });
-      print(progressPercentage);
     });
     audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
@@ -78,6 +78,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
         audioDuration = "$min:$sec";
       });
     });
+    playAudio();
+    _audioPlaying = true;
   }
 
   @override
@@ -114,6 +116,85 @@ class _MusicPlayerState extends State<MusicPlayer> {
   //   final audioDuration = audioPlayer.getDuration();
   //   return audioDuration;
   // }
+
+  Widget _volumeController(
+      {required double currentHeight,
+      required Color controllerFirstColor,
+      required Color controllerSecondColor}) {
+    return Flexible(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          FractionallySizedBox(
+            heightFactor: _totalPercentageHeightOfVolumeController,
+            child: Container(
+              width: 3.0,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.0, 1.0],
+                  colors: [
+                    Color.fromRGBO(35, 110, 209, 0.30),
+                    Color.fromRGBO(255, 60, 0, 0.30)
+                  ],
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(2.0),
+                ),
+              ),
+            ),
+          ),
+          Stack(
+            alignment: AlignmentDirectional.topCenter,
+            children: [
+              FractionallySizedBox(
+                heightFactor: currentHeight,
+                child: AnimatedContainer(
+                  duration: const Duration(microseconds: 200),
+                  width: 6.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0.0, 0.4],
+                      colors: [controllerFirstColor, controllerSecondColor],
+                    ),
+                    // color: Color.fromRGBO(35, 111, 209, 1),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4.0),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 15.0,
+                width: 15.0,
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(180, 49, 8, 1),
+                  border: Border.all(
+                      width: 2,
+                      color: const Color.fromRGBO(233, 233, 233, 0.986)),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(9.0),
+                  ),
+                ),
+              )
+            ],
+          ),
+          GestureDetector(
+            child: FractionallySizedBox(
+              heightFactor: _totalPercentageHeightOfVolumeController,
+              child: Container(
+                width: 15.0,
+                color: Colors.transparent,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,10 +267,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
                   Flexible(
                     // Middle Circle Avatar & Volume Controller =======================================================
                     child: FractionallySizedBox(
-                      heightFactor: 0.6,
+                      heightFactor: 0.7,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          _volumeController(
+                            currentHeight: 0.2,
+                            controllerFirstColor:
+                                const Color.fromRGBO(176, 42, 0, 1),
+                            controllerSecondColor:
+                                const Color.fromRGBO(24, 81, 153, 1),
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -237,6 +326,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 ],
                               ),
                             ],
+                          ),
+                          // Volumen Controller ================================================
+                          _volumeController(
+                            currentHeight: 0.4,
+                            controllerFirstColor:
+                                const Color.fromRGBO(24, 81, 153, 1),
+                            controllerSecondColor:
+                                const Color.fromRGBO(176, 42, 0, 1),
                           ),
                         ],
                       ),
