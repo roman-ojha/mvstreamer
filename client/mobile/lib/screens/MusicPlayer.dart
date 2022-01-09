@@ -283,8 +283,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const CircleAvatar(
-                                backgroundImage: AssetImage(
-                                    "assets/images/carousel_Image_01.jpg"),
+                                backgroundImage: NetworkImage(
+                                  "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+                                ),
                                 radius: 110,
                               ),
                               Row(

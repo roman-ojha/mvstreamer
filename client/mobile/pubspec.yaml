@@ -75,9 +75,6 @@ flutter:
     - assets/icons/Search_Icon.png
     - assets/images/user.jpg
     - assets/icons/playIcon.png
-    - assets/images/carousel_Image_01.jpg
-    - assets/images/carousel_Image_02.jpg
-    - assets/images/carousel_Image_03.jpg
     - assets/images/Music_Player_Background.png
     - assets/images/PauseButton.png
     - assets/images/PlayButton.png

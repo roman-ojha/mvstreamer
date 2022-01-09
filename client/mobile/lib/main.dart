@@ -9,6 +9,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   // statusBarColor: Colors.transparent,
+  //   systemNavigationBarColor: Colors.transparent,
+  // ));
   await dotenv.load(fileName: ".env");
   runApp(const MVstreamer());
 }
@@ -17,11 +21,21 @@ class MVstreamer extends StatelessWidget {
   const MVstreamer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            // Styling status bar
+            statusBarColor: Color.fromRGBO(0, 0, 0, 0.8),
+            statusBarIconBrightness: Brightness.light,
+          ),
+          // systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+      ),
       title: 'MVstreamer',
-      // home: LoginPage(),
+      home: const LoginPage(),
       // home: MainPage(),
-      home: MusicPlayer(),
+      // home: MusicPlayer(),
       debugShowCheckedModeBanner: false,
     );
   }

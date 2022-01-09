@@ -17,12 +17,13 @@ class _ButtomNavPlayerState extends State<ButtomNavPlayer> {
       clipBehavior: Clip.none,
       alignment: AlignmentDirectional.center,
       children: const [
-        Positioned(
-          height: 450,
-          width: 450,
-          bottom: -310,
-          child: MiniPlayer(),
-        ),
+        // Positioned(
+        //   // bottom: 0,
+        //   // top: -100,
+        //   // bottom
+        //   // top: -90,
+        //   child: MiniPlayer(),
+        // ),
         ButtomNavigationBarWidget(),
       ],
     );
