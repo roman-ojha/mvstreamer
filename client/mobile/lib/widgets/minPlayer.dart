@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import '../assets/icons/mini_player_icons.dart';
 
-class Test extends StatefulWidget {
-  const Test({Key? key}) : super(key: key);
+class MinPlayer extends StatefulWidget {
+  const MinPlayer({Key? key}) : super(key: key);
 
   @override
-  _TestState createState() => _TestState();
+  _MinPlayerState createState() => _MinPlayerState();
 }
 
-class _TestState extends State<Test> {
+class _MinPlayerState extends State<MinPlayer> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -17,9 +17,9 @@ class _TestState extends State<Test> {
         widthFactor: 0.9,
         child: Container(
           height: 80,
-          // color: Colors.red,
+          color: Colors.white,
           // child: const Text("Hello"),
-          color: Colors.black12,
+          // color: Colors.black12,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

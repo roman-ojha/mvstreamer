@@ -33,8 +33,8 @@ class MVstreamer extends StatelessWidget {
         ),
       ),
       title: 'MVstreamer',
-      home: const LoginPage(),
-      // home: MainPage(),
+      // home: const LoginPage(),
+      home: MainPage(),
       // home: MusicPlayer(),
       debugShowCheckedModeBanner: false,
     );

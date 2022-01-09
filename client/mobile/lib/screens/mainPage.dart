@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../widgets/appBar.dart';
 import '../widgets/buttomNavPlayer.dart';
 import '../widgets/carouselSlider.dart';
+import '../widgets/minPlayer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -19,12 +20,77 @@ class _MainPageState extends State<MainPage> {
         toolbarHeight: 0,
       ),
       body: Stack(
-        children: const [
-          Carousel(),
-          MVAppBar(),
+        children: [
+          ListView(
+            children: [
+              Carousel(),
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const MVAppBar(),
+          Transform.translate(
+            offset: Offset(
+              0,
+              MediaQuery.of(context).size.height - 149,
+            ),
+            child: const ButtomNavPlayer(),
+          ),
         ],
       ),
-      bottomNavigationBar: const ButtomNavPlayer(),
     );
   }
 }
