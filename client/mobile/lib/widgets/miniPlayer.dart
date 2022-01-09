@@ -39,23 +39,23 @@ class _MiniPlayerState extends State<MiniPlayer> {
               size: 45,
               color: Color(0xff236FD1),
             ),
-            // SizedBox(
-            //   width: 20,
-            // ),
-            // Image(
-            //   image: AssetImage(
-            //     'assets/icons/playIcon.png',
-            //   ),
-            //   width: 55,
-            // ),
-            // SizedBox(
-            //   width: 20,
-            // ),
-            // Icon(
-            //   MiniPlayerIcon.next,
-            //   size: 45,
-            //   color: Color(0xffB92E22),
-            // ),
+            SizedBox(
+              width: 20,
+            ),
+            Image(
+              image: AssetImage(
+                'assets/icons/playIcon.png',
+              ),
+              width: 55,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Icon(
+              MiniPlayerIcon.next,
+              size: 45,
+              color: Color(0xffB92E22),
+            ),
           ],
         ),
       ),

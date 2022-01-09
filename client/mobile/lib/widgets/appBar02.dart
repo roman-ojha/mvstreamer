@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import '../assets/icons/mini_player_icons.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -18,7 +19,34 @@ class _TestState extends State<Test> {
           height: 80,
           // color: Colors.red,
           // child: const Text("Hello"),
-          color: Colors.red,
+          color: Colors.black12,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                MiniPlayerIcon.previous,
+                size: 40,
+                color: Color(0xff236FD1),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Image(
+                image: AssetImage(
+                  'assets/icons/playIcon.png',
+                ),
+                width: 50,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(
+                MiniPlayerIcon.next,
+                size: 40,
+                color: Color(0xffB92E22),
+              ),
+            ],
+          ),
         ),
       ),
       clipper: MiniPlayerClipper(),
