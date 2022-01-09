@@ -119,6 +119,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    // Upper App Bar ====================================================
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Padding(
@@ -143,6 +144,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     ],
                   ),
                   SizedBox(
+                    // Title and Artist Name =================================================
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -164,17 +166,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       ],
                     ),
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: const [
-                  //     CircleAvatar(
-                  //       backgroundImage:
-                  //           AssetImage("assets/images/carousel_Image_01.jpg"),
-                  //       radius: 110,
-                  //     )
-                  //   ],
-                  // ),
                   Flexible(
+                    // Middle Circle Avatar & Volume Controller =======================================================
                     child: FractionallySizedBox(
                       heightFactor: 0.6,
                       child: Row(
@@ -257,31 +250,81 @@ class _MusicPlayerState extends State<MusicPlayer> {
                         // ),
 
                         Flexible(
-                          // Progress bar =====================================
+                          // Progress bar =====================================================================
                           child: Stack(
                             alignment: AlignmentDirectional.centerStart,
                             children: [
+                              FractionallySizedBox(
+                                widthFactor: 0.9,
+                                child: Container(
+                                  height: 4.0,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      stops: [0.0, 1.0],
+                                      colors: [
+                                        Color.fromRGBO(35, 110, 209, 0.30),
+                                        Color.fromRGBO(255, 60, 0, 0.30)
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(2.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Stack(
+                                alignment: AlignmentDirectional.centerEnd,
+                                children: [
+                                  FractionallySizedBox(
+                                    widthFactor: progressPercentage,
+                                    child: AnimatedContainer(
+                                      duration:
+                                          const Duration(microseconds: 200),
+                                      height: 8.0,
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          stops: [0.0, 1.0],
+                                          colors: [
+                                            Color.fromRGBO(35, 111, 209, 1),
+                                            Color.fromRGBO(255, 61, 0, 1)
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 18.0,
+                                    width: 18.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromRGBO(180, 49, 8, 1),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: const Color.fromRGBO(
+                                              233, 233, 233, 0.986)),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(9.0),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                               GestureDetector(
                                 // detecting on tap event on progress bar
+                                // to detect use tap event we need the size of progress bar bigger and trasparent so that real progress bar can be visible and gesturedetector will also work
                                 key: _fullProgressBar,
                                 child: FractionallySizedBox(
                                   widthFactor: 0.9,
                                   child: Container(
-                                    height: 4.0,
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        stops: [0.0, 1.0],
-                                        colors: [
-                                          Color.fromRGBO(35, 110, 209, 0.30),
-                                          Color.fromRGBO(255, 60, 0, 0.30)
-                                        ],
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(2.0),
-                                      ),
-                                    ),
+                                    height: 20.0,
+                                    color: Colors.transparent,
                                   ),
                                 ),
                                 onPanUpdate: (position) {
@@ -302,70 +345,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                             .toInt()),
                                   );
                                 },
-                              ),
-                              Stack(
-                                alignment: AlignmentDirectional.centerEnd,
-                                children: [
-                                  GestureDetector(
-                                    child: FractionallySizedBox(
-                                      widthFactor: progressPercentage,
-                                      child: AnimatedContainer(
-                                        duration:
-                                            const Duration(microseconds: 200),
-                                        height: 8.0,
-                                        decoration: const BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            stops: [0.0, 1.0],
-                                            colors: [
-                                              Color.fromRGBO(35, 111, 209, 1),
-                                              Color.fromRGBO(255, 61, 0, 1)
-                                            ],
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(4.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onPanUpdate: (position) {
-                                      _currentTapPosition =
-                                          position.localPosition.dx;
-                                      _totalProgressBarLenght = _fullProgressBar
-                                          .currentContext!.size!.width;
-                                      _tapPositionPercentage =
-                                          _currentTapPosition! /
-                                              _totalProgressBarLenght!;
-
-                                      if (_tapPositionPercentage! >= 1.0) {
-                                        _tapPositionPercentage = 1.0;
-                                      }
-                                      audioPlayer.seek(
-                                        Duration(
-                                            seconds: (audioDurationInSec! *
-                                                    _tapPositionPercentage!)
-                                                .toInt()),
-                                      );
-                                    },
-                                  ),
-                                  Container(
-                                    height: 18.0,
-                                    width: 18.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          const Color.fromRGBO(180, 49, 8, 1),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: const Color.fromRGBO(
-                                              233, 233, 233, 0.986)),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(9.0),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                              )
                             ],
                           ),
                         ),
