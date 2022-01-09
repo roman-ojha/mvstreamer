@@ -21,7 +21,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
   String audioPath = "music/Music01.mp3";
-  bool audioPlaying = false;
   String currentAudioTime = "0:0";
   String audioDuration = "0:0";
   int? audioDurationInSec;
@@ -29,6 +28,19 @@ class _MusicPlayerState extends State<MusicPlayer> {
   double? _currentTapPosition;
   double? _totalProgressBarLenght;
   double? _tapPositionPercentage;
+
+  final _totalPercentageWidthOfProgressBar = 0.9;
+
+  // Controller bool value
+  bool _audioPlaying = false;
+  bool _audioLoop = false;
+  bool _audioRandom = false;
+  bool _audioFaviorate = false;
+  bool _audioPlaylist = false;
+
+  // Constant Color::
+  final _buttonRedColor = const Color.fromRGBO(219, 56, 44, 0.8);
+  final _buttonBlueColor = const Color.fromRGBO(25, 117, 210, 0.8);
 
   @override
   void initState() {
@@ -44,14 +56,19 @@ class _MusicPlayerState extends State<MusicPlayer> {
     audioPlayer.onPlayerStateChanged.listen((event) {
       // print("hello");
     });
-    audioPlayer.onAudioPositionChanged.listen((duration) {
+    audioPlayer.onAudioPositionChanged.listen((position) {
       setState(() {
-        int sec = (duration.inSeconds) % 60;
-        int min = (duration.inSeconds) ~/ 60;
+        int sec = (position.inSeconds) % 60;
+        int min = (position.inSeconds) ~/ 60;
         currentAudioTime = "$min:$sec";
-        progressPercentage =
-            ((duration.inSeconds / audioDurationInSec!) * 100) / 100;
+        progressPercentage = (position.inSeconds / audioDurationInSec!) * 1;
+        if (progressPercentage! <= 0) {
+          progressPercentage = 0;
+        } else if (progressPercentage! >= _totalPercentageWidthOfProgressBar) {
+          progressPercentage = _totalPercentageWidthOfProgressBar;
+        }
       });
+      print(progressPercentage);
     });
     audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
@@ -183,19 +200,39 @@ class _MusicPlayerState extends State<MusicPlayer> {
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    MusicPlayerIcon.playlist,
-                                    size: 28,
-                                    color: Color.fromRGBO(125, 148, 173, 0.70),
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      MusicPlayerIcon.playlist,
+                                      size: 35.0,
+                                      color: _audioPlaylist
+                                          ? _buttonBlueColor
+                                          : const Color.fromRGBO(
+                                              125, 148, 173, 0.70),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _audioPlaylist = !_audioPlaylist;
+                                      });
+                                    },
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 30.0,
                                   ),
-                                  Icon(
-                                    Icons.favorite_rounded,
-                                    size: 28,
-                                    color: Color.fromRGBO(188, 126, 121, 0.7),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.favorite_rounded,
+                                      size: 35.0,
+                                      color: _audioFaviorate
+                                          ? _buttonRedColor
+                                          : const Color.fromRGBO(
+                                              188, 126, 121, 0.7),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _audioFaviorate = !_audioFaviorate;
+                                      });
+                                    },
                                   ),
                                 ],
                               ),
@@ -255,7 +292,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             alignment: AlignmentDirectional.centerStart,
                             children: [
                               FractionallySizedBox(
-                                widthFactor: 0.9,
+                                widthFactor: _totalPercentageWidthOfProgressBar,
                                 child: Container(
                                   height: 4.0,
                                   decoration: const BoxDecoration(
@@ -321,29 +358,40 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 // to detect use tap event we need the size of progress bar bigger and trasparent so that real progress bar can be visible and gesturedetector will also work
                                 key: _fullProgressBar,
                                 child: FractionallySizedBox(
-                                  widthFactor: 0.9,
+                                  widthFactor:
+                                      _totalPercentageWidthOfProgressBar,
                                   child: Container(
                                     height: 20.0,
                                     color: Colors.transparent,
                                   ),
                                 ),
                                 onPanUpdate: (position) {
-                                  _currentTapPosition =
-                                      position.localPosition.dx;
-                                  _totalProgressBarLenght = _fullProgressBar
-                                      .currentContext!.size!.width;
-                                  _tapPositionPercentage =
-                                      _currentTapPosition! /
-                                          _totalProgressBarLenght!;
-                                  if (_tapPositionPercentage! >= 1.0) {
-                                    _tapPositionPercentage = 1.0;
+                                  // Calculating the position of use gesture and setting audio time according to that
+                                  try {
+                                    _currentTapPosition =
+                                        position.localPosition.dx;
+                                    _totalProgressBarLenght = _fullProgressBar
+                                        .currentContext!.size!.width;
+                                    _tapPositionPercentage =
+                                        (_currentTapPosition! /
+                                                _totalProgressBarLenght!) *
+                                            0.9;
+                                    // NOTE: because total width factor of progress bar is 0.9 so we have to get the value from 0.0 to 0.9 as the total percentage of the tappositionpercentage
+                                    if (_tapPositionPercentage! >=
+                                        _totalPercentageWidthOfProgressBar) {
+                                      _tapPositionPercentage =
+                                          _totalPercentageWidthOfProgressBar;
+                                    }
+                                    audioPlayer.seek(
+                                      Duration(
+                                          seconds: (audioDurationInSec! *
+                                                  (_tapPositionPercentage! *
+                                                      1.1))
+                                              .toInt()),
+                                    );
+                                  } catch (err) {
+                                    //
                                   }
-                                  audioPlayer.seek(
-                                    Duration(
-                                        seconds: (audioDurationInSec! *
-                                                _tapPositionPercentage!)
-                                            .toInt()),
-                                  );
                                 },
                               )
                             ],
@@ -370,17 +418,27 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Icon(
-                          MusicPlayerIcon.loop,
-                          size: 25,
-                          color: Color.fromRGBO(125, 148, 173, 0.70),
+                        IconButton(
+                          iconSize: 25,
+                          icon: Icon(
+                            MusicPlayerIcon.loop,
+                            size: 25,
+                            color: _audioLoop
+                                ? _buttonBlueColor
+                                : const Color.fromRGBO(125, 148, 173, 0.70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _audioLoop = !_audioLoop;
+                              if (_audioRandom) {
+                                _audioRandom = false;
+                              }
+                            });
+                          },
                         ),
-                        const Icon(
-                          MusicPlayerIcon.previous,
-                          size: 30,
-                          color: Color.fromRGBO(25, 117, 210, 0.8),
-                        ),
-                        audioPlaying
+                        Icon(MusicPlayerIcon.previous,
+                            size: 30, color: _buttonBlueColor),
+                        _audioPlaying
                             ? IconButton(
                                 icon: const Image(
                                   image: AssetImage(
@@ -390,7 +448,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 onPressed: () {
                                   pauseAudio();
                                   setState(() {
-                                    audioPlaying = false;
+                                    _audioPlaying = false;
                                   });
                                 },
                               )
@@ -402,20 +460,29 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 onPressed: () {
                                   playAudio();
                                   setState(() {
-                                    audioPlaying = true;
+                                    _audioPlaying = true;
                                   });
                                 },
                                 iconSize: 70,
                               ),
-                        const Icon(
-                          MusicPlayerIcon.next,
-                          size: 30,
-                          color: Color.fromRGBO(219, 56, 44, 0.8),
-                        ),
-                        const Icon(
-                          MusicPlayerIcon.random,
-                          size: 23,
-                          color: Color.fromRGBO(188, 126, 121, 0.7),
+                        Icon(MusicPlayerIcon.next,
+                            size: 30, color: _buttonRedColor),
+                        IconButton(
+                          icon: Icon(
+                            MusicPlayerIcon.random,
+                            size: 23,
+                            color: _audioRandom
+                                ? _buttonRedColor
+                                : const Color.fromRGBO(188, 126, 121, 0.7),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _audioRandom = !_audioRandom;
+                              if (_audioLoop) {
+                                _audioLoop = false;
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
