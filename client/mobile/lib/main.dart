@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/main_page.dart';
 import 'screens/music_player.dart';
 import "package:flutter/services.dart";
+import 'screens/video_player_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +35,9 @@ class MVstreamer extends StatelessWidget {
       ),
       title: 'MVstreamer',
       // home: const LoginPage(),
-      home: MainPage(),
+      // home: MainPage(),
       // home: MusicPlayer(),
+      home: const VideoPlayerScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
