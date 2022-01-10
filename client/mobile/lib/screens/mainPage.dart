@@ -5,6 +5,7 @@ import '../widgets/appBar.dart';
 import '../widgets/buttomNavPlayer.dart';
 import '../widgets/carouselSlider.dart';
 import '../widgets/minPlayer.dart';
+import "../widgets/scrollSongs.dart";
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -22,63 +23,9 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: [
           ListView(
-            children: [
+            children: const [
               Carousel(),
-              Container(
-                width: double.infinity,
-                height: 200,
-                margin: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                margin: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                margin: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                margin: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                margin: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
-              ),
+              ScrollSongs(),
             ],
           ),
           const MVAppBar(),
