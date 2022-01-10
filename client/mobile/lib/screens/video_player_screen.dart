@@ -1,6 +1,7 @@
 // https://docs.flutter.dev/cookbook/plugins/play-video
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import '../assets/icons/music_player_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +26,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   final _buttonRedColor = const Color.fromRGBO(219, 56, 44, 0.8);
   final _buttonBlueColor = const Color.fromRGBO(25, 117, 210, 0.8);
+
+  String deviceOrientations = "potrait";
+
   @override
   void initState() {
     _controller = VideoPlayerController.network(
@@ -35,12 +39,28 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // _initializeVideoPlayerFuture = _controller.initialize();
 
     super.initState();
+
+    setLandScap();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future setLandScap() async {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  Future setPotraitMode() async {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
   }
 
   playVideo() {
@@ -98,7 +118,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   Widget videoInfoContainer() {
     return Container(
-      width: MediaQuery.of(context).size.width - 50,
+      width: deviceOrientations == "potrait"
+          ? MediaQuery.of(context).size.width - 50
+          : MediaQuery.of(context).size.width - 250,
       height: 55.0,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -113,6 +135,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             child: const Icon(
               MusicPlayerIcon.back,
               size: 20,
+              color: Colors.black54,
             ),
           ),
           Column(
@@ -130,6 +153,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     fontWeight: FontWeight.w600,
                   ))
             ],
+          ),
+          GestureDetector(
+            child: const Icon(Icons.screen_rotation_rounded),
+            onTap: () {
+              if (deviceOrientations == "potrait") {
+                setLandScap();
+                deviceOrientations = "landscape";
+              } else {
+                setPotraitMode();
+                deviceOrientations = "potrait";
+              }
+            },
           ),
           const CircleAvatar(
             backgroundImage: AssetImage("assets/images/user.jpg"),
@@ -282,6 +317,22 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     });
                   },
                 ),
+                if (deviceOrientations == "landscape")
+                  GestureDetector(
+                    // Showing this widget if screen is in landscape mode
+                    child: Icon(
+                      MusicPlayerIcon.playlist,
+                      size: 25.0,
+                      color: _videoPlaylist
+                          ? _buttonBlueColor
+                          : const Color.fromRGBO(125, 148, 173, 0.70),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        _videoPlaylist = !_videoPlaylist;
+                      });
+                    },
+                  ),
                 Icon(MusicPlayerIcon.previous,
                     size: 25, color: _buttonBlueColor),
                 _videoPlaying
@@ -314,6 +365,22 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         },
                       ),
                 Icon(MusicPlayerIcon.next, size: 25, color: _buttonRedColor),
+                if (deviceOrientations == "landscape")
+                  GestureDetector(
+                    // Showing this widget if screen is in landscape mode
+                    child: Icon(
+                      Icons.favorite_rounded,
+                      size: 30.0,
+                      color: _videoFaviorate
+                          ? _buttonRedColor
+                          : const Color.fromRGBO(188, 126, 121, 0.7),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        _videoFaviorate = !_videoFaviorate;
+                      });
+                    },
+                  ),
                 GestureDetector(
                   child: Icon(
                     MusicPlayerIcon.random,
