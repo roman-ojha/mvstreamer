@@ -35,9 +35,9 @@ class MVstreamer extends StatelessWidget {
       ),
       title: 'MVstreamer',
       // home: const LoginPage(),
-      // home: MainPage(),
+      home: MainPage(),
       // home: MusicPlayer(),
-      home: const VideoPlayerScreen(),
+      // home: const VideoPlayerScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

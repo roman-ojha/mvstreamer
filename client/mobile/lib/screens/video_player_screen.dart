@@ -44,7 +44,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // _initializeVideoPlayerFuture = _controller.initialize();
 
     super.initState();
-    setLandScap();
+    setLandScapMode();
   }
 
   @override
@@ -59,7 +59,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     }
   }
 
-  Future setLandScap() async {
+  Future setLandScapMode() async {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -167,6 +167,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               size: 20,
               color: Colors.black54,
             ),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -188,7 +191,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             child: const Icon(Icons.screen_rotation_rounded),
             onTap: () {
               if (deviceOrientations == "potrait") {
-                setLandScap();
+                setLandScapMode();
                 deviceOrientations = "landscape";
               } else {
                 setPotraitMode();

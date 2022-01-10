@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'buttom_navigation_bar.dart';
 import 'mini_player.dart';
 import 'min_player.dart';
+import '../screens/video_player_screen.dart';
 
 class ButtomNavPlayer extends StatefulWidget {
   const ButtomNavPlayer({Key? key}) : super(key: key);
@@ -22,13 +23,20 @@ class _ButtomNavPlayerState extends State<ButtomNavPlayer> {
         alignment: AlignmentDirectional.bottomCenter,
         // clipBehavior: Clip.antiAlias,
         // mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 45),
-            child: MinPlayer(),
+            padding: const EdgeInsets.only(bottom: 45),
+            child: GestureDetector(
+              child: const MinPlayer(),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const VideoPlayerScreen(),
+                ));
+              },
+            ),
           ),
           // MiniPlayer(),
-          ButtomNavigationBarWidget(),
+          const ButtomNavigationBarWidget(),
         ],
       ),
     );
