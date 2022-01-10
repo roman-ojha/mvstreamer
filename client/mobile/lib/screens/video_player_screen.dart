@@ -1,10 +1,13 @@
 // https://docs.flutter.dev/cookbook/plugins/play-video
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import '../assets/icons/music_player_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);
@@ -24,10 +27,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   bool _videoFaviorate = false;
   bool _videoPlaylist = false;
 
+  bool _showControllers = true;
+
   final _buttonRedColor = const Color.fromRGBO(219, 56, 44, 0.8);
   final _buttonBlueColor = const Color.fromRGBO(25, 117, 210, 0.8);
 
-  String deviceOrientations = "potrait";
+  String deviceOrientations = "landscape";
 
   @override
   void initState() {
@@ -39,7 +44,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // _initializeVideoPlayerFuture = _controller.initialize();
 
     super.initState();
-
     setLandScap();
   }
 
@@ -47,6 +51,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+    if (!_showControllers) {
+      SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual,
+        overlays: SystemUiOverlay.values,
+      );
+    }
   }
 
   Future setLandScap() async {
@@ -61,6 +71,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  void hideStatusBar() {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom],
+    );
   }
 
   playVideo() {
@@ -101,16 +118,29 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         children: [
           AspectRatio(
             aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
+            child: GestureDetector(
+              child: VideoPlayer(_controller),
+              onTap: () {
+                setState(() {
+                  _showControllers = !_showControllers;
+                });
+                if (!_showControllers) {
+                  hideStatusBar();
+                }
+              },
+            ),
           ),
-          Positioned(
-            top: 25,
-            child: videoInfoContainer(),
-          ),
-          Positioned(
-            bottom: 25,
-            child: videoController(),
-          ),
+          if (_showControllers)
+            // Showing the controller and hiding according to video tap
+            Positioned(
+              top: 25,
+              child: videoInfoContainer(),
+            ),
+          if (_showControllers)
+            Positioned(
+              bottom: 25,
+              child: videoController(),
+            ),
         ],
       ),
     );
