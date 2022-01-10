@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../assets/icons/login_button_icon_icons.dart';
 import '../controller/google_login_controller.dart';
 import 'package:get/get.dart';
-import 'mainPage.dart';
+import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'buttomNavigationBar.dart';
-import 'miniPlayer.dart';
-import 'minPlayer.dart';
+import 'buttom_navigation_bar.dart';
+import 'mini_player.dart';
+import 'min_player.dart';
 
 class ButtomNavPlayer extends StatefulWidget {
   const ButtomNavPlayer({Key? key}) : super(key: key);

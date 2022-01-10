@@ -3,11 +3,11 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import '../widgets/appBar.dart';
-import '../widgets/buttomNavPlayer.dart';
-import '../widgets/carouselSlider.dart';
-import '../widgets/minPlayer.dart';
-import "../widgets/scrollSongs.dart";
+import '../widgets/app_bar.dart';
+import '../widgets/buttom_nav_player.dart';
+import '../widgets/carousel_slider.dart';
+import '../widgets/min_player.dart';
+import '../widgets/scroll_songs.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import "../screens/MusicPlayer.dart";
+import '../screens/music_player.dart';
 
 class SongCard extends StatefulWidget {
   const SongCard({Key? key}) : super(key: key);

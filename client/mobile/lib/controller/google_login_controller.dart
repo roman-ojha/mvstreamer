@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../services/authservices.dart';
-import '../services/cacheServices.dart';
+import '../services/auth_services.dart';
+import '../services/cache_services.dart';
 
 class GoogleLoginController extends GetxController {
   final _googleSignin = GoogleSignIn();

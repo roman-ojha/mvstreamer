@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'songCard.dart';
+import 'song_card.dart';
 import "package:google_fonts/google_fonts.dart";
 
 class ScrollSongs extends StatefulWidget {

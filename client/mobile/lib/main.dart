@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'screens/mainPage.dart';
-import 'screens/MusicPlayer.dart';
+import 'screens/main_page.dart';
+import 'screens/music_player.dart';
 import "package:flutter/services.dart";
 
 Future<void> main() async {
