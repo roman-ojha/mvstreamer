@@ -32,13 +32,13 @@ class _ScrollSongsState extends State<ScrollSongs> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: const <Widget>[
+                SongCard(),
+                SongCard(),
+                SongCard(),
                 SongCard(),
                 SongCard(),
                 SongCard(),

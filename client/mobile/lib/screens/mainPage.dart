@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../widgets/appBar.dart';
 import '../widgets/buttomNavPlayer.dart';
@@ -26,6 +28,10 @@ class _MainPageState extends State<MainPage> {
             children: const [
               Carousel(),
               ScrollSongs(),
+              ScrollSongs(),
+              SizedBox(
+                height: 120,
+              )
             ],
           ),
           const MVAppBar(),

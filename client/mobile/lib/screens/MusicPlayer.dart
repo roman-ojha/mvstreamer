@@ -219,18 +219,23 @@ class _MusicPlayerState extends State<MusicPlayer> {
                   Row(
                     // Upper App Bar ====================================================
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Padding(
-                        child: Icon(
-                          MusicPlayerIcon.back,
-                          color: Colors.black54,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(
+                            MusicPlayerIcon.back,
+                            color: Colors.black54,
+                          ),
                         ),
-                        padding: EdgeInsets.only(
-                          left: 15,
-                          top: 15,
+                        padding: const EdgeInsets.only(
+                          left: 5,
+                          top: 5,
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(
                           right: 15,
                           top: 15,
