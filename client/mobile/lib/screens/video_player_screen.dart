@@ -70,7 +70,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         int dmin = (_controller.value.duration.inSeconds) ~/ 60;
         videoDuration = "$dmin:$dsec";
         progressPercentage =
-            (_controller.value.position.inSeconds / videoDurationInSec!) * 1;
+            (_controller.value.position.inSeconds / videoDurationInSec!);
+
+        print(progressPercentage);
         if (progressPercentage! <= 0) {
           progressPercentage = 0;
         } else if (progressPercentage! >= _totalPercentageWidthOfProgressBar) {
@@ -345,6 +347,31 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                             color: Colors.transparent,
                           ),
                         ),
+                        onPanUpdate: (position) {
+                          // Calculating the position of use gesture and setting audio time according to that
+                          try {
+                            _currentTapPosition = position.localPosition.dx;
+                            _totalProgressBarLenght =
+                                _fullProgressBar.currentContext!.size!.width;
+                            _tapPositionPercentage = (_currentTapPosition! /
+                                    _totalProgressBarLenght!) *
+                                0.9;
+                            // NOTE: because total width factor of progress bar is 0.9 so we have to get the value from 0.0 to 0.9 as the total percentage of the tappositionpercentage
+                            if (_tapPositionPercentage! >=
+                                _totalPercentageWidthOfProgressBar) {
+                              _tapPositionPercentage =
+                                  _totalPercentageWidthOfProgressBar;
+                            }
+                            _controller.seekTo(
+                              Duration(
+                                  seconds: (videoDurationInSec! *
+                                          (_tapPositionPercentage! * 1.1))
+                                      .toInt()),
+                            );
+                          } catch (err) {
+                            //
+                          }
+                        },
                       )
                     ],
                   ),
