@@ -71,8 +71,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         videoDuration = "$dmin:$dsec";
         progressPercentage =
             (_controller.value.position.inSeconds / videoDurationInSec!);
-
-        print(progressPercentage);
         if (progressPercentage! <= 0) {
           progressPercentage = 0;
         } else if (progressPercentage! >= _totalPercentageWidthOfProgressBar) {
@@ -86,12 +84,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-    // if (!_showControllers) {
-    //   SystemChrome.setEnabledSystemUIMode(
-    //     SystemUiMode.manual,
-    //     overlays: SystemUiOverlay.values,
-    //   );
-    // }
+    if (!_showControllers) {
+      SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual,
+        overlays: SystemUiOverlay.values,
+      );
+    }
   }
 
   Future setLandScapMode() async {
@@ -109,10 +107,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   void hideStatusBar() {
-    // SystemChrome.setEnabledSystemUIMode(
-    //   SystemUiMode.manual,
-    //   overlays: [SystemUiOverlay.bottom],
-    // );
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom],
+    );
   }
 
   playVideo() {
@@ -168,12 +166,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           if (_showControllers)
             // Showing the controller and hiding according to video tap
             Positioned(
-              top: 25,
+              top: deviceOrientations == "landscape" ? 5 : 25,
               child: videoInfoContainer(),
             ),
           if (_showControllers)
             Positioned(
-              bottom: 25,
+              // Position of video controller
+              bottom: deviceOrientations == "landscape" ? 10 : 50,
               child: videoController(),
             ),
         ],
@@ -188,7 +187,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           : MediaQuery.of(context).size.width - 250,
       height: 55.0,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.85),
         borderRadius: BorderRadius.circular(15),
       ),
       alignment: Alignment.center,
@@ -247,7 +246,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       height: 95,
       width: MediaQuery.of(context).size.width - 80,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.85),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(

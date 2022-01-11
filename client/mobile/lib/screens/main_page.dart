@@ -6,6 +6,8 @@ import '../widgets/carousel_slider.dart';
 import '../widgets/min_player.dart';
 import '../widgets/scroll_songs.dart';
 import "package:flutter/services.dart";
+import "package:dio/dio.dart";
+import "../models/environment.dart";
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  Dio dio = Dio();
+  final apiBaseUrl = Environment.apiBaseUrl;
   void initState() {
     super.initState();
     setPotraitMode();
@@ -21,6 +25,14 @@ class _MainPageState extends State<MainPage> {
     //   SystemUiMode.manual,
     //   overlays: [SystemUiOverlay.top],
     // );
+    // getSongsData();
+  }
+
+  Future getSongsData() async {
+    final resData = await dio.get(apiBaseUrl);
+    final data = await resData.data;
+    final songs = data["songs"];
+    print(songs);
   }
 
   Future setPotraitMode() async {
