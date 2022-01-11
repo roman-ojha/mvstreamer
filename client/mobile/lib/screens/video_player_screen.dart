@@ -9,6 +9,8 @@ import '../assets/icons/music_player_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 
+final _fullProgressBar = GlobalKey();
+
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);
 
@@ -20,6 +22,14 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _controller;
   // late Future<void> _initializeVideoPlayerFuture;
 
+  String currentVideoTime = "0:0";
+  String videoDuration = "0:0";
+  int? videoDurationInSec;
+  double? progressPercentage = 0.0;
+  double? _currentTapPosition;
+  double? _totalProgressBarLenght;
+  double? _tapPositionPercentage;
+
   // Controller bool value
   bool _videoPlaying = true;
   bool _videoLoop = false;
@@ -28,6 +38,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   bool _videoPlaylist = false;
 
   bool _showControllers = true;
+
+  final _totalPercentageWidthOfProgressBar = 0.9;
+  final _totalPercentageHeightOfVolumeController = 0.5;
 
   final _buttonRedColor = const Color.fromRGBO(219, 56, 44, 0.8);
   final _buttonBlueColor = const Color.fromRGBO(25, 117, 210, 0.8);
@@ -45,18 +58,38 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     super.initState();
     setLandScapMode();
+
+    _controller.addListener(() {
+      setState(() {
+        // Setting current time and progressbar of the video
+        int csec = (_controller.value.position.inSeconds) % 60;
+        int cmin = (_controller.value.position.inSeconds) ~/ 60;
+        currentVideoTime = "$cmin:$csec";
+        videoDurationInSec = _controller.value.duration.inSeconds;
+        int dsec = (_controller.value.duration.inSeconds) % 60;
+        int dmin = (_controller.value.duration.inSeconds) ~/ 60;
+        videoDuration = "$dmin:$dsec";
+        progressPercentage =
+            (_controller.value.position.inSeconds / videoDurationInSec!) * 1;
+        if (progressPercentage! <= 0) {
+          progressPercentage = 0;
+        } else if (progressPercentage! >= _totalPercentageWidthOfProgressBar) {
+          progressPercentage = _totalPercentageWidthOfProgressBar;
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-    if (!_showControllers) {
-      SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.manual,
-        overlays: SystemUiOverlay.values,
-      );
-    }
+    // if (!_showControllers) {
+    //   SystemChrome.setEnabledSystemUIMode(
+    //     SystemUiMode.manual,
+    //     overlays: SystemUiOverlay.values,
+    //   );
+    // }
   }
 
   Future setLandScapMode() async {
@@ -74,10 +107,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   void hideStatusBar() {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom],
-    );
+    // SystemChrome.setEnabledSystemUIMode(
+    //   SystemUiMode.manual,
+    //   overlays: [SystemUiOverlay.bottom],
+    // );
   }
 
   playVideo() {
@@ -228,9 +261,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 Container(
                   width: 30.0,
                   alignment: Alignment.centerRight,
-                  child: const Text(
-                    "0:0",
-                    style: TextStyle(
+                  child: Text(
+                    currentVideoTime,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -241,7 +274,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     alignment: AlignmentDirectional.centerStart,
                     children: [
                       FractionallySizedBox(
-                        widthFactor: 0.9,
+                        widthFactor: _totalPercentageWidthOfProgressBar,
                         child: Container(
                           height: 3.0,
                           decoration: const BoxDecoration(
@@ -264,7 +297,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         alignment: AlignmentDirectional.centerEnd,
                         children: [
                           FractionallySizedBox(
-                            widthFactor: 0.5,
+                            widthFactor: progressPercentage,
                             child: AnimatedContainer(
                               duration: const Duration(microseconds: 200),
                               height: 6.0,
@@ -304,6 +337,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       GestureDetector(
                         // detecting on tap event on progress bar
                         // to detect use tap event we need the size of progress bar bigger and trasparent so that real progress bar can be visible and gesturedetector will also work
+                        key: _fullProgressBar,
                         child: FractionallySizedBox(
                           widthFactor: 0.8,
                           child: Container(
@@ -318,9 +352,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 Container(
                   width: 30.0,
                   alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "0:0",
-                    style: TextStyle(
+                  child: Text(
+                    videoDuration,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
