@@ -777,6 +777,45 @@ p {
   align-items: center;
 }
 
+/* Designing Folder page ====================================================== */
+.FilePage_Container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  /* background-color: purple; */
+}
+.FilePage_Folder_Container {
+  /* background-color: red; */
+  /* border: 1px solid red; */
+  /* flex: 20%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 20%;
+  height: 25rem;
+}
+
+.FilePage_Folder_Inner_Box {
+  /* border: 1px solid blue; */
+  height: 90%;
+  width: 80%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+.FilePage_Folder_Inner_Box:hover {
+  background-color: #e5e5e5;
+}
+.FilePage_Folder_Container h1 {
+  font-size: 1.8rem;
+}
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;

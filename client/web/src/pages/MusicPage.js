@@ -6,8 +6,8 @@ const MusicPage = () => {
   return (
     <div>
       <Carousel />
-      <SongCardCarousel />
-      <SongCardCarousel />
+      {/* <SongCardCarousel />
+      <SongCardCarousel /> */}
     </div>
   );
 };

@@ -6,8 +6,8 @@ const VideoPage = () => {
   return (
     <div>
       <Carousel />
-      <SongCardCarousel />
-      <SongCardCarousel />
+      {/* <SongCardCarousel />
+      <SongCardCarousel /> */}
     </div>
   );
 };
