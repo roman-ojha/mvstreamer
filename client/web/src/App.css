@@ -782,9 +782,9 @@ p {
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  /* background-color: purple; */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .FilePage_Folder_Container {
   /* background-color: red; */
@@ -797,7 +797,13 @@ p {
   width: 20%;
   height: 25rem;
 }
-
+.FilePage_List_of_Folder {
+  width: 100%;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
 .FilePage_Folder_Inner_Box {
   /* border: 1px solid blue; */
   height: 90%;
@@ -812,9 +818,38 @@ p {
 }
 .FilePage_Folder_Inner_Box:hover {
   background-color: #e5e5e5;
+  transform: scale(1.009);
 }
 .FilePage_Folder_Container h1 {
   font-size: 1.8rem;
+}
+
+.FilePage_AddFolder_Button {
+  margin-top: 10rem;
+  margin-bottom: 30rem;
+  /* border: 1px solid red; */
+  width: 45%;
+  height: 6rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to right, #6461cc, #bc3847e3);
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+.FilePage_AddFolder_Button:hover {
+  background-image: linear-gradient(
+    to right,
+    rgba(93, 89, 206, 0.932),
+    #bc3847de
+  );
+  transform: scale(1.01);
+}
+.FilePage_AddFolder_Button h3 {
+  margin-right: 3rem;
+  font-size: 2.5rem;
+  color: white;
 }
 @media screen and (min-width: 100px) {
   * {
