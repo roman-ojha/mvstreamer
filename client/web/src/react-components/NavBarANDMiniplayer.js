@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { NavLink } from "react-router-dom";
+import PlayButton from '../assets/icons/PlayButton.png';
 
 const NavBarANDMiniplayer = () => {
   const designActiveLink = ({ isActive }) => {
@@ -55,13 +56,7 @@ const NavBarANDMiniplayer = () => {
               width="55px"
               height="55px"
             />
-            <Icon
-              className="MVstreamer_MiniPlayer_Icons2"
-              icon="bi:play-circle-fill"
-              color="black"
-              width="55px"
-              height="55px"
-            />
+            <img src={PlayButton} style={{width:"100px",height:"100px",marginTop:"23px"}}/>
             <Icon
               className="MVstreamer_MiniPlayer_Icons3"
               icon="fluent:next-24-filled"

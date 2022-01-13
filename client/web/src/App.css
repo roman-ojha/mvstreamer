@@ -128,6 +128,7 @@
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  /* align-items: center; */
 }
 .MVstreamer_MiniPlayer_TimeStamp {
   width: 560px;
