@@ -1,15 +1,43 @@
 import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 
-const FilePage = () => {
-  const [rootFolders,setRootFolder]=useState(["Picture","Image","Studio","Wallpapers","Music","Video"]);
+class Folder_File_Node{
+  // Create Node of folder/file to make tree data structure
+  constructor(value,type){
+    this.value=value;
+    this.type=type;
+    // type could be folder or file 
+    // if it is folder then we have to go the another descendents if it is file then we have to open it
+    this.descendants=[];
+  }
+};
 
+const FilePage = () => {
+  const [rootFolders,setRootFolder]=useState(["Picture","Image","Studio","Wallpapers","Music"]);
 
     const addFolder=()=>{
      const content= document.getElementsByClassName('File_Page_Add_Button')[0].files;
      const files=Object.values(content)
-     const folder= files[0].webkitRelativePath.split("/")[0];
-     setRootFolder([...rootFolders,folder]);
+     let folder;
+     let head;
+     const folderTree=[];
+     for(let file of files){
+       let folder_Directory=file.webkitRelativePath.split("/");
+       console.log(folder_Directory);
+      // for (let i=0;i<folder_Directory.length;i++){
+      //   console.log(folder_Directory[i]);
+      //   if(head)
+
+      //   if(i===0){
+      //     folder=new Folder_File_Node(folder_Directory[i]);
+      //     head=new Folder_File_Node(folder_Directory[i]);
+      //   }
+      //   else{
+      //     folder.descendants.push(folder_Directory[i]);
+      //     folder=new Folder_File_Node(folder_Directory[i]);
+      //   }
+      // }
+     }
     }
 
   const Folder=(props)=>{
