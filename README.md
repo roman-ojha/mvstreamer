@@ -1,5 +1,4 @@
 # MVstreamer
-### NOTE: Not Completed yet
 
 ## Streaming App Using:
 1. ReactJs
@@ -22,6 +21,9 @@
 [<img src="design/mobile_home_page.jpg" style="width:20%;" alt="mobileHome"></img>](design/mobile_home_page.jpg)
 
 <br/>
+
+[<p style="font-size:50px;">Todo</p>](todo.md "Todo")
+<!-- [<a href="todo.md">Todo</a>](todo.md) -->
 
 ## How to run Locally:
 
