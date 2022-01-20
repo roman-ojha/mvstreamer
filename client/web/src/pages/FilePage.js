@@ -22,20 +22,9 @@ const FilePage = () => {
   ]);
 
   const displayTree = (head) => {
-    // while(head.descendants!==null){
-    //   console.log(head.value);
-    //   head=head.descendants
-    // }
     console.log(head.value);
-    console.log(head.descendants);
     for (let i = 0; i < head.descendants.length; i++) {
       console.log(head.descendants[i]);
-      // for (let j = 0; j < head.descendants[i].descendants.length; j++) {
-      //   console.log(head.descendants[j].descendants[j]);
-      //   for (let k = 0; k < head.descendants[j].descendants.length; k++) {
-      //     console.log(head.descendants[k].descendants[k]);
-      //   }
-      // }
     }
   };
 
@@ -50,54 +39,77 @@ const FilePage = () => {
       .files;
     const files = Object.values(content);
     let head = createNode("head", "folder");
-    let ptr = head;
-    // for (let file of files) {
-    //   let folder_Directory = file.webkitRelativePath.split("/");
-    //   if (head.descendants.length === 0) {
-    //     let node = createNode(folder_Directory[0]);
-    //     head.descendants.push(node);
-    //   }
-    //   for (let i = 1; i < folder_Directory.length; i++) {
-    //     let node = createNode(folder_Directory[i]);
-    //     ptr.descendants.push(node);
-    //     // console.log(node);
-    //     ptr = ptr.descendants[ptr.descendants.length - 1];
-    //   }
-    //   console.log(folder_Directory);
-    // }
-    // displayTree(head);
-    // let i, j, k;
-    // i = 0;
-    // while (i < files.length) {
-    //   j = 0;
-    //   while (j < files.length) {
-    //     let folder_Directory = files[j].webkitRelativePath.split("/");
-    //     k = 0;
-    //     while (k < folder_Directory.length) {
-    //       console.log(folder_Directory[j]);
-    //       k++;
-    //     }
-    //     j++;
-    //   }
-    //   i++;
-    // }
-    // while()
-    let folder_Directory_Length = files[0].webkitRelativePath.split("/").length;
-    let i = 0;
-    let j = 0;
-    let k = 0;
-    while (i < folder_Directory_Length && j < files.length) {
-      files.map((value, index) => {
-        let folder_Directory = value.webkitRelativePath.split("/");
-        console.log(folder_Directory[k]);
-        folder_Directory_Length = folder_Directory.length;
-        j = k;
-        i = index;
-      });
-      k++;
+    for (let i = 0; i < files.length; i++) {
+      let ptr = head;
+      let folder_Directory = files[i].webkitRelativePath.split("/");
+      for (let j = 0; j < folder_Directory.length; j++) {
+        let include = false;
+        ptr.descendants.map((value, index) => {
+          if (value.value === folder_Directory[j]) {
+            include = true;
+          }
+        });
+        if (!include) {
+          let node = createNode(folder_Directory[j], "folder");
+          ptr.descendants.push(node);
+        }
+        ptr = ptr.descendants[ptr.descendants.length - 1];
+      }
     }
-    // console.log(files);
+    displayTree(head);
   };
+
+  // for (let file of files) {
+  //   let folder_Directory = file.webkitRelativePath.split("/");
+  //   if (head.descendants.length === 0) {
+  //     let node = createNode(folder_Directory[0]);
+  //     head.descendants.push(node);
+  //   }
+  //   for (let i = 1; i < folder_Directory.length; i++) {
+  //     let node = createNode(folder_Directory[i]);
+  //     ptr.descendants.push(node);
+  //     // console.log(node);
+  //     ptr = ptr.descendants[ptr.descendants.length - 1];
+  //   }
+  //   console.log(folder_Directory);
+  // }
+  // displayTree(head);
+  // let i, j, k;
+  // i = 0;
+  // while (i < files.length) {
+  //   j = 0;
+  //   while (j < files.length) {
+  //     let folder_Directory = files[j].webkitRelativePath.split("/");
+  //     k = 0;
+  //     while (k < folder_Directory.length) {
+  //       console.log(folder_Directory[j]);
+  //       k++;
+  //     }
+  //     j++;
+  //   }
+  //   i++;
+  // }
+  // while()
+  // let folder_Directory_Length = files[0].webkitRelativePath.split("/").length;
+  // let i = 0;
+  // let j = 0;
+  // let k = 0;
+  // let currentFile;
+  // while (j != folder_Directory_Length - 1 || i != files.length - 1) {
+  //   files.map((value, index) => {
+  //     let folder_Directory = value.webkitRelativePath.split("/");
+  //     if (k < folder_Directory.length) {
+  //       for (let count = 0; count <= index; count++) {
+  //         ptr = ptr.descendants;
+  //       }
+  //     }
+  //     console.log(k);
+  //     folder_Directory_Length = folder_Directory.length;
+  //     j = k;
+  //     i = index;
+  //   });
+  //   k++;
+  // }
 
   // for (let i=0;i<folder_Directory.length;i++){
   //   console.log(folder_Directory[i]);
@@ -139,7 +151,7 @@ const FilePage = () => {
           type="file"
           placeholder="Image"
           webkitdirectory="true"
-          multiple
+          // multiple
           onChange={addFolder}
         />
         <label htmlFor="image-input" className="FilePage_AddFolder_Button">
