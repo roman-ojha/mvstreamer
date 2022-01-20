@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { createElement, useState } from "react";
 import { Icon } from "@iconify/react";
-import { set } from "mongoose";
+import { useNavigate } from "react-router-dom";
 
 class FolderNode {
   // Create Node of folder/file to make tree data structure
@@ -23,6 +23,7 @@ class FileNode {
 }
 
 const FilePage = () => {
+  const navigate = useNavigate();
   const [rootFolders, setRootFolder] = useState([
     "Picture",
     "Image",
@@ -44,7 +45,6 @@ const FilePage = () => {
       .files;
     // getting all the file after use input
     const files = Object.values(content);
-    console.log(files);
     // converting file into arrays
     let head = new FolderNode("head");
     // creating head node for the tree structure
@@ -114,6 +114,7 @@ const FilePage = () => {
     displayTree(head);
     setCurrentDisplayedFileandFolder(head.subFolder);
   };
+
   const Folder = (props) => {
     const openFolder = () => {
       let currentClickedFolder = props.Node;
@@ -139,9 +140,18 @@ const FilePage = () => {
       // showing file component if node is file
       if (props.Node.extention === "mp3" || props.Node.extention === "wav") {
         // if file is mp3 or wav then we will show or play audio
+        const playAudio = () => {
+          const audioObj = props.Node.file;
+          const audioURL = URL.createObjectURL(audioObj);
+          navigate("/mplayer", {
+            state: { from: "local", url: audioURL },
+          });
+          // const audio = new Audio(audioURL);
+          // audio.play();
+        };
         return (
           <>
-            <div className="FilePage_Folder_Container">
+            <div className="FilePage_Folder_Container" onClick={playAudio}>
               <div className="FilePage_Folder_Inner_Box">
                 <Icon
                   icon="bi:music-player-fill"
@@ -173,9 +183,10 @@ const FilePage = () => {
   };
   return (
     <>
-      <div className="FilePage_BackButton_Container">
+      <div className="FilePage_BackButton_Container" onClick={() => {}}>
         <Icon icon="eva:arrow-ios-back-outline" width="5rem" color="#858585" />
       </div>
+      <div className="Audio"></div>
       <div className="FilePage_Container">
         <div className="FilePage_List_of_Folder">
           {currentDisplayedFileandFolder.map((node, index) => {

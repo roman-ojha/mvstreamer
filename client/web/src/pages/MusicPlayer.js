@@ -5,16 +5,22 @@ import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 const MusicPlayer = () => {
   const location = useLocation();
+  const audioFrom = location.state.from;
+  let url;
+  if (audioFrom === "local") {
+    // if audio from local file then we will set url comming from navigated location
+    url = location.state.url;
+  } else {
+    url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
+  }
+  // const location = useLocation();
   const { songID } = useParams();
   // getting songid from the url parameter
-  const [song, setSong] = useState(
-    new Audio(`${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`)
-  );
+  const [song, setSong] = useState(new Audio(url));
   song.autoplay = true;
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
   const [buttonValue, setButtonValue] = useState({
