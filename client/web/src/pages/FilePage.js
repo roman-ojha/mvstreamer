@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 
-class Folder_File_Node {
+class FolderNode {
   // Create Node of folder/file to make tree data structure
-  constructor(value, type) {
-    this.value = value;
-    this.type = type;
-    // type could be folder or file
+  constructor(name) {
+    this.name = name;
     // if it is folder then we have to go the another descendents if it is file then we have to open it
-    this.descendants = [];
+    this.subFolder = [];
+  }
+}
+
+class FileNode {
+  // Create Node for file
+  constructor(name) {
+    this.name = name;
   }
 }
 
@@ -22,107 +27,60 @@ const FilePage = () => {
   ]);
 
   const displayTree = (head) => {
-    console.log(head.value);
-    for (let i = 0; i < head.descendants.length; i++) {
-      console.log(head.descendants[i]);
+    console.log(head.name);
+    for (let i = 0; i < head.subFolder.length; i++) {
+      console.log(head.subFolder[i]);
     }
   };
-
-  const createNode = (data) => {
-    const n = new Folder_File_Node(data, "folder");
-    n.descendants = [];
-    return n;
-  };
-
   const addFolder = () => {
     const content = document.getElementsByClassName("File_Page_Add_Button")[0]
       .files;
+    // getting all the file after use input
     const files = Object.values(content);
-    let head = createNode("head", "folder");
-    for (let i = 0; i < files.length; i++) {
+    // converting file into arrays
+    let head = new FolderNode("head");
+    // creating head node for the tree structure
+    for (let fileCount = 0; fileCount < files.length; fileCount++) {
+      // iterating all the files array
       let ptr = head;
-      let folder_Directory = files[i].webkitRelativePath.split("/");
-      for (let j = 0; j < folder_Directory.length; j++) {
+      // assigning to ptr to traversal node
+      let fileDirectory = files[fileCount].webkitRelativePath.split("/");
+      // spliting directory path into array to create a tree structure
+      for (
+        let fileDirectoryCount = 0;
+        fileDirectoryCount < fileDirectory.length;
+        fileDirectoryCount++
+      ) {
+        // iterating to all splitted directory array path
         let include = false;
-        ptr.descendants.map((value, index) => {
-          if (value.value === folder_Directory[j]) {
+        // is subFolder is include in subFolder[]
+        let file = false;
+        // is current iterative is file
+        ptr.subFolder.map((value, index) => {
+          if (value.name === fileDirectory[fileDirectoryCount]) {
+            // if folder name is already included in subFolder
             include = true;
           }
         });
-        if (!include) {
-          let node = createNode(folder_Directory[j], "folder");
-          ptr.descendants.push(node);
+        if (fileDirectory[fileDirectoryCount].includes(".")) {
+          // if it is file
+          file = true;
         }
-        ptr = ptr.descendants[ptr.descendants.length - 1];
+        if (!include && !file) {
+          // if folder name is not included and it is not file then we will create node and append to the subfolder
+          let node = new FolderNode(fileDirectory[fileDirectoryCount]);
+          ptr.subFolder.push(node);
+        } else if (!include && file) {
+          // if file is not included and if it is file then we will create file node and append to the subfolder
+          let node = new FileNode(fileDirectory[fileDirectoryCount]);
+          ptr.subFolder.push(node);
+        }
+        ptr = ptr.subFolder[ptr.subFolder.length - 1];
+        // traversaling to the next subfolder
       }
     }
     displayTree(head);
   };
-
-  // for (let file of files) {
-  //   let folder_Directory = file.webkitRelativePath.split("/");
-  //   if (head.descendants.length === 0) {
-  //     let node = createNode(folder_Directory[0]);
-  //     head.descendants.push(node);
-  //   }
-  //   for (let i = 1; i < folder_Directory.length; i++) {
-  //     let node = createNode(folder_Directory[i]);
-  //     ptr.descendants.push(node);
-  //     // console.log(node);
-  //     ptr = ptr.descendants[ptr.descendants.length - 1];
-  //   }
-  //   console.log(folder_Directory);
-  // }
-  // displayTree(head);
-  // let i, j, k;
-  // i = 0;
-  // while (i < files.length) {
-  //   j = 0;
-  //   while (j < files.length) {
-  //     let folder_Directory = files[j].webkitRelativePath.split("/");
-  //     k = 0;
-  //     while (k < folder_Directory.length) {
-  //       console.log(folder_Directory[j]);
-  //       k++;
-  //     }
-  //     j++;
-  //   }
-  //   i++;
-  // }
-  // while()
-  // let folder_Directory_Length = files[0].webkitRelativePath.split("/").length;
-  // let i = 0;
-  // let j = 0;
-  // let k = 0;
-  // let currentFile;
-  // while (j != folder_Directory_Length - 1 || i != files.length - 1) {
-  //   files.map((value, index) => {
-  //     let folder_Directory = value.webkitRelativePath.split("/");
-  //     if (k < folder_Directory.length) {
-  //       for (let count = 0; count <= index; count++) {
-  //         ptr = ptr.descendants;
-  //       }
-  //     }
-  //     console.log(k);
-  //     folder_Directory_Length = folder_Directory.length;
-  //     j = k;
-  //     i = index;
-  //   });
-  //   k++;
-  // }
-
-  // for (let i=0;i<folder_Directory.length;i++){
-  //   console.log(folder_Directory[i]);
-  //   if(head)
-  //   if(i===0){
-  //     folder=new Folder_File_Node(folder_Directory[i]);
-  //     head=new Folder_File_Node(folder_Directory[i]);
-  //   }
-  //   else{
-  //     folder.descendants.push(folder_Directory[i]);
-  //     folder=new Folder_File_Node(folder_Directory[i]);
-  //   }
-  // }
   const Folder = (props) => {
     return (
       <>
