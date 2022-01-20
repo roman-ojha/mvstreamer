@@ -779,6 +779,14 @@ p {
 }
 
 /* Designing Folder page ====================================================== */
+.FilePage_BackButton_Container {
+  /* border: 1px solid red; */
+  /* display: inline-block; */
+  position: absolute;
+  padding-top: 2rem;
+  cursor: pointer;
+}
+
 .FilePage_Container {
   width: 100%;
   min-height: 100vh;
@@ -786,11 +794,10 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-left: 1rem;
 }
 .FilePage_Folder_Container {
-  /* background-color: red; */
   /* border: 1px solid red; */
-  /* flex: 20%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -798,6 +805,7 @@ p {
   width: 20%;
   height: 25rem;
 }
+
 .FilePage_List_of_Folder {
   width: 100%;
   /* min-height: 100vh; */
@@ -821,8 +829,12 @@ p {
   background-color: #e5e5e5;
   transform: scale(1.009);
 }
-.FilePage_Folder_Container h1 {
+.FilePage_Folder_Inner_Box h1 {
+  /* border: 1px solid red; */
+  width: 90%;
   font-size: 1.8rem;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .FilePage_AddFolder_Button {

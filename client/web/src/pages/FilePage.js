@@ -14,10 +14,11 @@ class FolderNode {
 
 class FileNode {
   // Create Node for file
-  constructor(name, file, type) {
+  constructor(name, file, type, extention) {
     this.name = name;
     this.type = type;
     this.file = file;
+    this.extention = extention;
   }
 }
 
@@ -43,6 +44,7 @@ const FilePage = () => {
       .files;
     // getting all the file after use input
     const files = Object.values(content);
+    console.log(files);
     // converting file into arrays
     let head = new FolderNode("head");
     // creating head node for the tree structure
@@ -54,6 +56,20 @@ const FilePage = () => {
       // assigning to ptr to traversal node
       let fileDirectory = files[fileCount].webkitRelativePath.split("/");
       // spliting directory path into array to create a tree structure
+      let fileExtention = fileDirectory[fileDirectory.length - 1].split(".")[1];
+      // getting file extention
+      // console.log(fileExtention);
+      if (
+        fileExtention !== "mp3" &&
+        fileExtention !== "wav" &&
+        fileExtention !== "mp4" &&
+        fileExtention !== "mov" &&
+        fileExtention !== "mkv"
+      ) {
+        // if file extention are not '.mp3, .wav, .mp4, .mov, .mkv' then we will not except that file
+        continue;
+        // accept=".mp3, .wav, .mp4, .mov, .mkv"
+      }
       for (
         let fileDirectoryCount = 0;
         fileDirectoryCount < fileDirectory.length;
@@ -86,7 +102,8 @@ const FilePage = () => {
           let node = new FileNode(
             fileDirectory[fileDirectoryCount],
             file,
-            "file"
+            "file",
+            fileExtention
           );
           ptr.subFolder.push(node);
         }
@@ -94,7 +111,7 @@ const FilePage = () => {
         // traversaling to the next subfolder
       }
     }
-    // displayTree(head);
+    displayTree(head);
     setCurrentDisplayedFileandFolder(head.subFolder);
   };
   const Folder = (props) => {
@@ -103,6 +120,7 @@ const FilePage = () => {
       setCurrentDisplayedFileandFolder(currentClickedFolder.subFolder);
     };
     if (props.Node.type === "folder") {
+      // showing folder component if node is folder
       return (
         <>
           <div className="FilePage_Folder_Container" onClick={openFolder}>
@@ -118,39 +136,58 @@ const FilePage = () => {
         </>
       );
     } else if (props.Node.type === "file") {
-      return (
-        <>
-          <div className="FilePage_Folder_Container">
-            <div className="FilePage_Folder_Inner_Box">
-              <Icon
-                icon="akar-icons:file"
-                width="13rem"
-                color="rgb(94 138 189)"
-              />
-              <h1>{props.Node.name}</h1>
+      // showing file component if node is file
+      if (props.Node.extention === "mp3" || props.Node.extention === "wav") {
+        // if file is mp3 or wav then we will show or play audio
+        return (
+          <>
+            <div className="FilePage_Folder_Container">
+              <div className="FilePage_Folder_Inner_Box">
+                <Icon
+                  icon="bi:music-player-fill"
+                  width="13rem"
+                  color="#bc3847e3"
+                />
+                <h1>{props.Node.name.replace(".mp3" || ".wav", "")}</h1>
+              </div>
             </div>
-          </div>
-        </>
-      );
+          </>
+        );
+      } else {
+        return (
+          <>
+            <div className="FilePage_Folder_Container">
+              <div className="FilePage_Folder_Inner_Box">
+                <Icon icon="akar-icons:video" width="13rem" color="#6461cc" />
+                <h1>
+                  {props.Node.name.replace(".mp4" || ".mov" || ".mkv", "")}
+                </h1>
+              </div>
+            </div>
+          </>
+        );
+      }
     } else {
       return <></>;
     }
   };
   return (
     <>
+      <div className="FilePage_BackButton_Container">
+        <Icon icon="eva:arrow-ios-back-outline" width="5rem" color="#858585" />
+      </div>
       <div className="FilePage_Container">
         <div className="FilePage_List_of_Folder">
           {currentDisplayedFileandFolder.map((node, index) => {
             return <Folder Node={node} key={index} />;
           })}
         </div>
-
         <input
           id="image-input"
           style={{ visibility: "hidden", position: "absolute" }}
           className="File_Page_Add_Button"
           type="file"
-          placeholder="Image"
+          placeholder="File"
           webkitdirectory="true"
           // multiple
           onChange={addFolder}
