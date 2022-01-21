@@ -45,7 +45,6 @@ const FilePage = () => {
       .files;
     // getting all the file after use input
     const files = Object.values(content);
-    console.log(files[0]);
     // converting file into arrays
     let head = new FolderNode("head", "root");
     // creating head node for the tree structure
@@ -160,6 +159,7 @@ const FilePage = () => {
           // const audioObj = props.Node.file;
           const audioURL = props.Node.fileUrl;
           navigate("/mplayer", {
+            // navigating to mplayer page to play music
             state: {
               from: "local",
               url: audioURL,
@@ -185,9 +185,23 @@ const FilePage = () => {
           </>
         );
       } else {
+        const playVideo = () => {
+          const videoURL = props.Node.fileUrl;
+          navigate("/vplayer", {
+            // navigating to vplayer page to play video
+            state: {
+              from: "local",
+              url: videoURL,
+              metaData: {
+                title: props.Node.name.replace(".mp4" || ".mov" || ".mkv", ""),
+                singerName: "NaN",
+              },
+            },
+          });
+        };
         return (
           <>
-            <div className="FilePage_Folder_Container">
+            <div className="FilePage_Folder_Container" onClick={playVideo}>
               <div className="FilePage_Folder_Inner_Box">
                 <Icon
                   icon="akar-icons:video"

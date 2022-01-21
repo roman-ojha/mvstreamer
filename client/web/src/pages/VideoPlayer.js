@@ -4,11 +4,13 @@ import User_Image from "../assets/images/user.jpg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import Video01 from "../assets/video/Video01.mp4";
+import { useLocation } from "react-router-dom";
 
 const VideoPlayer = () => {
+  const location = useLocation();
   // creating video element
   const [buttonValue, setButtonValue] = useState({
-    playVideo: false,
+    playVideo: true,
     loopVideo: false,
     favoriteVideo: false,
     fullScreen: false,
@@ -45,7 +47,8 @@ const VideoPlayer = () => {
 
   useEffect(() => {
     // setting attribute for the video element
-    video.setAttribute("src", Video01);
+    //  URL.revokeObjectURL(location.state.url)
+    video.src = location.state.url;
     video.id = "VideoPlayerPage_VideoPlayer";
     video.className = "VideoPlayer_Field";
     const vContainerElm = document.getElementsByClassName(
@@ -53,6 +56,7 @@ const VideoPlayer = () => {
     )[0];
     // appending video element
     vContainerElm.append(video);
+    video.autoplay = true;
     // controlling state on video time update
     video.addEventListener("timeupdate", (event) => {
       setTotalVideoDuration(video.duration);
