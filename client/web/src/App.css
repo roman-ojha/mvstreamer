@@ -846,8 +846,35 @@ p {
   flex-direction: column;
   padding-left: 1rem;
 }
+
+.FilePage_List_of_Folder_and_File {
+  /* border: 1px solid blue; */
+  width: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.FilePage_Grid_of_Folder_and_File {
+  width: 100%;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
 .FilePage_Folder_Container {
-  /* border: 1px solid red; */
+  /* border: 1px solid pink; */
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  width: 50%;
+  height: 10rem;
+}
+
+.FilePage_Grid_of_Folder_and_File .FilePage_Folder_Container {
+  /* border: 1px solid pink; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -856,14 +883,20 @@ p {
   height: 25rem;
 }
 
-.FilePage_List_of_Folder {
-  width: 100%;
-  /* min-height: 100vh; */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-}
 .FilePage_Folder_Inner_Box {
+  /* style for gird view */
+  /* border: 1px solid red; */
+  height: 90%;
+  width: 80%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+.FilePage_Grid_of_Folder_and_File .FilePage_Folder_Inner_Box {
   /* border: 1px solid blue; */
   height: 90%;
   width: 80%;
@@ -880,6 +913,12 @@ p {
   transform: scale(1.009);
 }
 .FilePage_Folder_Inner_Box h1 {
+  width: 90%;
+  font-size: 1.8rem;
+  text-align: start;
+  word-wrap: break-word;
+}
+.FilePage_Grid_of_Folder_and_File .FilePage_Folder_Inner_Box h1 {
   /* border: 1px solid red; */
   width: 90%;
   font-size: 1.8rem;

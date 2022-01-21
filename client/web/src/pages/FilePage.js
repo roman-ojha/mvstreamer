@@ -130,7 +130,7 @@ const FilePage = () => {
             <div className="FilePage_Folder_Inner_Box">
               <Icon
                 icon="bx:bxs-folder"
-                width="13rem"
+                width={girdView ? "13rem" : "7rem"}
                 color="rgb(94 138 189)"
               />
               <h1>{props.Node.name}</h1>
@@ -155,7 +155,7 @@ const FilePage = () => {
               <div className="FilePage_Folder_Inner_Box">
                 <Icon
                   icon="bi:music-player-fill"
-                  width="13rem"
+                  width={girdView ? "13rem" : "7rem"}
                   color="#bc3847e3"
                 />
                 <h1>{props.Node.name.replace(".mp3" || ".wav", "")}</h1>
@@ -168,7 +168,11 @@ const FilePage = () => {
           <>
             <div className="FilePage_Folder_Container">
               <div className="FilePage_Folder_Inner_Box">
-                <Icon icon="akar-icons:video" width="13rem" color="#6461cc" />
+                <Icon
+                  icon="akar-icons:video"
+                  width={girdView ? "13rem" : "7rem"}
+                  color="#6461cc"
+                />
                 <h1>
                   {props.Node.name.replace(".mp4" || ".mov" || ".mkv", "")}
                 </h1>
@@ -206,6 +210,9 @@ const FilePage = () => {
               cursor="pointer"
               onClick={() => {
                 setGirdView(!girdView);
+                document.getElementById(
+                  "FilePage_Swap_Folder_and_File_View"
+                ).className = "FilePage_List_of_Folder_and_File";
               }}
             />
           ) : (
@@ -216,6 +223,9 @@ const FilePage = () => {
               cursor="pointer"
               onClick={() => {
                 setGirdView(!girdView);
+                document.getElementById(
+                  "FilePage_Swap_Folder_and_File_View"
+                ).className = "FilePage_Grid_of_Folder_and_File";
               }}
             />
           )}
@@ -235,7 +245,10 @@ const FilePage = () => {
         </div>
       </div>
       <div className="FilePage_Container">
-        <div className="FilePage_List_of_Folder">
+        <div
+          className="FilePage_Grid_of_Folder_and_File"
+          id="FilePage_Swap_Folder_and_File_View"
+        >
           {currentDisplayedFileandFolder.map((node, index) => {
             return <Folder Node={node} key={index} />;
           })}
