@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/buttom_nav_player.dart';
 import '../widgets/carousel_slider.dart';
@@ -8,6 +9,7 @@ import '../widgets/scroll_songs.dart';
 import "package:flutter/services.dart";
 import "package:dio/dio.dart";
 import "../models/environment.dart";
+import '../services/app_state.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,7 +34,6 @@ class _MainPageState extends State<MainPage> {
     final resData = await dio.get(apiBaseUrl);
     final data = await resData.data;
     final songs = data["songs"];
-    print(songs);
   }
 
   Future setPotraitMode() async {
@@ -40,6 +41,37 @@ class _MainPageState extends State<MainPage> {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  Widget NavigatingBody() {
+    return StoreConnector<AppState, int>(
+        converter: (store) => store.state.currentNavigationBarIndex,
+        builder: (context, int currentNavigationBarIndex) {
+          switch (currentNavigationBarIndex) {
+            case 0:
+              return ListView(
+                children: const [
+                  Carousel(),
+                  ScrollSongs(),
+                  ScrollSongs(),
+                  SizedBox(
+                    height: 120,
+                  )
+                ],
+              );
+            // const MVAppBar(),
+            case 1:
+              return Container();
+            case 2:
+              return Container();
+            case 3:
+              return Container();
+            case 4:
+              return Container();
+            default:
+              return Container();
+          }
+        });
   }
 
   @override
@@ -50,17 +82,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Stack(
         children: [
-          ListView(
-            children: const [
-              Carousel(),
-              ScrollSongs(),
-              ScrollSongs(),
-              SizedBox(
-                height: 120,
-              )
-            ],
-          ),
-          const MVAppBar(),
+          NavigatingBody(),
           Transform.translate(
             offset: Offset(
               0,
