@@ -34,7 +34,10 @@ class MVstreamer extends StatelessWidget {
         ),
       ),
       title: 'MVstreamer',
-      home: StoreProvider(store: _store.store, child: const MainPage()),
+      home: StoreProvider(
+        store: _store.store,
+        child: const MainPage(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

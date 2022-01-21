@@ -10,6 +10,15 @@ class FileScreen extends StatefulWidget {
 class _FileScreenState extends State<FileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.red,
+      alignment: Alignment.center,
+      child: const Text(
+        "File",
+        style: TextStyle(fontSize: 50),
+      ),
+    );
   }
 }
