@@ -1,4 +1,4 @@
-import React, { createElement, useState } from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -24,30 +24,28 @@ class FileNode {
 }
 
 const FilePage = () => {
+  let localStorageFolders = JSON.parse(
+    localStorage.getItem("filePageFileCache")
+  );
+  if (!localStorageFolders) {
+    localStorageFolders = [];
+  }
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
   const navigate = useNavigate();
-  const [rootFolders, setRootFolder] = useState([
-    "Picture",
-    "Image",
-    "Studio",
-    "Wallpapers",
-    "Music",
-  ]);
   const [girdView, setGirdView] = useState(true);
   const [currentDisplayedFileandFolder, setCurrentDisplayedFileandFolder] =
-    useState([]);
-
+    useState(localStorageFolders);
   const displayTree = (head) => {
     for (let i = 0; i < head.subFolder.length; i++) {
       console.log(head.subFolder[i]);
     }
   };
-
   const addFolder = () => {
     const content = document.getElementsByClassName("File_Page_Add_Button")[0]
       .files;
     // getting all the file after use input
     const files = Object.values(content);
+    console.log(files[0]);
     // converting file into arrays
     let head = new FolderNode("head", "root");
     // creating head node for the tree structure
@@ -115,11 +113,22 @@ const FilePage = () => {
         // traversaling to the next subfolder
       }
     }
-    displayTree(head);
-    setCurrentDisplayedFileandFolder([
-      ...currentDisplayedFileandFolder,
-      head.subFolder[0],
-    ]);
+
+    // displayTree(head);
+
+    const getFiles = JSON.parse(localStorage.getItem("filePageFileCache"));
+    if (!getFiles) {
+      localStorage.setItem(
+        "filePageFileCache",
+        JSON.stringify([head.subFolder[0]])
+      );
+    } else {
+      getFiles.push(head.subFolder[0]);
+      localStorage.setItem("filePageFileCache", JSON.stringify(getFiles));
+    }
+    setCurrentDisplayedFileandFolder(
+      JSON.parse(localStorage.getItem("filePageFileCache"))
+    );
   };
   const Folder = (props) => {
     // Component
@@ -272,7 +281,7 @@ const FilePage = () => {
           type="file"
           placeholder="File"
           webkitdirectory="true"
-          // multiple
+          mozfullpath="true"
           onChange={addFolder}
         />
         <label htmlFor="image-input" className="FilePage_AddFolder_Button">
