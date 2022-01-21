@@ -5,11 +5,14 @@ import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
 import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
+import MusicIcon from "../assets/images/App_Icon.png";
 import { useParams, useLocation } from "react-router-dom";
 
 const MusicPlayer = () => {
   const location = useLocation();
   const audioFrom = location.state.from;
+  const { songID } = useParams();
+  // getting songid from the url parameter
   let url;
   if (audioFrom === "local") {
     // if audio from local file then we will set url comming from navigated location
@@ -17,9 +20,6 @@ const MusicPlayer = () => {
   } else {
     url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
   }
-  // const location = useLocation();
-  const { songID } = useParams();
-  // getting songid from the url parameter
   const [song, setSong] = useState(new Audio(url));
   song.autoplay = true;
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
@@ -136,7 +136,12 @@ const MusicPlayer = () => {
             alt="simg01"
           />
           <div></div>
-          <img className="Music_Player_Big_Image" src={location.state.imgUrl} />
+          <img
+            className="Music_Player_Big_Image"
+            src={
+              audioFrom === "local" ? MusicIcon : location.state.metaData.imgUrl
+            }
+          />
           <div></div>
           <img
             style={{ boxShadow: " 0px 0px 35px #7c1f007c" }}
@@ -148,8 +153,12 @@ const MusicPlayer = () => {
           <VolumeController />
         </div>
         <div className="Music_Player_Song_Title_Container">
-          <h2>{location.state.title}</h2>
-          <p>{location.state.singerName}</p>
+          <h2>{location.state.metaData.title}</h2>
+          {audioFrom === "local" ? (
+            <p></p>
+          ) : (
+            <p>{location.state.metaData.singerName}</p>
+          )}
         </div>
         <div className="Music_Player_TimeStamp_ProgressBar_Container">
           <h1

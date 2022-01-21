@@ -15,10 +15,10 @@ class FolderNode {
 
 class FileNode {
   // Create Node for file
-  constructor(name, file, type, extention) {
+  constructor(name, fileUrl, type, extention) {
     this.name = name;
+    this.fileUrl = fileUrl;
     this.type = type;
-    this.file = file;
     this.extention = extention;
   }
 }
@@ -42,17 +42,19 @@ const FilePage = () => {
       console.log(head.subFolder[i]);
     }
   };
+
   const addFolder = () => {
     const content = document.getElementsByClassName("File_Page_Add_Button")[0]
       .files;
     // getting all the file after use input
     const files = Object.values(content);
     // converting file into arrays
-    let head = new FolderNode("head");
+    let head = new FolderNode("head", "root");
     // creating head node for the tree structure
     for (let fileCount = 0; fileCount < files.length; fileCount++) {
       // iterating all the files array
       let file = files[fileCount];
+      let fileUrl = URL.createObjectURL(file);
       // getting single file
       let ptr = head;
       // assigning to ptr to traversal node
@@ -103,7 +105,7 @@ const FilePage = () => {
           // if file is not included and if it is file then we will create file node and append file name and file into the subfolder
           let node = new FileNode(
             fileDirectory[fileDirectoryCount],
-            file,
+            fileUrl,
             "file",
             fileExtention
           );
@@ -114,10 +116,13 @@ const FilePage = () => {
       }
     }
     displayTree(head);
-    setCurrentDisplayedFileandFolder(head.subFolder);
+    setCurrentDisplayedFileandFolder([
+      ...currentDisplayedFileandFolder,
+      head.subFolder[0],
+    ]);
   };
-
   const Folder = (props) => {
+    // Component
     const openFolder = () => {
       let currentClickedFolder = props.Node;
       setCurrentDisplayedFileandFolder(currentClickedFolder.subFolder);
@@ -143,10 +148,17 @@ const FilePage = () => {
       if (props.Node.extention === "mp3" || props.Node.extention === "wav") {
         // if file is mp3 or wav then we will show or play audio
         const playAudio = () => {
-          const audioObj = props.Node.file;
-          const audioURL = URL.createObjectURL(audioObj);
+          // const audioObj = props.Node.file;
+          const audioURL = props.Node.fileUrl;
           navigate("/mplayer", {
-            state: { from: "local", url: audioURL },
+            state: {
+              from: "local",
+              url: audioURL,
+              metaData: {
+                title: props.Node.name.replace(".mp3" || ".wav", ""),
+                singerName: "NaN",
+              },
+            },
           });
         };
         return (
