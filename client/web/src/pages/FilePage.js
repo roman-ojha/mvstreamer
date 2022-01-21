@@ -1,6 +1,7 @@
 import React, { createElement, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 class FolderNode {
   // Create Node of folder/file to make tree data structure
@@ -23,6 +24,7 @@ class FileNode {
 }
 
 const FilePage = () => {
+  const userProfileDetail = useSelector((state) => state.userProfileDetail);
   const navigate = useNavigate();
   const [rootFolders, setRootFolder] = useState([
     "Picture",
@@ -31,7 +33,7 @@ const FilePage = () => {
     "Wallpapers",
     "Music",
   ]);
-
+  const [girdView, setGirdView] = useState(true);
   const [currentDisplayedFileandFolder, setCurrentDisplayedFileandFolder] =
     useState([]);
 
@@ -146,8 +148,6 @@ const FilePage = () => {
           navigate("/mplayer", {
             state: { from: "local", url: audioURL },
           });
-          // const audio = new Audio(audioURL);
-          // audio.play();
         };
         return (
           <>
@@ -183,10 +183,57 @@ const FilePage = () => {
   };
   return (
     <>
-      <div className="FilePage_BackButton_Container" onClick={() => {}}>
-        <Icon icon="eva:arrow-ios-back-outline" width="5rem" color="#858585" />
+      <div className="FilePage_NavigationBar_Container">
+        <div className="FilePage_NavigationBar">
+          <div className="FilePage_BackButton_Container" onClick={() => {}}>
+            <Icon
+              icon="eva:arrow-ios-back-outline"
+              width="5rem"
+              color="#858585"
+            />
+          </div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          {girdView ? (
+            <Icon
+              icon="mdi:view-grid"
+              width="5rem"
+              color="#858585"
+              cursor="pointer"
+              onClick={() => {
+                setGirdView(!girdView);
+              }}
+            />
+          ) : (
+            <Icon
+              icon="mdi:view-list"
+              width="5rem"
+              color="#858585"
+              cursor="pointer"
+              onClick={() => {
+                setGirdView(!girdView);
+              }}
+            />
+          )}
+          <div className="FilePage_Search_Input_Field">
+            <Icon
+              icon="bx:bx-search-alt"
+              width="3.7rem"
+              color="rgb(110, 110, 110)"
+            />
+            <input type="text" placeholder="Search.." />
+          </div>
+          <img
+            className="FilePage_User_Icon"
+            src={userProfileDetail.picture}
+            alt="icon"
+          />
+        </div>
       </div>
-      <div className="Audio"></div>
       <div className="FilePage_Container">
         <div className="FilePage_List_of_Folder">
           {currentDisplayedFileandFolder.map((node, index) => {

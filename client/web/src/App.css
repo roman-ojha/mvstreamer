@@ -779,11 +779,61 @@ p {
 }
 
 /* Designing Folder page ====================================================== */
-.FilePage_BackButton_Container {
+.FilePage_NavigationBar_Container {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FilePage_NavigationBar {
+  width: 80%;
+  /* height: 7rem; */
+  height: 80%;
   /* border: 1px solid red; */
-  /* display: inline-block; */
-  position: absolute;
-  padding-top: 2rem;
+  background-image: linear-gradient(to bottom, #9ab3d3, #d9e9ff);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.FilePage_BackButton_Container {
+  display: inline-block;
+  cursor: pointer;
+}
+.FilePage_Search_Input_Field {
+  /* border: 1px solid red; */
+  width: 25rem;
+  height: 80%;
+  background-color: rgba(255, 255, 255, 0.623);
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1rem;
+}
+.FilePage_Search_Input_Field input {
+  margin-left: 1rem;
+  border-width: 0px;
+  background-color: transparent;
+}
+.FilePage_Search_Input_Field input::placeholder {
+  color: rgb(110, 110, 110);
+  letter-spacing: 1px;
+}
+
+.FilePage_Search_Input_Field input:read-write {
+  outline: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(94, 94, 94);
+  font-family: var(--primary-font-family);
+}
+
+.FilePage_User_Icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
   cursor: pointer;
 }
 
