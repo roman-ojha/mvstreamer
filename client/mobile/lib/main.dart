@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'screens/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/main_page.dart';
-import 'screens/music_player.dart';
 import "package:flutter/services.dart";
-import 'screens/video_player_screen.dart';
-import 'package:redux/redux.dart';
-import 'services/app_state.dart';
-import 'services/redux-reducer/reducers.dart';
+import 'services/redux-store/store.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,15 +17,11 @@ Future<void> main() async {
   runApp(const MVstreamer());
 }
 
-final Store<AppState> _store = Store<AppState>(
-  navigationBarIndexReducer,
-  initialState: AppState.initialState(),
-);
-
 class MVstreamer extends StatelessWidget {
   const MVstreamer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final _store = ReduxStore();
     return MaterialApp(
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
@@ -43,7 +34,7 @@ class MVstreamer extends StatelessWidget {
         ),
       ),
       title: 'MVstreamer',
-      home: StoreProvider(store: _store, child: const MainPage()),
+      home: StoreProvider(store: _store.store, child: const MainPage()),
       debugShowCheckedModeBanner: false,
     );
   }

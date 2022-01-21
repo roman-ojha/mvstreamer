@@ -1,15 +1,16 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import '../widgets/app_bar.dart';
 import '../widgets/buttom_nav_player.dart';
-import '../widgets/carousel_slider.dart';
-import '../widgets/min_player.dart';
-import '../widgets/scroll_songs.dart';
 import "package:flutter/services.dart";
 import "package:dio/dio.dart";
 import "../models/environment.dart";
 import '../services/app_state.dart';
+import 'home_screen.dart';
+import 'music_screen.dart';
+import 'video_screen.dart';
+import 'setting_screen.dart';
+import 'file_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -43,35 +44,30 @@ class _MainPageState extends State<MainPage> {
     ]);
   }
 
-  Widget NavigatingBody() {
+  Widget navigatingBody() {
     return StoreConnector<AppState, int>(
-        converter: (store) => store.state.currentNavigationBarIndex,
-        builder: (context, int currentNavigationBarIndex) {
-          switch (currentNavigationBarIndex) {
-            case 0:
-              return ListView(
-                children: const [
-                  Carousel(),
-                  ScrollSongs(),
-                  ScrollSongs(),
-                  SizedBox(
-                    height: 120,
-                  )
-                ],
-              );
-            // const MVAppBar(),
-            case 1:
-              return Container();
-            case 2:
-              return Container();
-            case 3:
-              return Container();
-            case 4:
-              return Container();
-            default:
-              return Container();
-          }
-        });
+      // accessing redux store
+      converter: (store) => store.state.currentNavigationBarIndex,
+      builder: (context, int currentNavigationBarIndex) {
+        // building widget according to navigationbar index update
+        switch (currentNavigationBarIndex) {
+          case 0:
+            // Home
+            return HomeScreen();
+          case 1:
+            // Music Screen
+            return MusicScreen();
+          case 2:
+            return SettingScreen();
+          case 3:
+            return VideoScreen();
+          case 4:
+            return FileScreen();
+          default:
+            return Container();
+        }
+      },
+    );
   }
 
   @override
@@ -82,7 +78,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Stack(
         children: [
-          NavigatingBody(),
+          navigatingBody(),
           Transform.translate(
             offset: Offset(
               0,

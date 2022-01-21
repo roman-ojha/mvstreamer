@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:android_ios/services/app_state.dart';
 import '../redux-actions/actions.dart';
 
