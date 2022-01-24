@@ -98,11 +98,13 @@
   border-radius: 100px 100px 0px 0px;
   position: fixed;
   bottom: 0px;
+  /* z-index: 1; */
 }
 .Buttom_NavBar_Icons {
   width: 50px;
   height: 50px;
 }
+
 .NavBar_HomePage_Outline {
   height: 60px;
   width: 60px;
@@ -115,8 +117,19 @@
 .NavBar_HomePage_Outline:active {
   background-color: #ffffff33;
 }
-.MVstreamer_minPlayer_Space_Dive {
+
+/* .MVstreamer_minPlayer_Space_Dive {
   position: static;
+} */
+
+.MVstreamer_MiniPlayer_Container {
+  width: 100%;
+  /* height: 500px; */
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: 2;
+  bottom: 0px;
 }
 .MVstreamer_MiniPlayer {
   background-image: linear-gradient(
@@ -136,12 +149,8 @@
   position: absolute;
   bottom: -450px;
   cursor: pointer;
-  transition-duration: 100ms;
   /* transform: rotate(120deg); */
 }
-/* .MVstreamer_MiniPlayer:hover {
-  transform: scale(1.014);
-} */
 .MVstreamer_MiniPlayer_Inner {
   background-color: white;
   width: 97.5%;
@@ -1017,6 +1026,7 @@ p {
   }
   .MVstreamer_Navbar {
     height: 50px;
+    z-index: 2;
   }
   .Buttom_NavBar_Icons {
     width: 35px;
@@ -1025,6 +1035,22 @@ p {
   .NavBar_HomePage_Outline {
     width: 40px;
     height: 40px;
+  }
+  .MVstreamer_minPlayer_Space_Dive {
+    position: absolute;
+  }
+  .MVstreamer_MiniPlayer_Container {
+    z-index: 1;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 100%;
+    height: 350px;
+    bottom: -220px;
+    left: 0px;
+  }
+  .MVstreamer_MiniPlayer_Inner {
+    width: 97%;
+    height: 97%;
   }
 }
 
@@ -1038,6 +1064,7 @@ p {
   }
   .MVstreamer_Navbar {
     height: 55px;
+    z-index: 2;
   }
   .Buttom_NavBar_Icons {
     width: 39px;
@@ -1046,6 +1073,23 @@ p {
   .NavBar_HomePage_Outline {
     width: 45px;
     height: 45px;
+  }
+  .MVstreamer_minPlayer_Space_Dive {
+    position: absolute;
+  }
+  .MVstreamer_MiniPlayer_Container {
+    z-index: 1;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 100%;
+    height: 380px;
+    bottom: -235px;
+    z-index: 1;
+    left: 0px;
+  }
+  .MVstreamer_MiniPlayer_Inner {
+    width: 97%;
+    height: 97%;
   }
 }
 @media screen and (min-width: 500px) and (max-width: 650px) {
@@ -1058,6 +1102,7 @@ p {
   }
   .MVstreamer_Navbar {
     height: 56px;
+    z-index: 2;
   }
   .Buttom_NavBar_Icons {
     width: 40px;
@@ -1066,6 +1111,19 @@ p {
   .NavBar_HomePage_Outline {
     width: 45px;
     height: 45px;
+  }
+  .MVstreamer_minPlayer_Space_Dive {
+    position: absolute;
+  }
+  .MVstreamer_MiniPlayer_Container {
+    z-index: 1;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 90%;
+    height: 380px;
+    bottom: -235px;
+    z-index: 1;
+    left: 30px;
   }
 }
 
@@ -1079,6 +1137,7 @@ p {
   }
   .MVstreamer_Navbar {
     height: 58px;
+    z-index: 1;
   }
   .Buttom_NavBar_Icons {
     width: 43px;
@@ -1087,6 +1146,14 @@ p {
   .NavBar_HomePage_Outline {
     width: 48px;
     height: 48px;
+  }
+  .MVstreamer_minPlayer_Space_Dive {
+    position: static;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 300px;
+    height: 300px;
+    bottom: -225px;
   }
 }
 
@@ -1109,8 +1176,27 @@ p {
     width: 50px;
     height: 50px;
   }
+  .MVstreamer_MiniPlayer {
+    width: 400px;
+    height: 400px;
+    bottom: -300px;
+  }
 }
 
+@media screen and (min-width: 1000px) {
+  .MVstreamer_MiniPlayer {
+    width: 450px;
+    height: 450px;
+    bottom: -340px;
+  }
+}
+@media screen and (min-width: 1250px) {
+  .MVstreamer_MiniPlayer {
+    width: 500px;
+    height: 500px;
+    bottom: -375px;
+  }
+}
 @media screen and (min-width: 1500px) and (max-width: 1600px) {
   * {
     font-size: 11px;
@@ -1125,6 +1211,11 @@ p {
   .NavBar_HomePage_Outline {
     width: 50px;
     height: 50px;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 500px;
+    height: 500px;
+    bottom: -375px;
   }
 }
 
@@ -1160,6 +1251,11 @@ p {
     width: 53px;
     height: 53px;
   }
+  .MVstreamer_MiniPlayer {
+    width: 600px;
+    height: 600px;
+    bottom: -450px;
+  }
 }
 
 @media screen and (min-width: 1800px) and (max-width: 1900px) {
@@ -1177,6 +1273,11 @@ p {
     width: 53px;
     height: 53px;
   }
+  .MVstreamer_MiniPlayer {
+    width: 600px;
+    height: 600px;
+    bottom: -450px;
+  }
 }
 @media screen and (min-width: 1900px) {
   * {
@@ -1192,5 +1293,10 @@ p {
   .NavBar_HomePage_Outline {
     width: 55px;
     height: 55px;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 700px;
+    height: 700px;
+    bottom: -525px;
   }
 }
