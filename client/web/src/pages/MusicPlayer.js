@@ -29,7 +29,9 @@ const MusicPlayer = () => {
     favoriteSong: false,
     randomSong: false,
   });
+  const [currentVolume, setCurrentVolume] = useState(0.7);
   song.loop = buttonValue.loopSong;
+  song.volume = currentVolume;
   const totalSongDuration = song.duration;
   const totalSongDurationInMin = `${Math.floor(
     totalSongDuration / 60
@@ -102,17 +104,29 @@ const MusicPlayer = () => {
       // setting the time where user had clicked
     } catch (err) {}
   };
-
-  const VolumeController = () => {
-    return (
-      <>
-        <div className="Music_Player_Volume_Controller">
-          <div className="Music_Player_Current_Volume">
-            <div className="Music_Player_Volume_Controller_Button"></div>
-          </div>
-        </div>
-      </>
-    );
+  const updateVolume = (e) => {
+    let parentElement;
+    if (e.target.className === "Music_Player_Current_Volume") {
+      parentElement = e.target.parentElement.parentElement;
+    } else if (e.target.className === "Music_Player_Volume_Controller_Button") {
+      parentElement = e.target.parentElement.parentElement.parentElement;
+      console.log(parentElement);
+    } else if (e.target.className === "Music_Player_Volume_Controller") {
+      parentElement = e.target.parentElement;
+    } else {
+      parentElement = e.target;
+    }
+    const totalHeight = parentElement.getBoundingClientRect().height;
+    const clickedHeight = e.target.getBoundingClientRect().bottom - e.clientY;
+    const getPercentage = (clickedHeight / totalHeight) * 100;
+    if (getPercentage < 0) {
+      getPercentage = 0;
+    } else if (getPercentage > 100) {
+      getPercentage = 100;
+    }
+    const currentVolumeProgress = parentElement.firstChild.firstChild;
+    currentVolumeProgress.style = `height:${getPercentage}%`;
+    setCurrentVolume(getPercentage / 100);
   };
   return (
     <>
@@ -127,7 +141,11 @@ const MusicPlayer = () => {
           <img src={User_Image} alt="userimg" />
         </div>
         <div className="Music_Player_Volume_And_Song_Image_Container">
-          <VolumeController />
+          <div className="Music_Player_Volume_Controller">
+            <div className="Music_Player_Current_Volume">
+              <div className="Music_Player_Volume_Controller_Button"></div>
+            </div>
+          </div>
           <div></div>
           <img
             style={{ boxShadow: "0px 0px 35px #0e316071" }}
@@ -150,7 +168,19 @@ const MusicPlayer = () => {
             alt="simg02"
           />
           <div></div>
-          <VolumeController />
+          <div
+            className="Music_Player_Volume_Controller_Container"
+            onMouseDown={updateVolume}
+          >
+            <div className="Music_Player_Volume_Controller">
+              <div
+                className="Music_Player_Current_Volume"
+                style={{ height: `${currentVolume * 100}%` }}
+              >
+                <div className="Music_Player_Volume_Controller_Button"></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="Music_Player_Song_Title_Container">
           <h2>{location.state.metaData.title}</h2>

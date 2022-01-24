@@ -400,7 +400,10 @@
   justify-content: space-evenly;
   align-items: center;
 }
-
+.Music_Player_Volume_Controller_Container {
+  border: 5px solid transparent;
+  cursor: pointer;
+}
 .Music_Player_Volume_Controller {
   /* border: 1px solid red; */
   width: 0.3rem;
