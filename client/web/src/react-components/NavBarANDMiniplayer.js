@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { NavLink } from "react-router-dom";
 import PlayButton from "../assets/icons/PlayButton.png";
+import PauseButton from "../assets/icons/PauseButton.png";
 import { useSelector } from "react-redux";
 
 const NavBarANDMiniplayer = () => {
+  const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
   const designActiveLink = ({ isActive }) => {
     if (isActive === true) {
@@ -19,34 +21,35 @@ const NavBarANDMiniplayer = () => {
       <div className="MVstreamer_MiniPlayer_Container">
         <div className="MVstreamer_MiniPlayer">
           <div className="MVstreamer_MiniPlayer_Inner">
-            {/* <Icon
-              className="MVstreamer_MiniPlayer_Icons1"
+            <Icon
+              className="MVstreamer_MiniPlayer_previous_Icon"
               icon="fluent:previous-24-filled"
               color="#1976D2"
-              width="55px"
-              height="55px"
-              />
+            />
+            {mediaPlay ? (
               <img
-              src={PlayButton}
-              style={{
-                width: "100px",
-                height: "100px",
-                marginTop: "23px",
-                cursor: "pointer",
-                zIndex: "3",
-              }}
-              // style={{ width: "100px", height: "100px", cursor: "pointer" }}
-              onClick={() => {
-                audio.pause();
-              }}
+                src={PauseButton}
+                className="MVstreamer_MiniPlayer_Pause_Icon"
+                onClick={() => {
+                  audio.pause();
+                  setMediaPlay(!mediaPlay);
+                }}
               />
-              <Icon
-              className="MVstreamer_MiniPlayer_Icons3"
+            ) : (
+              <img
+                src={PlayButton}
+                className="MVstreamer_MiniPlayer_Play_Icon"
+                onClick={() => {
+                  audio.pause();
+                  setMediaPlay(!mediaPlay);
+                }}
+              />
+            )}
+            <Icon
+              className="MVstreamer_MiniPlayer_Next_Icon"
               icon="fluent:next-24-filled"
               color="DB392C"
-              width="55px"
-              height="55px"
-            /> */}
+            />
           </div>
         </div>
       </div>

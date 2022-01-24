@@ -161,27 +161,21 @@
   border-radius: 50%;
   /* transform: rotate(-90deg); */
 }
-.MVstreamer_MiniPlayer_TimeStamp {
-  width: 560px;
-  height: 560px;
-  position: absolute;
-  border-radius: 50%;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent transparent transparent;
+
+.MVstreamer_MiniPlayer_previous_Icon,
+.MVstreamer_MiniPlayer_Next_Icon {
+  margin-top: 40px;
+  width: 60px;
+  height: 60px;
 }
-.MVstreamer_MiniPlayer_Icons1,
-.MVstreamer_MiniPlayer_Icons2,
-.MVstreamer_MiniPlayer_Icons3 {
-  transform: translate(0%, 100%);
-  z-index: 2;
+.MVstreamer_MiniPlayer_Play_Icon,
+.MVstreamer_MiniPlayer_Pause_Icon {
+  width: 8rem;
+  height: 8rem;
+  margin: 30px 10px 0px 10px;
 }
 
-.MVstreamer_MiniPlayer_Icons2 {
-  margin: 0px 35px 0px 35px;
-}
-
-/* Designing Carousel */
+/* Designing Carousel ===================================================*/
 .Carousel_Container {
   width: 100%;
   margin-bottom: 5px;
@@ -1052,6 +1046,18 @@ p {
     width: 97%;
     height: 97%;
   }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 40px;
+    height: 40px;
+    margin-top: 25px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 55px;
+    height: 55px;
+    margin: 15px 10px 0px 10px;
+  }
 }
 
 @media screen and (min-width: 400px) and (max-width: 500px) {
@@ -1091,6 +1097,18 @@ p {
     width: 97%;
     height: 97%;
   }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 45px;
+    height: 45px;
+    margin-top: 25px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 60px;
+    height: 60px;
+    margin: 15px 10px 0px 10px;
+  }
 }
 @media screen and (min-width: 500px) and (max-width: 650px) {
   * {
@@ -1125,6 +1143,18 @@ p {
     z-index: 1;
     left: 30px;
   }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 45px;
+    height: 45px;
+    margin-top: 25px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 60px;
+    height: 60px;
+    margin: 15px 10px 0px 10px;
+  }
 }
 
 @media screen and (min-width: 650px) and (max-width: 800px) {
@@ -1155,6 +1185,18 @@ p {
     height: 300px;
     bottom: -225px;
   }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 35px;
+    height: 35px;
+    margin-top: 25px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 50px;
+    height: 50px;
+    margin: 15px 10px 0px 10px;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -1181,6 +1223,18 @@ p {
     height: 400px;
     bottom: -300px;
   }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 45px;
+    height: 45px;
+    margin-top: 30px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 60px;
+    height: 60px;
+    margin: 20px 10px 0px 10px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -1188,6 +1242,18 @@ p {
     width: 450px;
     height: 450px;
     bottom: -340px;
+  }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 45px;
+    height: 45px;
+    margin-top: 30px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 60px;
+    height: 60px;
+    margin: 20px 10px 0px 10px;
   }
 }
 @media screen and (min-width: 1250px) {
