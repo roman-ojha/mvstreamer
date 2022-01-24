@@ -8,7 +8,6 @@ const SongCard = (props) => {
       <div
         className="SongCard"
         onClick={() => {
-          console.log(props.songDetail);
           navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
             state: { from: "url", metaData: props.songDetail },
           });

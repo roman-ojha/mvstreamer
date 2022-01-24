@@ -57,7 +57,7 @@ const MusicPlayer = () => {
 
   const [currentSongTime, setCurrentSongTime] = useState(audio.currentTime);
   const [buttonValue, setButtonValue] = useState({
-    playSong: true,
+    playSong: false,
     loopSong: false,
     favoriteSong: false,
     randomSong: false,
@@ -65,6 +65,7 @@ const MusicPlayer = () => {
   const [currentVolume, setCurrentVolume] = useState(0.7);
   audio.loop = buttonValue.loopSong;
   audio.volume = currentVolume;
+
   const totalSongDuration = audio.duration;
   const totalSongDurationInMin = `${Math.floor(
     totalSongDuration / 60
@@ -82,6 +83,8 @@ const MusicPlayer = () => {
     dispatch(currentAudioAction(new Audio(url)));
   }, []);
   useEffect(() => {
+    // audio.muted = true;
+    // audio.autoplay = true;
     var rotateImage = 0;
     audio.addEventListener("timeupdate", (event) => {
       // upgrading the song current time and lenght of the progressive bar

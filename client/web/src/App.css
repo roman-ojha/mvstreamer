@@ -9,6 +9,12 @@
 :root {
   --primary-font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  --progress-bar-controller-first-background-color: #ff3c0036;
+  --progress-bar-controller-second-background-color: #236ed13d;
+  --progress-bar-buffer-first-background-color: #a82a035b;
+  --progress-bar-buffer-second-background-color: #226dd049;
+  --progress-bar-current-progress-first-background-color: #ff3d00;
+  --progress-bar-current-progress-second-background-color: #236fd1;
 }
 
 /* Login Page */
@@ -85,7 +91,7 @@
 .MVstreamer_Navbar {
   width: 100%;
   background-image: linear-gradient(to right, #b92e22, #236fd1);
-  height: 70px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -93,42 +99,58 @@
   position: fixed;
   bottom: 0px;
 }
+.Buttom_NavBar_Icons {
+  width: 50px;
+  height: 50px;
+}
 .NavBar_HomePage_Outline {
   height: 60px;
   width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 1rem;
   transition-duration: 200ms;
 }
 .NavBar_HomePage_Outline:active {
   background-color: #ffffff33;
 }
+.MVstreamer_minPlayer_Space_Dive {
+  position: static;
+}
 .MVstreamer_MiniPlayer {
-  background-image: linear-gradient(to left, #b92e22 30%, #236fd1 70%);
-  width: 575px;
-  height: 575px;
+  background-image: linear-gradient(
+    to top,
+    var(--progress-bar-current-progress-first-background-color) 0%,
+    var(--progress-bar-current-progress-second-background-color) 50%,
+    var(--progress-bar-current-progress-second-background-color) 75%,
+    #fdc3b2 75%,
+    #87a3c9 100%
+  );
+  width: 600px;
+  height: 600px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -425px;
+  bottom: -450px;
   cursor: pointer;
   transition-duration: 100ms;
+  /* transform: rotate(120deg); */
 }
-.MVstreamer_MiniPlayer:hover {
+/* .MVstreamer_MiniPlayer:hover {
   transform: scale(1.014);
-}
+} */
 .MVstreamer_MiniPlayer_Inner {
   background-color: white;
   width: 97.5%;
   height: 97.5%;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  /* clip-path: circle(50% at 50% 120%); */
+  border-radius: 50%;
+  /* transform: rotate(-90deg); */
 }
 .MVstreamer_MiniPlayer_TimeStamp {
   width: 560px;
@@ -498,7 +520,11 @@ p {
   width: 90%;
   height: 0.35rem;
   /* border: 1px solid red; */
-  background-image: linear-gradient(to left, #ff3c0036, #236ed13d);
+  background-image: linear-gradient(
+    to left,
+    var(--progress-bar-controller-first-background-color),
+    var(--progress-bar-controller-second-background-color)
+  );
   position: relative;
   cursor: pointer;
 }
@@ -506,7 +532,11 @@ p {
   height: 100%;
   width: 0%;
   border-radius: 10px;
-  background-image: linear-gradient(to left, #a82a035b, #226dd049);
+  background-image: linear-gradient(
+    to left,
+    var(--progress-bar-buffer-first-background-color),
+    var(--progress-bar-buffer-second-background-color)
+  );
   display: flex;
   align-items: center;
 }
@@ -515,7 +545,11 @@ p {
   height: 200%;
   /* background-color: red; */
   border-radius: 10px;
-  background-image: linear-gradient(to left, #ff3d00, #236fd1);
+  background-image: linear-gradient(
+    to left,
+    var(--progress-bar-current-progress-first-background-color),
+    var(--progress-bar-current-progress-second-background-color)
+  );
   display: flex;
   align-items: center;
   justify-content: end;
@@ -962,6 +996,7 @@ p {
   font-size: 2.5rem;
   color: white;
 }
+
 @media screen and (min-width: 100px) {
   * {
     font-size: 4px;
@@ -980,6 +1015,17 @@ p {
     visibility: hidden;
     position: absolute;
   }
+  .MVstreamer_Navbar {
+    height: 50px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 35px;
+    height: 35px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media screen and (min-width: 400px) and (max-width: 500px) {
@@ -990,6 +1036,17 @@ p {
     visibility: hidden;
     position: absolute;
   }
+  .MVstreamer_Navbar {
+    height: 55px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 39px;
+    height: 39px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 45px;
+    height: 45px;
+  }
 }
 @media screen and (min-width: 500px) and (max-width: 650px) {
   * {
@@ -998,6 +1055,17 @@ p {
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
+  }
+  .MVstreamer_Navbar {
+    height: 56px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 40px;
+    height: 40px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 45px;
+    height: 45px;
   }
 }
 
@@ -1009,6 +1077,17 @@ p {
     visibility: hidden;
     position: absolute;
   }
+  .MVstreamer_Navbar {
+    height: 58px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 43px;
+    height: 43px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -1019,11 +1098,33 @@ p {
     visibility: visible;
     position: static;
   }
+  .MVstreamer_Navbar {
+    height: 62px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 45px;
+    height: 45px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media screen and (min-width: 1500px) and (max-width: 1600px) {
   * {
     font-size: 11px;
+  }
+  .MVstreamer_Navbar {
+    height: 62px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 45px;
+    height: 45px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -1031,11 +1132,33 @@ p {
   * {
     font-size: 12px;
   }
+  .MVstreamer_Navbar {
+    height: 62px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 45px;
+    height: 45px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media screen and (min-width: 1700px) and (max-width: 1800px) {
   * {
     font-size: 13px;
+  }
+  .MVstreamer_Navbar {
+    height: 65px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 48px;
+    height: 48px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 53px;
+    height: 53px;
   }
 }
 
@@ -1043,9 +1166,31 @@ p {
   * {
     font-size: 14px;
   }
+  .MVstreamer_Navbar {
+    height: 65px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 48px;
+    height: 48px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 53px;
+    height: 53px;
+  }
 }
 @media screen and (min-width: 1900px) {
   * {
     font-size: 15px;
+  }
+  .MVstreamer_Navbar {
+    height: 68px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 50px;
+    height: 50px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 55px;
+    height: 55px;
   }
 }
