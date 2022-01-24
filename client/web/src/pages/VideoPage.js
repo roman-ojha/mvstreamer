@@ -1,12 +1,17 @@
 import React from "react";
 import Carousel from "../react-components/Carousel";
 import SongCardCarousel from "../react-components/SongCardCarousel";
+import { useDispatch, useSelector } from "react-redux";
+import { setHomePageSongsDetail } from "../services/redux-actions";
 
 const VideoPage = () => {
+  const homePageSongDetailStore = useSelector(
+    (state) => state.homePageSongsDetail
+  );
   return (
     <div>
-      <Carousel />
-      <SongCardCarousel  songsDetail={[]}/>
+      <Carousel carouselItem={homePageSongDetailStore.carouselItem} />
+      <SongCardCarousel songsDetail={[]} />
     </div>
   );
 };

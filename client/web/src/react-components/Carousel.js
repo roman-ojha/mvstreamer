@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import App_Icon from "../assets/images/App_Icon.png";
 import { Icon } from "@iconify/react";
-import Carousel_Image_01 from "../assets/images/carousel_Image_01.jpg";
-import Carousel_Image_02 from "../assets/images/carousel_Image_02.jpg";
-import Carousel_Image_03 from "../assets/images/carousel_Image_03.jpg";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Carousel = (props) => {
+  const navigate = useNavigate();
   const items = props.carouselItem;
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
+  const [currentCarouselItem, setCurrentCarouselItem] = useState();
   const CarouselIndicatorButton = (props) => {
     let ariaCurrent;
     let className;
@@ -42,7 +42,14 @@ const Carousel = (props) => {
     }
     return (
       <>
-        <div className={parentClassName}>
+        <div
+          className={parentClassName}
+          onClick={() => {
+            navigate(`/mplayer/${props.item.mediaPath.split("/")[1]}`, {
+              state: { from: "url", metaData: props.item },
+            });
+          }}
+        >
           <div className="Carousel_Image_Filter"></div>
           <img
             src={props.item.imgUrl}
@@ -88,7 +95,7 @@ const Carousel = (props) => {
             alt="icon"
           />
         </div>
-        <div className="Carousel_Inner_Container" onClick={() => {}}>
+        <div className="Carousel_Inner_Container">
           {/* This is form Bootstrap v5.1 */}
           <div
             id="carouselExampleIndicators"
