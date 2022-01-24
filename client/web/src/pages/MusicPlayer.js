@@ -7,12 +7,16 @@ import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import MusicIcon from "../assets/images/App_Icon.png";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { currentAudioAction } from "../services/redux-actions";
 
 const MusicPlayer = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navitate = useNavigate();
   const audioFrom = location.state.from;
   const { songID } = useParams();
+  const audio = useSelector((state) => state.currentAudioReducer);
   // getting songid from the url parameter
   let url;
   if (audioFrom === "local") {
@@ -21,10 +25,37 @@ const MusicPlayer = () => {
   } else {
     url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
   }
-  const [song, setSong] = useState(new Audio(url));
-  // song.current = new Audio(url);
-  song.autoplay = true;
-  const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
+
+  // With out redux state ===================================
+  // const [song, setSong] = useState(new Audio(url));
+  // // song.current = new Audio(url);
+  // // song.autoplay = true;
+  // const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
+  // const [buttonValue, setButtonValue] = useState({
+  //   playSong: true,
+  //   loopSong: false,
+  //   favoriteSong: false,
+  //   randomSong: false,
+  // });
+  // const [currentVolume, setCurrentVolume] = useState(0.7);
+  // song.loop = buttonValue.loopSong;
+  // song.volume = currentVolume;
+  // const totalSongDuration = song.duration;
+  // const totalSongDurationInMin = `${Math.floor(
+  //   totalSongDuration / 60
+  // )}:${Math.floor(totalSongDuration % 60)}`;
+  // const currentSongTimeInMin = `${Math.floor(
+  //   currentSongTime / 60
+  // )}:${Math.floor(currentSongTime % 60)}`;
+  // var songBufferPercentage;
+  // song.onprogress = function () {
+  //   // getting the buffer length of song
+  //   songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
+  // };
+  // var calculateTotalBufferWidth = 0;
+  // =================================================
+
+  const [currentSongTime, setCurrentSongTime] = useState(audio.currentTime);
   const [buttonValue, setButtonValue] = useState({
     playSong: true,
     loopSong: false,
@@ -32,9 +63,9 @@ const MusicPlayer = () => {
     randomSong: false,
   });
   const [currentVolume, setCurrentVolume] = useState(0.7);
-  song.loop = buttonValue.loopSong;
-  song.volume = currentVolume;
-  const totalSongDuration = song.duration;
+  audio.loop = buttonValue.loopSong;
+  audio.volume = currentVolume;
+  const totalSongDuration = audio.duration;
   const totalSongDurationInMin = `${Math.floor(
     totalSongDuration / 60
   )}:${Math.floor(totalSongDuration % 60)}`;
@@ -42,17 +73,20 @@ const MusicPlayer = () => {
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
   var songBufferPercentage;
-  song.onprogress = function () {
+  audio.onprogress = function () {
     // getting the buffer length of song
-    songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
+    songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
   };
   var calculateTotalBufferWidth = 0;
   useEffect(() => {
+    dispatch(currentAudioAction(new Audio(url)));
+  }, []);
+  useEffect(() => {
     var rotateImage = 0;
-    song.addEventListener("timeupdate", (event) => {
+    audio.addEventListener("timeupdate", (event) => {
       // upgrading the song current time and lenght of the progressive bar
-      var calPercentage = (song.currentTime / song.duration) * 100;
-      setCurrentSongTime(song.currentTime);
+      var calPercentage = (audio.currentTime / audio.duration) * 100;
+      setCurrentSongTime(audio.currentTime);
       document.getElementsByClassName(
         "Music_Player_Current_Progress"
       )[0].style.width = `${calPercentage}%`;
@@ -70,11 +104,10 @@ const MusicPlayer = () => {
         "Music_Player_Buffer_Bar"
       )[0].style = `width: ${calculateTotalBufferWidth}%`;
     });
-  }, []);
-
+  }, [audio]);
   useEffect(() => {
     return () => {
-      song.pause();
+      audio.pause();
     };
   }, []);
 
@@ -106,9 +139,9 @@ const MusicPlayer = () => {
       } else if (getPercentage > 100) {
         getPercentage = 100;
       }
-      const totalSongDuration = song.duration;
+      const totalSongDuration = audio.duration;
       const getClickTimePosition = (getPercentage / 100) * totalSongDuration;
-      song.currentTime = getClickTimePosition;
+      audio.currentTime = getClickTimePosition;
       // setting the time where user had clicked
     } catch (err) {}
   };
@@ -266,7 +299,7 @@ const MusicPlayer = () => {
               alt="PauseButton"
               style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
-                song.pause();
+                audio.pause();
                 setButtonValue({
                   ...buttonValue,
                   playSong: !buttonValue.playSong,
@@ -279,7 +312,7 @@ const MusicPlayer = () => {
               alt="PlayButton"
               style={{ width: "8rem", cursor: "pointer" }}
               onClick={() => {
-                song.play();
+                audio.play();
                 setButtonValue({
                   ...buttonValue,
                   playSong: !buttonValue.playSong,
