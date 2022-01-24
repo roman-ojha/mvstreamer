@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
@@ -6,10 +6,11 @@ import Song_Image03 from "../assets/images/carousel_Image_03.jpg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import MusicIcon from "../assets/images/App_Icon.png";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 const MusicPlayer = () => {
   const location = useLocation();
+  const navitate = useNavigate();
   const audioFrom = location.state.from;
   const { songID } = useParams();
   // getting songid from the url parameter
@@ -21,6 +22,7 @@ const MusicPlayer = () => {
     url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
   }
   const [song, setSong] = useState(new Audio(url));
+  // song.current = new Audio(url);
   song.autoplay = true;
   const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
   const [buttonValue, setButtonValue] = useState({
@@ -68,6 +70,12 @@ const MusicPlayer = () => {
         "Music_Player_Buffer_Bar"
       )[0].style = `width: ${calculateTotalBufferWidth}%`;
     });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      song.pause();
+    };
   }, []);
 
   const setSongTimeOnClick = (event) => {
@@ -136,6 +144,17 @@ const MusicPlayer = () => {
             width="4rem"
             icon="eva:arrow-ios-back-outline"
             color="#000000B3"
+            cursor="pointer"
+            onClick={() => {
+              // navigating to home page and we want to paly the current song with
+              navitate("/", {
+                state: {
+                  url: url,
+                  currentTime: currentSongTime,
+                  from: "mplayer",
+                },
+              });
+            }}
           />
           <img src={User_Image} alt="userimg" />
         </div>

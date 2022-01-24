@@ -11,3 +11,10 @@ export const setHomePageSongsDetail = (value) => {
     payload: value,
   };
 };
+
+export const currentAudioAction = (value) => {
+  return {
+    type: "currentAudio",
+    payload: value,
+  };
+};
