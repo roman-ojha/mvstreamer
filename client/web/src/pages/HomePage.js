@@ -14,7 +14,6 @@ const HomePage = () => {
     try {
       const songRes = await axios("/");
       const songResData = await songRes.data;
-      console.log(songResData);
       homePageSongDetail(setHomePageSongsDetail(songResData));
     } catch (err) {}
   }, []);

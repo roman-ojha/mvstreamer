@@ -7,7 +7,66 @@ import Carousel_Image_03 from "../assets/images/carousel_Image_03.jpg";
 import { useSelector } from "react-redux";
 
 const Carousel = (props) => {
+  const items = props.carouselItem;
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
+  const CarouselIndicatorButton = (props) => {
+    let ariaCurrent;
+    let className;
+    const ariaLabel = `Slide ${props.index + 1}`;
+    if (props.index === 0) {
+      ariaCurrent = "true";
+      className = "active";
+    } else {
+      ariaCurrent = "false";
+      className = "";
+    }
+    return (
+      <>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          className={className}
+          aria-current={ariaCurrent}
+          data-bs-slide-to={props.index}
+          aria-label={ariaLabel}
+        ></button>
+      </>
+    );
+  };
+  const CarouselItem = (props) => {
+    let parentClassName;
+    if (props.index === 0) {
+      parentClassName = "carousel-item active";
+    } else {
+      parentClassName = "carousel-item";
+    }
+    return (
+      <>
+        <div className={parentClassName}>
+          <div className="Carousel_Image_Filter"></div>
+          <img
+            src={props.item.imgUrl}
+            className="d-block w-100"
+            alt="..."
+            style={{
+              height: "65vh",
+              objectFit: "cover",
+              objectPosition: "top",
+            }}
+          />
+          <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
+            <h2>{props.item.title}</h2>
+            <p>Artist: {props.item.singerName}</p>
+            <Icon
+              className="Carousel_PlayIcon"
+              icon="bi:play-circle-fill"
+              width="85px"
+            />
+          </div>
+        </div>
+      </>
+    );
+  };
   return (
     <>
       <div className="Carousel_Container">
@@ -37,82 +96,14 @@ const Carousel = (props) => {
             data-bs-ride="carousel"
           >
             <div className="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                className="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
+              {items.map((value, index) => {
+                return <CarouselIndicatorButton key={index} index={index} />;
+              })}
             </div>
             <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="Carousel_Image_Filter"></div>
-                <img
-                  src={Carousel_Image_01}
-                  className="d-block w-100"
-                  alt="..."
-                  style={{ height: "65vh", objectFit: "cover" }}
-                />
-                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
-                  <h2>Kavhi Khusi Kavhi Gam</h2>
-                  <p>Singer: Sonu Nigam</p>
-                  <Icon
-                    className="Carousel_PlayIcon"
-                    icon="bi:play-circle-fill"
-                    width="85px"
-                  />
-                </div>
-              </div>
-              <div className="carousel-item">
-                <div className="Carousel_Image_Filter"></div>
-                <img
-                  src={Carousel_Image_02}
-                  className="d-block w-100"
-                  alt="..."
-                  style={{ height: "65vh", objectFit: "cover" }}
-                />
-                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
-                  <h2>Kavhi Khusi Kavhi Gam</h2>
-                  <p>Singer: Sonu Nigam</p>
-                  <Icon
-                    className="Carousel_PlayIcon"
-                    icon="bi:play-circle-fill"
-                    width="85px"
-                  />
-                </div>
-              </div>
-              <div className="carousel-item">
-                <div className="Carousel_Image_Filter"></div>
-                <img
-                  src={Carousel_Image_03}
-                  className="d-block w-100"
-                  alt="..."
-                  style={{ height: "65vh", objectFit: "cover" }}
-                />
-                <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
-                  <h2>Kavhi Khusi Kavhi Gam</h2>
-                  <p>Singer: Sonu Nigam</p>
-                  <Icon
-                    className="Carousel_PlayIcon"
-                    icon="bi:play-circle-fill"
-                    width="85px"
-                  />
-                </div>
-              </div>
+              {items.map((value, index) => {
+                return <CarouselItem item={value} index={index} key={index} />;
+              })}
             </div>
             <button
               className="carousel-control-prev"
