@@ -14,14 +14,15 @@ const HomePage = () => {
     try {
       const songRes = await axios("/");
       const songResData = await songRes.data;
-      homePageSongDetail(setHomePageSongsDetail(songResData.songs));
+      console.log(songResData);
+      homePageSongDetail(setHomePageSongsDetail(songResData));
     } catch (err) {}
   }, []);
   return (
     <>
       <div className="HomePage">
-        <Carousel />
-        <SongCardCarousel songsDetail={homePageSongDetailStore} />
+        <Carousel carouselItem={homePageSongDetailStore.carouselItem} />
+        <SongCardCarousel songsDetail={homePageSongDetailStore.songs} />
       </div>
     </>
   );

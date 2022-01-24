@@ -6,7 +6,7 @@ import Carousel_Image_02 from "../assets/images/carousel_Image_02.jpg";
 import Carousel_Image_03 from "../assets/images/carousel_Image_03.jpg";
 import { useSelector } from "react-redux";
 
-const Carousel = () => {
+const Carousel = (props) => {
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
   return (
     <>
@@ -29,8 +29,7 @@ const Carousel = () => {
             alt="icon"
           />
         </div>
-
-        <div className="Carousel_Inner_Container">
+        <div className="Carousel_Inner_Container" onClick={() => {}}>
           {/* This is form Bootstrap v5.1 */}
           <div
             id="carouselExampleIndicators"

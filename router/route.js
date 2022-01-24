@@ -7,10 +7,25 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const getSongs = await MVDetail.find();
+    const index = [];
+    let randomNumber;
+    const carouselItemLength = 4;
+    let carouselItem = [];
+    while (true) {
+      // generating random value and creating carouselItem from that
+      randomNumber = Math.floor(Math.random() * getSongs.length);
+      if (!index.includes(randomNumber)) {
+        index.push(randomNumber);
+        carouselItem.push(getSongs[randomNumber]);
+      }
+      if (index.length > carouselItemLength - 1) {
+        break;
+      }
+    }
     if (!getSongs) {
       return res.status(500).json({ success: false, msg: "Server Error" });
     }
-    return res.status(200).json({ songs: getSongs });
+    return res.status(200).json({ songs: getSongs, carouselItem });
   } catch (err) {
     return res.status(500).json({ success: false, msg: "Server Error" });
   }

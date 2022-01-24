@@ -109,8 +109,7 @@ const MusicPlayer = () => {
     if (e.target.className === "Music_Player_Current_Volume") {
       parentElement = e.target.parentElement.parentElement;
     } else if (e.target.className === "Music_Player_Volume_Controller_Button") {
-      parentElement = e.target.parentElement.parentElement.parentElement;
-      console.log(parentElement);
+      return;
     } else if (e.target.className === "Music_Player_Volume_Controller") {
       parentElement = e.target.parentElement;
     } else {

@@ -1,4 +1,7 @@
-const initialState = [];
+const initialState = {
+  songs: [],
+  carouselItem: [],
+};
 
 const homePageSongsDetail = (state = initialState, action) => {
   if (action.type === "homePageSongsDetail") {

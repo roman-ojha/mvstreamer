@@ -239,7 +239,9 @@
   position: absolute;
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.596));
 }
-
+.Carousel_Inner_Container {
+  cursor: pointer;
+}
 .carousel_MV_Info_and_Play_Button {
   /* border: 1px solid white; */
   height: 300px;
@@ -268,6 +270,10 @@
   position: absolute;
   bottom: 40px;
   left: 20px;
+  transition-duration: 100ms;
+}
+.Carousel_PlayIcon:hover {
+  color: #e2ebf8;
 }
 
 /* Designing Song Card */
