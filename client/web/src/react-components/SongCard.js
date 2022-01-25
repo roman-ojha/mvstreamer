@@ -21,7 +21,7 @@ const SongCard = (props) => {
           />
           <h2 className="SongCard_SongName">{props.songDetail.title}</h2>
           <p className="SongCard_SingerName">{props.songDetail.singerName}</p>
-          <p className="SongCard_Date_Time">2021 | 3:15</p>
+          {/* <p className="SongCard_Date_Time">2021 | 3:15</p> */}
         </div>
       </div>
     </>

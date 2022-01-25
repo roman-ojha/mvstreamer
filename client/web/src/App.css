@@ -351,10 +351,10 @@
   /* border: 1px solid blue; */
   width: 30rem;
   display: inline-block;
-  border-radius: 13px;
-  background-image: linear-gradient(25deg, #236fd1 0%, #ff3d00 100%);
+  border-radius: 2rem;
+  /* background-image: linear-gradient(25deg, #236fd1 0%, #ff3d00 100%); */
   margin: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.432);
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.432); */
   cursor: pointer;
   transition-duration: 200ms;
   flex: 20%;
@@ -370,15 +370,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 13px;
-  background-color: rgba(0, 0, 0, 0.644);
+  border-radius: 2rem;
+  /* background-color: rgba(0, 0, 0, 0.644); */
+  overflow: hidden;
 }
 
 .SongCard_Image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 2rem;
 }
 .SongCard_Container .SongCard_SongName,
 .SongCard_SingerName,
@@ -386,17 +387,25 @@
   margin-left: 3%;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  color: white;
+  color: black;
+  /* border: 1px solid red; */
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .SongCard_SongName {
+  font-weight: 600;
   font-size: 20px;
+  /* border: 1px solid red; */
+  /* height: ; */
   margin-top: 5px;
 }
 .SongCard_SingerName {
-  font-size: 14px;
+  font-size: 15px;
 }
 .SongCard_Date_Time {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* Designing Music Player Page =================================================================*/
@@ -1164,6 +1173,44 @@ p {
   .NavBar_HomePage_Outline {
     width: 40px;
     height: 40px;
+  }
+  .SongCard_Caraousel {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .SongCard_Caraousel h1 {
+    font-weight: 500;
+    margin-top: 0px;
+    font-size: 18px;
+    padding: 5px 25px 0px 10px;
+    margin-bottom: 5px;
+    background-image: linear-gradient(90deg, white 0%, white 100%);
+  }
+
+  .SongCard_Carousel_Container {
+    width: auto;
+    /* border: 1px solid red; */
+    height: 250px;
+    padding: 0px 2px 0px 2px;
+    background-image: linear-gradient(25deg, white 0%, white 100%);
+    border-radius: 0px 15px 15px 15px;
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+  .SongCard {
+    height: auto;
+    margin: 8px;
+  }
+
+  .SongCard_Image {
+    width: 180px;
+    height: 180px;
+  }
+  .SongCard_SongName {
+    font-size: 15px;
+  }
+  .SongCard_SingerName {
+    font-size: 12px;
   }
   .MVstreamer_minPlayer_Space_Dive {
     position: absolute;
