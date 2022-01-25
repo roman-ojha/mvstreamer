@@ -1,13 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { currentAudioAction } from "../services/redux-actions";
 
 const NavBarANDMiniplayer = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
   const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
+  const dispatch = useDispatch();
+  audio.addEventListener("timeupdate", (event) => {});
+  window.onload = function () {
+    setMediaPlay(false);
+  };
+  useEffect(() => {
+    if (params.ID !== undefined) {
+      if (location.state.playing === true) {
+        setMediaPlay(true);
+        console.log("playing");
+      } else {
+        console.log("not Playing");
+      }
+    }
+  }, []);
   const designActiveLink = ({ isActive }) => {
     if (isActive === true) {
       return {
@@ -40,7 +59,7 @@ const NavBarANDMiniplayer = () => {
                 src={PlayButton}
                 className="MVstreamer_MiniPlayer_Play_Icon"
                 onClick={() => {
-                  audio.pause();
+                  audio.play();
                   setMediaPlay(!mediaPlay);
                 }}
               />

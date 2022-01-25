@@ -86,7 +86,7 @@ const MusicPlayer = () => {
     // audio.muted = true;
     // audio.autoplay = true;
     var rotateImage = 0;
-    audio.addEventListener("timeupdate", (event) => {
+    const updateAudio = () => {
       // upgrading the song current time and lenght of the progressive bar
       var calPercentage = (audio.currentTime / audio.duration) * 100;
       setCurrentSongTime(audio.currentTime);
@@ -106,13 +106,13 @@ const MusicPlayer = () => {
         // setting butter width
         "Music_Player_Buffer_Bar"
       )[0].style = `width: ${calculateTotalBufferWidth}%`;
-    });
-  }, [audio]);
-  useEffect(() => {
-    return () => {
-      audio.pause();
     };
-  }, []);
+    audio.addEventListener("timeupdate", updateAudio);
+    return () => {
+      // removing event after unmunting component
+      audio.removeEventListener("timeupdate", updateAudio);
+    };
+  }, [audio]);
 
   const setSongTimeOnClick = (event) => {
     try {
@@ -183,11 +183,9 @@ const MusicPlayer = () => {
             cursor="pointer"
             onClick={() => {
               // navigating to home page and we want to paly the current song with
-              navitate("/", {
+              navitate(`/playing/${songID}`, {
                 state: {
-                  url: url,
-                  currentTime: currentSongTime,
-                  from: "mplayer",
+                  playing: buttonValue.playSong,
                 },
               });
             }}

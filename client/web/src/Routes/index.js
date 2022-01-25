@@ -18,6 +18,9 @@ const MainRoute = () => {
           <Route path="music" element={<MusicPage />} />
           <Route path="video" element={<VideoPage />} />
           <Route path="file" element={<FilePage />} />
+          <Route path="playing" element={<HomePage />}>
+            <Route path=":ID" element={<HomePage />} />
+          </Route>
         </Route>
         <Route exact path="/login" element={<LogInPage />} />
         <Route path="/mplayer" element={<MusicPlayer />}>
