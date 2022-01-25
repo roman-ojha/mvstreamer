@@ -83,6 +83,7 @@ const MusicPlayer = () => {
     dispatch(currentAudioAction(new Audio(url)));
   }, []);
   useEffect(() => {
+    audio.pause();
     // audio.muted = true;
     // audio.autoplay = true;
     var rotateImage = 0;

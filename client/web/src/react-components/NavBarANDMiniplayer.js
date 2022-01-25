@@ -13,19 +13,42 @@ const NavBarANDMiniplayer = () => {
   const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
   const dispatch = useDispatch();
-  audio.addEventListener("timeupdate", (event) => {});
   window.onload = function () {
     setMediaPlay(false);
   };
+
   useEffect(() => {
-    if (params.ID !== undefined) {
-      if (location.state.playing === true) {
-        setMediaPlay(true);
-        console.log("playing");
-      } else {
-        console.log("not Playing");
+    const totalDegreeToRotate = 120;
+    const intoDecimal = 120 / 100;
+    audio.onpause = function () {
+      setMediaPlay(false);
+    };
+    audio.onpaly = function () {};
+
+    const updateAudio = () => {
+      setMediaPlay(true);
+      const progressPercentage = (audio.currentTime / audio.duration) * 100;
+      if (
+        document.getElementsByClassName("MVstreamer_MiniPlayer")[0] !==
+        undefined
+      ) {
+        document.getElementsByClassName(
+          "MVstreamer_MiniPlayer"
+        )[0].style = `transform: rotate(${
+          progressPercentage * intoDecimal
+        }deg)`;
+        document.getElementsByClassName(
+          "MVstreamer_MiniPlayer_Inner"
+        )[0].style = `transform: rotate(-${
+          progressPercentage * intoDecimal
+        }deg)`;
       }
-    }
+    };
+    audio.addEventListener("timeupdate", updateAudio);
+    return () => {
+      audio.removeEventListener("timeupdate", updateAudio());
+      // dispatch(currentAudioAction(new Audio()));
+    };
   }, []);
   const designActiveLink = ({ isActive }) => {
     if (isActive === true) {
