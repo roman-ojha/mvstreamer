@@ -64,11 +64,7 @@ const Carousel = (props) => {
           <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
             <h2>{props.item.title}</h2>
             <p>Artist: {props.item.singerName}</p>
-            <Icon
-              className="Carousel_PlayIcon"
-              icon="bi:play-circle-fill"
-              width="85px"
-            />
+            <Icon className="Carousel_PlayIcon" icon="bi:play-circle-fill" />
           </div>
         </div>
       </>
@@ -86,7 +82,12 @@ const Carousel = (props) => {
             </div>
           </div>
           <div className="Carousel_SearchBar_Container">
-            <Icon icon="bx:bx-search-alt" width="40" color="white" />
+            <Icon
+              className="Carousel_SearchBar_Container_Icon"
+              icon="bx:bx-search-alt"
+              width="4rem"
+              color="white"
+            />
             <input type="text" placeholder="Search.." />
           </div>
           <img

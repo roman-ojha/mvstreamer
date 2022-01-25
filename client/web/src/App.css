@@ -207,14 +207,14 @@
   margin-left: 10px;
 }
 .Carousel_App_Title h1 {
-  font-size: 35px;
+  font-size: 3.5rem;
   font-family: "Secular One", sans-serif;
   font-weight: lighter;
   color: white;
 }
 
 .Carousel_App_Title h3 {
-  font-size: 15px;
+  font-size: 1.5rem;
   font-family: "Secular One", sans-serif;
   font-weight: lighter;
   color: white;
@@ -248,7 +248,7 @@
 
 .Carousel_SearchBar_Container input:read-write {
   outline: none;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -268,7 +268,7 @@
   cursor: pointer;
 }
 .carousel_MV_Info_and_Play_Button {
-  /* border: 1px solid white; */
+  border: 1px solid white;
   height: 300px;
   width: 350px;
   left: 65px;
@@ -295,6 +295,8 @@
   position: absolute;
   bottom: 40px;
   left: 20px;
+  width: 85px;
+  height: 85px;
   transition-duration: 100ms;
 }
 .Carousel_PlayIcon:hover {
@@ -1014,6 +1016,7 @@ p {
   * {
     font-size: 6px;
   }
+
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
@@ -1057,6 +1060,22 @@ p {
     width: 55px;
     height: 55px;
     margin: 15px 10px 0px 10px;
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width: 650px) {
+  .Carousel_UpperBar_Container {
+    height: 60px;
+  }
+  .Carousel_UpperBar_Container img {
+    height: 50px;
+    width: 50px;
+  }
+  .Carousel_SearchBar_Container {
+    width: 40%;
+    height: 80%;
+    right: 70px;
+    border-radius: 15px;
   }
 }
 
@@ -1161,6 +1180,37 @@ p {
   * {
     font-size: 9px;
   }
+  .Carousel_UpperBar_Container {
+    height: 75px;
+  }
+  .Carousel_UpperBar_Container img {
+    height: 55px;
+    width: 55px;
+  }
+  .Carousel_SearchBar_Container {
+    width: 40%;
+    height: 70%;
+    right: 90px;
+    border-radius: 19px;
+  }
+  .Carousel_PlayIcon {
+    width: 70px;
+    height: 70px;
+    bottom: 25px;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 230px;
+    width: 50%;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+    bottom: 150px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 15px;
+    bottom: 100px;
+  }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
@@ -1199,9 +1249,26 @@ p {
   }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 800px) and (max-width: 1000px) {
   * {
     font-size: 10px;
+  }
+  .Carousel_PlayIcon {
+    width: 70px;
+    height: 70px;
+    bottom: 25px;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 230px;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+    bottom: 150px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 15px;
+    bottom: 100px;
   }
   .Music_Player_Song_Small_Image {
     visibility: visible;
@@ -1237,7 +1304,7 @@ p {
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) and (max-width: 1250px) {
   .MVstreamer_MiniPlayer {
     width: 450px;
     height: 450px;
@@ -1256,11 +1323,42 @@ p {
     margin: 25px 10px 0px 10px;
   }
 }
+@media screen and (min-width: 1000px) {
+  .Carousel_SearchBar_Container_Icon {
+    width: 35px;
+    height: 35px;
+  }
+  .Carousel_SearchBar_Container input:read-write {
+    font-size: 20px;
+  }
+  .Carousel_App_Title h1 {
+    font-size: 38px;
+  }
+  .Carousel_App_Title h3 {
+    font-size: 18px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 43px;
+    height: 43px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 53px;
+    height: 53px;
+  }
+}
 @media screen and (min-width: 1250px) {
   .MVstreamer_MiniPlayer {
     width: 500px;
     height: 500px;
     bottom: -375px;
+  }
+  .Buttom_NavBar_Icons {
+    width: 43px;
+    height: 43px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 53px;
+    height: 53px;
   }
   .MVstreamer_MiniPlayer_previous_Icon,
   .MVstreamer_MiniPlayer_Next_Icon {
@@ -1275,6 +1373,7 @@ p {
     margin: 30px 10px 0px 10px;
   }
 }
+
 @media screen and (min-width: 1500px) and (max-width: 1600px) {
   * {
     font-size: 11px;
@@ -1287,8 +1386,8 @@ p {
     height: 45px;
   }
   .NavBar_HomePage_Outline {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
   }
   .MVstreamer_MiniPlayer {
     width: 500px;
@@ -1309,14 +1408,26 @@ p {
     height: 45px;
   }
   .NavBar_HomePage_Outline {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
   }
 }
 
 @media screen and (min-width: 1700px) and (max-width: 1800px) {
   * {
     font-size: 13px;
+  }
+  .Carousel_App_Title h1 {
+    font-size: 38px;
+  }
+  .Carousel_SearchBar_Container_Icon {
+    width: 40px;
+  }
+  .Carousel_SearchBar_Container input:read-write {
+    font-size: 20px;
+  }
+  .Carousel_App_Title h3 {
+    font-size: 18px;
   }
   .MVstreamer_Navbar {
     height: 65px;
@@ -1326,8 +1437,8 @@ p {
     height: 48px;
   }
   .NavBar_HomePage_Outline {
-    width: 53px;
-    height: 53px;
+    width: 58px;
+    height: 58px;
   }
   .MVstreamer_MiniPlayer {
     width: 600px;
@@ -1340,6 +1451,18 @@ p {
   * {
     font-size: 14px;
   }
+  .Carousel_App_Title h1 {
+    font-size: 38px;
+  }
+  .Carousel_SearchBar_Container_Icon {
+    width: 40px;
+  }
+  .Carousel_SearchBar_Container input:read-write {
+    font-size: 20px;
+  }
+  .Carousel_App_Title h3 {
+    font-size: 18px;
+  }
   .MVstreamer_Navbar {
     height: 65px;
   }
@@ -1348,8 +1471,8 @@ p {
     height: 48px;
   }
   .NavBar_HomePage_Outline {
-    width: 53px;
-    height: 53px;
+    width: 58px;
+    height: 58px;
   }
   .MVstreamer_MiniPlayer {
     width: 600px;
@@ -1373,6 +1496,19 @@ p {
   * {
     font-size: 15px;
   }
+  .Carousel_App_Title h1 {
+    font-size: 38px;
+  }
+
+  .Carousel_App_Title h3 {
+    font-size: 18px;
+  }
+  .Carousel_SearchBar_Container_Icon {
+    width: 40px;
+  }
+  .Carousel_SearchBar_Container input:read-write {
+    font-size: 20px;
+  }
   .MVstreamer_Navbar {
     height: 68px;
   }
@@ -1381,8 +1517,8 @@ p {
     height: 50px;
   }
   .NavBar_HomePage_Outline {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
   }
   .MVstreamer_MiniPlayer {
     width: 700px;
