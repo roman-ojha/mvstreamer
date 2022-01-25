@@ -1002,13 +1002,75 @@ p {
   color: white;
 }
 
-@media screen and (min-width: 100px) {
+@media screen and (min-width: 100px) and (max-width: 300px) {
   * {
     font-size: 4px;
+  }
+  .Carousel_UpperBar_Container {
+    height: 50px;
+  }
+  .Carousel_UpperBar_Container img {
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+  }
+  .Carousel_UpperBar_Container h1,
+  .Carousel_UpperBar_Container h3 {
+    margin-left: -5px;
+  }
+  .Carousel_SearchBar_Container {
+    width: 40%;
+    height: 80%;
+    right: 70px;
+    border-radius: 10px;
   }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
+  }
+  .Music_Player_Song_Small_Image {
+    visibility: hidden;
+    position: absolute;
+  }
+  .MVstreamer_Navbar {
+    height: 50px;
+    z-index: 2;
+  }
+  .Buttom_NavBar_Icons {
+    width: 35px;
+    height: 35px;
+  }
+  .NavBar_HomePage_Outline {
+    width: 40px;
+    height: 40px;
+  }
+  .MVstreamer_minPlayer_Space_Dive {
+    position: absolute;
+  }
+  .MVstreamer_MiniPlayer_Container {
+    z-index: 1;
+  }
+  .MVstreamer_MiniPlayer {
+    width: 100%;
+    height: 275px;
+    bottom: -165px;
+    left: 0px;
+  }
+  .MVstreamer_MiniPlayer_Inner {
+    width: 97%;
+    height: 97%;
+  }
+  .MVstreamer_MiniPlayer_previous_Icon,
+  .MVstreamer_MiniPlayer_Next_Icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 20px;
+  }
+  .MVstreamer_MiniPlayer_Play_Icon,
+  .MVstreamer_MiniPlayer_Pause_Icon {
+    width: 42px;
+    height: 42px;
+    margin: 10px 10px 0px 10px;
   }
 }
 
@@ -1064,6 +1126,21 @@ p {
 }
 
 @media screen and (min-width: 300px) and (max-width: 650px) {
+  .Carousel_UpperBar_Container {
+    height: 60px;
+  }
+  .Carousel_UpperBar_Container img {
+    height: 50px;
+    width: 50px;
+  }
+  .Carousel_SearchBar_Container {
+    width: 35%;
+    height: 80%;
+    right: 80px;
+    border-radius: 15px;
+  }
+}
+@media screen and (min-width: 650px) and (max-width: 800px) {
   .Carousel_UpperBar_Container {
     height: 60px;
   }
@@ -1145,6 +1222,7 @@ p {
     width: 40px;
     height: 40px;
   }
+
   .NavBar_HomePage_Outline {
     width: 45px;
     height: 45px;
