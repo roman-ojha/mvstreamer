@@ -1023,6 +1023,11 @@ p {
   color: white;
 }
 
+.SongCard_Carousel_Container::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
 @media screen and (min-width: 100px) and (max-width: 300px) {
   * {
     font-size: 4px;
@@ -1095,6 +1100,39 @@ p {
   .NavBar_HomePage_Outline {
     width: 40px;
     height: 40px;
+  }
+  .SongCard_Caraousel {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .SongCard_Caraousel h1 {
+    margin-top: 0px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    background-image: linear-gradient(90deg, white 0%, white 100%);
+  }
+  .SongCard_Carousel_Container {
+    width: auto;
+    padding: 0px 2px 0px 2px;
+    background-image: linear-gradient(25deg, white 0%, white 100%);
+    border-radius: 0px 15px 15px 15px;
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+  .SongCard {
+    margin: 5px;
+    width: 140px;
+  }
+  .SongCard_Image {
+    width: 140px;
+    height: 140px;
+  }
+  .SongCard_SongName {
+    font-size: 13px;
+    margin-bottom: 0px;
+  }
+  .SongCard_SingerName {
+    font-size: 11px;
   }
   .MVstreamer_minPlayer_Space_Dive {
     position: absolute;
@@ -1174,44 +1212,6 @@ p {
     width: 40px;
     height: 40px;
   }
-  .SongCard_Caraousel {
-    margin: 0px 0px 0px 0px;
-  }
-
-  .SongCard_Caraousel h1 {
-    font-weight: 500;
-    margin-top: 0px;
-    font-size: 18px;
-    padding: 5px 25px 0px 10px;
-    margin-bottom: 5px;
-    background-image: linear-gradient(90deg, white 0%, white 100%);
-  }
-
-  .SongCard_Carousel_Container {
-    width: auto;
-    /* border: 1px solid red; */
-    height: 250px;
-    padding: 0px 2px 0px 2px;
-    background-image: linear-gradient(25deg, white 0%, white 100%);
-    border-radius: 0px 15px 15px 15px;
-    flex-wrap: nowrap;
-    overflow: scroll;
-  }
-  .SongCard {
-    height: auto;
-    margin: 8px;
-  }
-
-  .SongCard_Image {
-    width: 180px;
-    height: 180px;
-  }
-  .SongCard_SongName {
-    font-size: 15px;
-  }
-  .SongCard_SingerName {
-    font-size: 12px;
-  }
   .MVstreamer_minPlayer_Space_Dive {
     position: absolute;
   }
@@ -1270,6 +1270,48 @@ p {
     height: 80%;
     right: 70px;
     border-radius: 15px;
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width: 650px) {
+  /* responsive for song card carousel=============================== */
+  .SongCard_Caraousel {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .SongCard_Caraousel h1 {
+    font-weight: 500;
+    margin-top: 0px;
+    font-size: 18px;
+    padding: 5px 25px 0px 10px;
+    margin-bottom: 5px;
+    background-image: linear-gradient(90deg, white 0%, white 100%);
+  }
+
+  .SongCard_Carousel_Container {
+    width: auto;
+    padding: 0px 2px 0px 2px;
+    background-image: linear-gradient(25deg, white 0%, white 100%);
+    border-radius: 0px 15px 15px 15px;
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+  .SongCard_Container {
+    width: 160px;
+  }
+  .SongCard {
+    margin: 8px;
+  }
+  .SongCard_Image {
+    width: 160px;
+    height: 160px;
+  }
+  .SongCard_SongName {
+    font-size: 15px;
+    margin-bottom: 0px;
+  }
+  .SongCard_SingerName {
+    font-size: 12px;
   }
 }
 
@@ -1419,6 +1461,17 @@ p {
     width: 60px;
     height: 60px;
     margin: 15px 10px 0px 10px;
+  }
+}
+@media screen and (min-width: 650px) and (max-width: 1000px) {
+  .SongCard_Caraousel h1 {
+    margin-top: 10px;
+  }
+  .SongCard {
+    flex: 20%;
+  }
+  .SongCard_Image {
+    min-width: 200px;
   }
 }
 
