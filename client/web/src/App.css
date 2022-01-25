@@ -16,6 +16,11 @@
   --progress-bar-current-progress-first-background-color: #ff3d00;
   --progress-bar-current-progress-second-background-color: #236fd1;
 }
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: white;
+  }
+}
 
 /* Login Page */
 .LoginPage {
@@ -1169,10 +1174,10 @@ p {
     font-size: 6px;
   }
   .Carousel_Image_Filter {
-    height: 40vh;
+    height: 35vh;
   }
   .carousel_Item_Image {
-    height: 40vh;
+    height: 35vh;
   }
   .carousel_MV_Info_and_Play_Button {
     height: 140px;

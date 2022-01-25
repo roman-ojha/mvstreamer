@@ -8,7 +8,6 @@ const Carousel = (props) => {
   const navigate = useNavigate();
   const items = props.carouselItem;
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
-  const [currentCarouselItem, setCurrentCarouselItem] = useState();
   const CarouselIndicatorButton = (props) => {
     let ariaCurrent;
     let className;

@@ -36,6 +36,8 @@ const HomePage = () => {
       <div className="HomePage">
         <Carousel carouselItem={homePageSongDetailStore.carouselItem} />
         <SongCardCarousel songsDetail={homePageSongDetailStore.songs} />
+        <SongCardCarousel songsDetail={homePageSongDetailStore.songs} />
+        <SongCardCarousel songsDetail={homePageSongDetailStore.songs} />
       </div>
     </>
   );
