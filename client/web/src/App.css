@@ -258,43 +258,55 @@
   position: absolute;
   right: 20px;
 }
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+}
+
 .Carousel_Image_Filter {
   width: 100%;
   height: 65vh;
   position: absolute;
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.596));
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 .Carousel_Inner_Container {
   cursor: pointer;
 }
+.carousel_Item_Image {
+  height: 65vh;
+  object-fit: cover;
+  object-position: top;
+}
 .carousel_MV_Info_and_Play_Button {
-  border: 1px solid white;
-  height: 300px;
-  width: 350px;
+  /* border: 1px solid white; */
+  height: 250px;
+  width: 90%;
   left: 65px;
+  margin-bottom: 10px;
+  margin-left: 70px;
 }
 .carousel_MV_Info_and_Play_Button h2 {
   font-size: 35px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: start;
   margin-left: 20px;
   color: white;
-  position: absolute;
-  bottom: 180px;
+  width: 100%;
 }
 .carousel_MV_Info_and_Play_Button p {
   font-size: 15px;
   margin-bottom: 20px;
   text-align: start;
   margin-left: 20px;
-  position: absolute;
-  bottom: 140px;
+  color: white;
 }
 
 .Carousel_PlayIcon {
-  position: absolute;
-  bottom: 40px;
-  left: 20px;
+  color: white;
+  margin-left: 20px;
   width: 85px;
   height: 85px;
   transition-duration: 100ms;
@@ -1006,12 +1018,40 @@ p {
   * {
     font-size: 4px;
   }
+  .Carousel_Image_Filter {
+    height: 35vh;
+  }
+  .carousel_Item_Image {
+    height: 35vh;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 130px;
+    width: 80%;
+    margin-left: -5px;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+  .Carousel_PlayIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    visibility: hidden;
+    position: absolute;
+  }
   .Carousel_UpperBar_Container {
-    height: 50px;
+    height: 40px;
   }
   .Carousel_UpperBar_Container img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin-left: 5px;
   }
   .Carousel_UpperBar_Container h1,
@@ -1019,10 +1059,13 @@ p {
     margin-left: -5px;
   }
   .Carousel_SearchBar_Container {
-    width: 40%;
+    width: 35%;
     height: 80%;
-    right: 70px;
-    border-radius: 10px;
+    right: 50px;
+    border-radius: 5px;
+  }
+  .Carousel_User_Icon {
+    margin-right: -10px;
   }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
@@ -1078,7 +1121,34 @@ p {
   * {
     font-size: 6px;
   }
-
+  .Carousel_Image_Filter {
+    height: 40vh;
+  }
+  .carousel_Item_Image {
+    height: 40vh;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 140px;
+    width: 80%;
+    margin-left: 0px;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .Carousel_PlayIcon {
+    width: 50px;
+    height: 50px;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    visibility: hidden;
+    position: absolute;
+  }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
@@ -1127,17 +1197,17 @@ p {
 
 @media screen and (min-width: 300px) and (max-width: 650px) {
   .Carousel_UpperBar_Container {
-    height: 60px;
+    height: 50px;
   }
   .Carousel_UpperBar_Container img {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
   }
   .Carousel_SearchBar_Container {
     width: 35%;
     height: 80%;
     right: 80px;
-    border-radius: 15px;
+    border-radius: 10px;
   }
 }
 @media screen and (min-width: 650px) and (max-width: 800px) {
@@ -1159,6 +1229,32 @@ p {
 @media screen and (min-width: 400px) and (max-width: 500px) {
   * {
     font-size: 7px;
+  }
+  .Carousel_Image_Filter {
+    height: 45vh;
+  }
+  .carousel_Item_Image {
+    height: 45vh;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 180px;
+    width: 80%;
+    margin-left: 10px;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 25px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 15px;
+  }
+  .Carousel_PlayIcon {
+    width: 65px;
+    height: 65px;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    visibility: hidden;
+    position: absolute;
   }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
@@ -1210,6 +1306,31 @@ p {
   * {
     font-size: 8px;
   }
+  .Carousel_Image_Filter {
+    height: 50vh;
+  }
+  .carousel_Item_Image {
+    height: 50vh;
+  }
+  .carousel_MV_Info_and_Play_Button {
+    height: 200px;
+    width: 80%;
+    margin-left: 15px;
+  }
+  .carousel_MV_Info_and_Play_Button h2 {
+    font-size: 30px;
+  }
+  .carousel_MV_Info_and_Play_Button p {
+    font-size: 15px;
+  }
+  .Carousel_PlayIcon {
+    width: 75px;
+    height: 75px;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+  }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
     position: absolute;
@@ -1258,36 +1379,30 @@ p {
   * {
     font-size: 9px;
   }
-  .Carousel_UpperBar_Container {
-    height: 75px;
+  .Carousel_Image_Filter {
+    height: 50vh;
   }
-  .Carousel_UpperBar_Container img {
-    height: 55px;
-    width: 55px;
-  }
-  .Carousel_SearchBar_Container {
-    width: 40%;
-    height: 70%;
-    right: 90px;
-    border-radius: 19px;
-  }
-  .Carousel_PlayIcon {
-    width: 70px;
-    height: 70px;
-    bottom: 25px;
+  .carousel_Item_Image {
+    height: 50vh;
   }
   .carousel_MV_Info_and_Play_Button {
-    height: 230px;
-    width: 50%;
+    height: 200px;
+    width: 80%;
+    margin-left: 25px;
   }
   .carousel_MV_Info_and_Play_Button h2 {
     font-size: 30px;
-    margin-bottom: 8px;
-    bottom: 150px;
   }
   .carousel_MV_Info_and_Play_Button p {
     font-size: 15px;
-    bottom: 100px;
+  }
+  .Carousel_PlayIcon {
+    width: 75px;
+    height: 75px;
+  }
+  .Carousel_SearchBar_Container {
+    width: 35%;
+    right: 90px;
   }
   .Music_Player_Song_Small_Image {
     visibility: hidden;
@@ -1331,22 +1446,21 @@ p {
   * {
     font-size: 10px;
   }
-  .Carousel_PlayIcon {
-    width: 70px;
-    height: 70px;
-    bottom: 25px;
+  .Carousel_Image_Filter {
+    height: 55vh;
+  }
+  .carousel_Item_Image {
+    height: 55vh;
   }
   .carousel_MV_Info_and_Play_Button {
-    height: 230px;
+    height: 220px;
   }
   .carousel_MV_Info_and_Play_Button h2 {
     font-size: 30px;
-    margin-bottom: 8px;
-    bottom: 150px;
   }
-  .carousel_MV_Info_and_Play_Button p {
-    font-size: 15px;
-    bottom: 100px;
+  .Carousel_PlayIcon {
+    width: 80px;
+    height: 80px;
   }
   .Music_Player_Song_Small_Image {
     visibility: visible;

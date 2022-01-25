@@ -50,22 +50,18 @@ const Carousel = (props) => {
             });
           }}
         >
-          <div className="Carousel_Image_Filter"></div>
+          <div className="Carousel_Image_Filter">
+            <div className="carousel_MV_Info_and_Play_Button">
+              <h2>{props.item.title}</h2>
+              <p>Artist: {props.item.singerName}</p>
+              <Icon className="Carousel_PlayIcon" icon="bi:play-circle-fill" />
+            </div>
+          </div>
           <img
             src={props.item.imgUrl}
-            className="d-block w-100"
+            className="d-block w-100 carousel_Item_Image"
             alt="..."
-            style={{
-              height: "65vh",
-              objectFit: "cover",
-              objectPosition: "top",
-            }}
           />
-          <div className="carousel-caption d-none d-md-block carousel_MV_Info_and_Play_Button">
-            <h2>{props.item.title}</h2>
-            <p>Artist: {props.item.singerName}</p>
-            <Icon className="Carousel_PlayIcon" icon="bi:play-circle-fill" />
-          </div>
         </div>
       </>
     );
@@ -118,7 +114,6 @@ const Carousel = (props) => {
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="prev"
-              style={{ zIndex: "4", width: "80px" }}
             >
               <span
                 className="carousel-control-prev-icon"
@@ -131,7 +126,6 @@ const Carousel = (props) => {
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="next"
-              style={{ zIndex: "4", width: "80px" }}
             >
               <span
                 className="carousel-control-next-icon"
