@@ -52,7 +52,7 @@ const Carousel = (props) => {
           <div className="Carousel_Image_Filter">
             <div className="carousel_MV_Info_and_Play_Button">
               <h2>{props.item.title}</h2>
-              <p>Artist: {props.item.singerName}</p>
+              <p>Artist: {props.item.artist}</p>
               <Icon className="Carousel_PlayIcon" icon="bi:play-circle-fill" />
             </div>
           </div>

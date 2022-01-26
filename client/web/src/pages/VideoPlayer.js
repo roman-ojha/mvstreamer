@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const VideoPlayer = () => {
   const location = useLocation();
+  console.log(location.state.url);
   // creating video element
   const [buttonValue, setButtonValue] = useState({
     playVideo: true,

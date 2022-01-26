@@ -26,7 +26,9 @@ const MainRoute = () => {
         <Route path="/mplayer" element={<MusicPlayer />}>
           <Route path=":songID" element={<MusicPlayer />} />
         </Route>
-        <Route path="/vplayer" element={<VideoPlayer />}></Route>
+        <Route path="/vplayer" element={<VideoPlayer />}>
+          <Route path=":songID" element={<VideoPlayer />} />
+        </Route>
         <Route path="/upload" element={<UploadPage />} />
       </Routes>
     </>

@@ -5,7 +5,7 @@ const MV_Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  singerName: {
+  artist: {
     type: String,
     required: true,
   },
@@ -14,6 +14,10 @@ const MV_Schema = new mongoose.Schema({
     required: true,
   },
   mediaPath: {
+    type: String,
+    required: true,
+  },
+  mediaType: {
     type: String,
     required: true,
   },

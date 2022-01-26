@@ -70,7 +70,7 @@ router.post(
       // deleting file from directory after upload
       fs.unlink(`./db/Media/${req.files.media[0].filename}`, (err) => {});
       const title = req.body.title;
-      const singerName = req.body.singerName;
+      const artist = req.body.singerName;
       const imgToken =
         uploadImgInFirebase[0].metadata.metadata.firebaseStorageDownloadTokens;
       const imgPath = `Images/${req.files.image[0].filename}`;
@@ -85,9 +85,10 @@ router.post(
 
       const newSong = new MVDetail({
         title,
-        singerName,
+        artist,
         imgUrl,
         mediaPath,
+        mediaType,
       });
       // saving songs info in mongodb
       const resSong = await newSong.save();

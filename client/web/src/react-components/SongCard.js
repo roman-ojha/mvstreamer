@@ -13,13 +13,21 @@ const SongCard = (props) => {
         className="SongCard"
         onClick={() => {
           // ater clicking card we will get the api url to get fetch the audio then we will dispatch the audio and store it into the redux state and then on redux reducer we will play the audio and we will navigate to mvplayer page
+          // console.log(props.songDetail);
           const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
             props.songDetail.mediaPath.split("/")[1]
           }`;
-          dispatch(currentAudioAction(new Audio(url)));
-          navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
-            state: { from: "url", metaData: props.songDetail },
-          });
+          if (props.songDetail.mediaType === "audio") {
+            dispatch(currentAudioAction(new Audio(url)));
+            navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
+              state: { from: "url", metaData: props.songDetail },
+            });
+          } else if (props.songDetail.mediaType === "video") {
+            console.log("hello");
+            navigate(`/vplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
+              state: { from: "url", metaData: props.songDetail, url: url },
+            });
+          }
         }}
       >
         <div className="SongCard_Container">
@@ -29,7 +37,7 @@ const SongCard = (props) => {
             className="SongCard_Image"
           />
           <h2 className="SongCard_SongName">{props.songDetail.title}</h2>
-          <p className="SongCard_SingerName">{props.songDetail.singerName}</p>
+          <p className="SongCard_SingerName">{props.songDetail.artist}</p>
           {/* <p className="SongCard_Date_Time">2021 | 3:15</p> */}
         </div>
       </div>
