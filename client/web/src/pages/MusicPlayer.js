@@ -57,7 +57,7 @@ const MusicPlayer = () => {
 
   const [currentSongTime, setCurrentSongTime] = useState(audio.currentTime);
   const [buttonValue, setButtonValue] = useState({
-    playSong: true,
+    playSong: false,
     loopSong: false,
     favoriteSong: false,
     randomSong: false,
@@ -79,19 +79,13 @@ const MusicPlayer = () => {
     songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
   };
   var calculateTotalBufferWidth = 0;
-  // useEffect(() => {
-  //   dispatch(currentAudioAction(new Audio(url)));
-  // }, []);
-
   useEffect(() => {
-    audio.onpause = function () {
-      setButtonValue({
-        ...buttonValue,
-        playSong: false,
-      });
-    };
     var rotateImage = 0;
     const updateAudio = () => {
+      setButtonValue({
+        ...buttonValue,
+        playSong: true,
+      });
       // upgrading the song current time and lenght of the progressive bar
       var calPercentage = (audio.currentTime / audio.duration) * 100;
       setCurrentSongTime(audio.currentTime);
