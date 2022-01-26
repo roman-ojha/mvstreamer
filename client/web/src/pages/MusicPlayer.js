@@ -18,13 +18,13 @@ const MusicPlayer = () => {
   const { songID } = useParams();
   const audio = useSelector((state) => state.currentAudioReducer);
   // getting songid from the url parameter
-  let url;
-  if (audioFrom === "local") {
-    // if audio from local file then we will set url comming from navigated location
-    url = location.state.url;
-  } else {
-    url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
-  }
+  // let url;
+  // if (audioFrom === "local") {
+  //   // if audio from local file then we will set url comming from navigated location
+  //   url = location.state.url;
+  // } else {
+  //   url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
+  // }
 
   // With out redux state ===================================
   // const [song, setSong] = useState(new Audio(url));
@@ -85,9 +85,11 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     audio.onpause = function () {
-      buttonValue.playSong = false;
+      setButtonValue({
+        ...buttonValue,
+        playSong: false,
+      });
     };
-    // audio.pause();
     var rotateImage = 0;
     const updateAudio = () => {
       // upgrading the song current time and lenght of the progressive bar
@@ -188,7 +190,7 @@ const MusicPlayer = () => {
               // navigating to home page and we want to paly the current song with
               navitate(`/playing/${songID}`, {
                 state: {
-                  playing: buttonValue.playSong,
+                  metaData: location.state.metaData,
                 },
               });
             }}

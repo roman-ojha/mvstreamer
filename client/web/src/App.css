@@ -165,6 +165,10 @@
   /* clip-path: circle(50% at 50% 120%); */
   border-radius: 50%;
   /* transform: rotate(-120deg); */
+  transition-duration: 200ms;
+}
+.MVstreamer_MiniPlayer_Inner:hover {
+  background-color: #ebebeb;
 }
 
 .MVstreamer_MiniPlayer_previous_Icon,

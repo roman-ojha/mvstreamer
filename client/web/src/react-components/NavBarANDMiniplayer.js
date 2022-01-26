@@ -8,7 +8,7 @@ import { currentAudioAction } from "../services/redux-actions";
 
 const NavBarANDMiniplayer = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const { ID } = useParams();
   const location = useLocation();
   const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
@@ -19,12 +19,10 @@ const NavBarANDMiniplayer = () => {
 
   useEffect(() => {
     const totalDegreeToRotate = 120;
-    const intoDecimal = 120 / 100;
+    const intoDecimal = totalDegreeToRotate / 100;
     audio.onpause = function () {
       setMediaPlay(false);
     };
-    audio.onpaly = function () {};
-
     const updateAudio = () => {
       setMediaPlay(true);
       const progressPercentage = (audio.currentTime / audio.duration) * 100;
@@ -58,11 +56,27 @@ const NavBarANDMiniplayer = () => {
       };
     }
   };
+
+  const navigateToMPlayer = (event) => {
+    const elementCName = event.target.className;
+    // MVstreamer_MiniPlayer_previous_Icon
+    // MVstreamer_MiniPlayer_Pause_Icon
+    // MVstreamer_MiniPlayer_Play_Icon
+    // MVstreamer_MiniPlayer_Next_Icon
+    if (elementCName === "MVstreamer_MiniPlayer_Inner") {
+      navigate(`/mplayer/${ID}`, {
+        state: { from: "url", metaData: location.state.metaData },
+      });
+    }
+  };
   return (
     <>
       <div className="MVstreamer_MiniPlayer_Container">
         <div className="MVstreamer_MiniPlayer">
-          <div className="MVstreamer_MiniPlayer_Inner">
+          <div
+            className="MVstreamer_MiniPlayer_Inner"
+            onClick={navigateToMPlayer}
+          >
             <Icon
               className="MVstreamer_MiniPlayer_previous_Icon"
               icon="fluent:previous-24-filled"
@@ -82,8 +96,10 @@ const NavBarANDMiniplayer = () => {
                 src={PlayButton}
                 className="MVstreamer_MiniPlayer_Play_Icon"
                 onClick={() => {
-                  audio.play();
-                  setMediaPlay(!mediaPlay);
+                  if (audio.src !== "") {
+                    audio.play();
+                    setMediaPlay(!mediaPlay);
+                  }
                 }}
               />
             )}
