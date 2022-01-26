@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { currentAudioAction } from "../services/redux-actions";
 
 const SongCard = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const audio = useSelector((state) => state.currentAudioReducer);
   return (
     <>
       <div
         className="SongCard"
         onClick={() => {
+          // ater clicking card we will get the api url to get fetch the audio then we will dispatch the audio and store it into the redux state and then on redux reducer we will play the audio and we will navigate to mvplayer page
+          const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
+            props.songDetail.mediaPath.split("/")[1]
+          }`;
+          dispatch(currentAudioAction(new Audio(url)));
           navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
             state: { from: "url", metaData: props.songDetail },
           });
