@@ -49,7 +49,6 @@ const VideoPlayer = () => {
       });
     }
   }
-
   video.onpause = () => {
     setButtonValue({
       ...buttonValue,
@@ -57,16 +56,12 @@ const VideoPlayer = () => {
     });
   };
   useEffect(() => {
-    // const pauseAudio = () => {
-    //   audio.pause();
-    // };
-    // audio.addEventListener("timeupdate", pauseAudio);
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
     // appending video element
     vContainerElm.append(video);
-    video.autoplay = true;
+    // video.autoplay = true;
     // controlling state on video time update
     const timeUpdate = () => {
       if (!buttonValue.playVideo) {
@@ -186,6 +181,8 @@ const VideoPlayer = () => {
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseleave", mouseLeave);
       document.removeEventListener("keydown", keyDown);
+
+      // video.play();
     };
   }, []);
   const setVideoTimeOnClick = (event) => {
@@ -227,11 +224,6 @@ const VideoPlayer = () => {
       <div className="Video_Player_Plus_Background_Container">
         <div className="Video_Player_Background"></div>
         <div className="VideoPlayer_Page_Container">
-          {/* <video
-            // src={Video01}
-            id="VideoPlayerPage_VideoPlayer"
-            className="VideoPlayer_Field"
-          ></video> */}
           <div className="VideoPlayer_Page_NavBar_Plus_BottomBar_Container">
             <div className="VideoPlayer_Page_NavBar_Container">
               <Icon
@@ -246,6 +238,7 @@ const VideoPlayer = () => {
                       metaData: location.state.metaData,
                     },
                   });
+                  video.play();
                 }}
               />
               <div className="VideoPlayer_NavBar_TitleSName_Container">

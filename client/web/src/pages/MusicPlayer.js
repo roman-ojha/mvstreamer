@@ -18,43 +18,6 @@ const MusicPlayer = () => {
   const { songID } = useParams();
   const audio = useSelector((state) => state.currentAudioReducer);
   const video = useSelector((state) => state.currentVideoReducer);
-  // getting songid from the url parameter
-  // let url;
-  // if (audioFrom === "local") {
-  //   // if audio from local file then we will set url comming from navigated location
-  //   url = location.state.url;
-  // } else {
-  //   url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${songID}`;
-  // }
-
-  // With out redux state ===================================
-  // const [song, setSong] = useState(new Audio(url));
-  // // song.current = new Audio(url);
-  // // song.autoplay = true;
-  // const [currentSongTime, setCurrentSongTime] = useState(song.currentTime);
-  // const [buttonValue, setButtonValue] = useState({
-  //   playSong: true,
-  //   loopSong: false,
-  //   favoriteSong: false,
-  //   randomSong: false,
-  // });
-  // const [currentVolume, setCurrentVolume] = useState(0.7);
-  // song.loop = buttonValue.loopSong;
-  // song.volume = currentVolume;
-  // const totalSongDuration = song.duration;
-  // const totalSongDurationInMin = `${Math.floor(
-  //   totalSongDuration / 60
-  // )}:${Math.floor(totalSongDuration % 60)}`;
-  // const currentSongTimeInMin = `${Math.floor(
-  //   currentSongTime / 60
-  // )}:${Math.floor(currentSongTime % 60)}`;
-  // var songBufferPercentage;
-  // song.onprogress = function () {
-  //   // getting the buffer length of song
-  //   songBufferPercentage = (song.buffered.end(0) / song.duration) * 100;
-  // };
-  // var calculateTotalBufferWidth = 0;
-  // =================================================
 
   const [currentSongTime, setCurrentSongTime] = useState(audio.currentTime);
   const [buttonValue, setButtonValue] = useState({
