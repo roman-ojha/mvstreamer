@@ -49,9 +49,6 @@ const Carousel = (props) => {
         <div
           className={parentClassName}
           onClick={() => {
-            navigate(`/mplayer/${props.item.mediaPath.split("/")[1]}`, {
-              state: { from: "url", metaData: props.item },
-            });
             if (props.item.mediaType === "audio") {
               const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
                 props.item.mediaPath.split("/")[1]

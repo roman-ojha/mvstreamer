@@ -26,7 +26,6 @@ const SongCard = (props) => {
               state: { from: "url", metaData: props.songDetail },
             });
           } else if (props.songDetail.mediaType === "video") {
-            console.log("hello");
             const url = `${process.env.REACT_APP_BASE_API_URL}/get/video/${
               props.songDetail.mediaPath.split("/")[1]
             }`;

@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
 import userProfileDetail from "./userProfileDetail";
 import homePageSongsDetail from "./homePageSongsDetail";
-import currentAudioReducer from "./currentAudio";
-import currentVideoReducer from "./currentVideo";
+import {
+  currentAudioReducer,
+  currentVideoReducer,
+} from "./currentAudioandVideo";
+// import currentVideoReducer from "./currentVideo";
 
 const rootReducer = combineReducers({
   userProfileDetail,

@@ -13,7 +13,7 @@ import { currentAudioAction } from "../services/redux-actions";
 const MusicPlayer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const navitate = useNavigate();
+  const navigate = useNavigate();
   const audioFrom = location.state.from;
   const { songID } = useParams();
   const audio = useSelector((state) => state.currentAudioReducer);
@@ -190,7 +190,7 @@ const MusicPlayer = () => {
             cursor="pointer"
             onClick={() => {
               // navigating to home page and we want to paly the current song with
-              navitate(`/playing/${songID}`, {
+              navigate(`/playing/${songID}`, {
                 state: {
                   metaData: location.state.metaData,
                 },

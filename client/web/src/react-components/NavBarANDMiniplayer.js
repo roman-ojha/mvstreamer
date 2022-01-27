@@ -3,8 +3,7 @@ import { Icon } from "@iconify/react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import PlayButton from "../assets/icons/PlayButton.png";
 import PauseButton from "../assets/icons/PauseButton.png";
-import { useDispatch, useSelector } from "react-redux";
-import { currentAudioAction } from "../services/redux-actions";
+import { useSelector } from "react-redux";
 
 const NavBarANDMiniplayer = () => {
   const navigate = useNavigate();
@@ -12,12 +11,16 @@ const NavBarANDMiniplayer = () => {
   const location = useLocation();
   const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
-  const dispatch = useDispatch();
+  const video = useSelector((state) => state.currentVideoReducer);
 
   useEffect(() => {
+    console.log(location.state.metaData.mediaType);
     const totalDegreeToRotate = 120;
     const intoDecimal = totalDegreeToRotate / 100;
     audio.onpause = function () {
+      setMediaPlay(false);
+    };
+    video.onpause = function () {
       setMediaPlay(false);
     };
     const updateAudio = () => {
@@ -41,10 +44,32 @@ const NavBarANDMiniplayer = () => {
         }deg)`;
       }
     };
+    const updateVideo = () => {
+      if (mediaPlay === false) {
+        setMediaPlay(true);
+      }
+      const progressPercentage = (video.currentTime / video.duration) * 100;
+      if (
+        document.getElementsByClassName("MVstreamer_MiniPlayer")[0] !==
+        undefined
+      ) {
+        document.getElementsByClassName(
+          "MVstreamer_MiniPlayer"
+        )[0].style = `transform: rotate(${
+          progressPercentage * intoDecimal
+        }deg)`;
+        document.getElementsByClassName(
+          "MVstreamer_MiniPlayer_Inner"
+        )[0].style = `transform: rotate(-${
+          progressPercentage * intoDecimal
+        }deg)`;
+      }
+    };
     audio.addEventListener("timeupdate", updateAudio);
+    video.addEventListener("timeupdate", updateVideo);
     return () => {
-      audio.removeEventListener("timeupdate", updateAudio());
-      // dispatch(currentAudioAction(new Audio()));
+      audio.removeEventListener("timeupdate", updateAudio);
+      video.removeEventListener("timeupdate", updateVideo);
     };
   }, []);
   const designActiveLink = ({ isActive }) => {
@@ -86,7 +111,11 @@ const NavBarANDMiniplayer = () => {
                 src={PauseButton}
                 className="MVstreamer_MiniPlayer_Pause_Icon"
                 onClick={() => {
-                  audio.pause();
+                  if (location.state.metaData.mediaType === "audio") {
+                    audio.pause();
+                  } else if (location.state.metaData.mediaType === "video") {
+                    video.pause();
+                  }
                   setMediaPlay(!mediaPlay);
                 }}
               />
@@ -96,8 +125,16 @@ const NavBarANDMiniplayer = () => {
                 className="MVstreamer_MiniPlayer_Play_Icon"
                 onClick={() => {
                   if (audio.src !== "") {
-                    audio.play();
-                    setMediaPlay(!mediaPlay);
+                    if (location.state.metaData.mediaType === "audio") {
+                      audio.play();
+                      setMediaPlay(!mediaPlay);
+                    }
+                  }
+                  if (video.src !== "") {
+                    if (location.state.metaData.mediaType === "video") {
+                      video.play();
+                      setMediaPlay(!mediaPlay);
+                    }
                   }
                 }}
               />

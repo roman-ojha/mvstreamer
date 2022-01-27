@@ -4,11 +4,13 @@ import User_Image from "../assets/images/user.jpg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import Video01 from "../assets/video/Video01.mp4";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const VideoPlayer = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+  const { videoID } = useParams();
   // creating video element
   const [buttonValue, setButtonValue] = useState({
     playVideo: true,
@@ -48,9 +50,12 @@ const VideoPlayer = () => {
   }
 
   useEffect(() => {
-    // setting attribute for the video element
-    //  URL.revokeObjectURL(location.state.url)
-    // video.src = location.state.url;
+    video.onpause = () => {
+      setButtonValue({
+        ...buttonValue,
+        playVideo: false,
+      });
+    };
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
@@ -59,6 +64,12 @@ const VideoPlayer = () => {
     video.autoplay = true;
     // controlling state on video time update
     const timeUpdate = () => {
+      if (!buttonValue.playVideo) {
+        setButtonValue({
+          ...buttonValue,
+          playVideo: true,
+        });
+      }
       setTotalVideoDuration(video.duration);
       setCurrentVideoTime(video.currentTime);
       var calPercentage = (video.currentTime / video.duration) * 100;
@@ -162,7 +173,6 @@ const VideoPlayer = () => {
     // hiding and make visible when mouse is out and mouse is move event
     document.addEventListener("mousemove", mouseMove);
     document.addEventListener("mouseleave", mouseLeave);
-
     // controlling on keyboard press
     document.addEventListener("keydown", keyDown);
     return () => {
@@ -223,6 +233,14 @@ const VideoPlayer = () => {
                 icon="eva:arrow-ios-back-outline"
                 color="#000000B3"
                 style={{ marginLeft: "1.2rem" }}
+                cursor="pointer"
+                onClick={() => {
+                  navigate(`/playing/${videoID}`, {
+                    state: {
+                      metaData: location.state.metaData,
+                    },
+                  });
+                }}
               />
               <div className="VideoPlayer_NavBar_TitleSName_Container">
                 <h2>Kavhi Khusi Kavhi Gam</h2>
