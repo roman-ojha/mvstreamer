@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 const VideoPlayer = () => {
   const location = useLocation();
-  console.log(location.state.url);
   // creating video element
   const [buttonValue, setButtonValue] = useState({
     playVideo: true,
@@ -52,8 +51,6 @@ const VideoPlayer = () => {
     // setting attribute for the video element
     //  URL.revokeObjectURL(location.state.url)
     // video.src = location.state.url;
-    // video.id = "VideoPlayerPage_VideoPlayer";
-    // video.className = "VideoPlayer_Field";
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
@@ -61,35 +58,38 @@ const VideoPlayer = () => {
     vContainerElm.append(video);
     video.autoplay = true;
     // controlling state on video time update
-    video.addEventListener("timeupdate", (event) => {
-      setTotalVideoDuration(video.duration);
-      setCurrentVideoTime(video.currentTime);
-      var calPercentage = (video.currentTime / video.duration) * 100;
-      document.getElementsByClassName(
-        "Video_Player_Current_Progress"
-      )[0].style.width = `${calPercentage}%`;
-    });
-
+    // const timeUpdate=()=>{
+    //   setTotalVideoDuration(video.duration);
+    //   setCurrentVideoTime(video.currentTime);
+    //   var calPercentage = (video.currentTime / video.duration) * 100;
+    //   document.getElementsByClassName(
+    //     "Video_Player_Current_Progress"
+    //   )[0].style.width = `${calPercentage}%`;
+    // }
+    // const mouseMove=()=>{
+    //   var calPercentage = (video.currentTime / video.duration) * 100;
+    //   document.getElementsByClassName(
+    //     "Video_Player_Current_Progress"
+    //   )[0].style.width = `${calPercentage}%`;
+    //   document.getElementsByClassName(
+    //     "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+    //   )[0].style.visibility = "visible";
+    // }
+    // const mouseLeave=()=>{
+    //   setTimeout(() => {
+    //     document.getElementsByClassName(
+    //       "Video_Player_Current_Progress"
+    //     )[0].style = "transition-duration: 0ms;";
+    //     document.getElementsByClassName(
+    //       "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+    //     )[0].style.visibility = "hidden";
+    //   }, 1000);
+    // }
+    // const keyDown
+    video.addEventListener("timeupdate", timeUpdate);
     // hiding and make visible when mouse is out and mouse is move event
-    document.addEventListener("mousemove", () => {
-      var calPercentage = (video.currentTime / video.duration) * 100;
-      document.getElementsByClassName(
-        "Video_Player_Current_Progress"
-      )[0].style.width = `${calPercentage}%`;
-      document.getElementsByClassName(
-        "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-      )[0].style.visibility = "visible";
-    });
-    document.addEventListener("mouseleave", () => {
-      setTimeout(() => {
-        document.getElementsByClassName(
-          "Video_Player_Current_Progress"
-        )[0].style = "transition-duration: 0ms;";
-        document.getElementsByClassName(
-          "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-        )[0].style.visibility = "hidden";
-      }, 1000);
-    });
+    document.addEventListener("mousemove", mouseMove);
+    document.addEventListener("mouseleave", mouseLeave);
 
     // controlling on keyboard press
     document.addEventListener("keydown", (e) => {

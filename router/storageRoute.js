@@ -116,12 +116,9 @@ router.get("/get/Audio/:songID", async (req, res) => {
       res.status(400).send("Requires Range headers");
     }
     const videoSize = Number(metadata[0].size);
-    // console.log(videoSize);
     const CHUNCK_SIZE = 10 ** 5; // 1MB
     const start = Number(range.replace(/\D/g, ""));
-    // console.log(start);
     const end = Math.min(start + CHUNCK_SIZE, videoSize - 1);
-    // console.log(end);
     const contentLength = end - start + 1;
     const headers = {
       "Content-Range": `bytes ${start}-${end}/${videoSize}`,
@@ -142,4 +139,35 @@ router.get("/get/Audio/:songID", async (req, res) => {
   }
 });
 
+router.get("/get/video/:videoID", async (req, res) => {
+  try {
+    console.log("hello");
+    const range = req.headers.range;
+    const metadata = await storage
+      .bucket()
+      .file(`Video/${req.params.videoID}`)
+      .getMetadata();
+    if (!range) {
+      res.status(400).send("Requires Range headers");
+    }
+    const videoSize = Number(metadata[0].size);
+    const ChunkSize = 10 ** 7;
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + ChunkSize, videoSize - 1);
+    const contentLength = end - start + 1;
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "video/mp4",
+    };
+    res.writeHead(206, headers);
+    bucket
+      .file(`Video/${req.params.videoID}`)
+      .createReadStream({ start, end })
+      .pipe(res);
+  } catch (err) {
+    console.log(err);
+  }
+});
 export default router;
