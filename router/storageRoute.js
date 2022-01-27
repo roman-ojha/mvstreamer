@@ -141,7 +141,6 @@ router.get("/get/Audio/:songID", async (req, res) => {
 
 router.get("/get/video/:videoID", async (req, res) => {
   try {
-    console.log("hello");
     const range = req.headers.range;
     const metadata = await storage
       .bucket()

@@ -17,9 +17,6 @@ const SongCard = (props) => {
         onClick={() => {
           // ater clicking card we will get the api url to get fetch the audio then we will dispatch the audio and store it into the redux state and then on redux reducer we will play the audio and we will navigate to mvplayer page
           // console.log(props.songDetail);
-          console.log("hello");
-
-          console.log(props.songDetail.mediaType);
           if (props.songDetail.mediaType === "audio") {
             const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
               props.songDetail.mediaPath.split("/")[1]
@@ -29,6 +26,7 @@ const SongCard = (props) => {
               state: { from: "url", metaData: props.songDetail },
             });
           } else if (props.songDetail.mediaType === "video") {
+            console.log("hello");
             const url = `${process.env.REACT_APP_BASE_API_URL}/get/video/${
               props.songDetail.mediaPath.split("/")[1]
             }`;

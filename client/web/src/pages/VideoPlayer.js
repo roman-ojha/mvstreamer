@@ -58,41 +58,36 @@ const VideoPlayer = () => {
     vContainerElm.append(video);
     video.autoplay = true;
     // controlling state on video time update
-    // const timeUpdate=()=>{
-    //   setTotalVideoDuration(video.duration);
-    //   setCurrentVideoTime(video.currentTime);
-    //   var calPercentage = (video.currentTime / video.duration) * 100;
-    //   document.getElementsByClassName(
-    //     "Video_Player_Current_Progress"
-    //   )[0].style.width = `${calPercentage}%`;
-    // }
-    // const mouseMove=()=>{
-    //   var calPercentage = (video.currentTime / video.duration) * 100;
-    //   document.getElementsByClassName(
-    //     "Video_Player_Current_Progress"
-    //   )[0].style.width = `${calPercentage}%`;
-    //   document.getElementsByClassName(
-    //     "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-    //   )[0].style.visibility = "visible";
-    // }
-    // const mouseLeave=()=>{
-    //   setTimeout(() => {
-    //     document.getElementsByClassName(
-    //       "Video_Player_Current_Progress"
-    //     )[0].style = "transition-duration: 0ms;";
-    //     document.getElementsByClassName(
-    //       "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-    //     )[0].style.visibility = "hidden";
-    //   }, 1000);
-    // }
-    // const keyDown
-    video.addEventListener("timeupdate", timeUpdate);
-    // hiding and make visible when mouse is out and mouse is move event
-    document.addEventListener("mousemove", mouseMove);
-    document.addEventListener("mouseleave", mouseLeave);
+    const timeUpdate = () => {
+      setTotalVideoDuration(video.duration);
+      setCurrentVideoTime(video.currentTime);
+      var calPercentage = (video.currentTime / video.duration) * 100;
+      document.getElementsByClassName(
+        "Video_Player_Current_Progress"
+      )[0].style.width = `${calPercentage}%`;
+    };
+    const mouseMove = () => {
+      var calPercentage = (video.currentTime / video.duration) * 100;
+      document.getElementsByClassName(
+        "Video_Player_Current_Progress"
+      )[0].style.width = `${calPercentage}%`;
+      document.getElementsByClassName(
+        "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+      )[0].style.visibility = "visible";
+    };
+    const mouseLeave = () => {
+      setTimeout(() => {
+        document.getElementsByClassName(
+          "Video_Player_Current_Progress"
+        )[0].style = "transition-duration: 0ms;";
+        document.getElementsByClassName(
+          "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+        )[0].style.visibility = "hidden";
+      }, 1000);
+    };
+    // setting interval if use holding press button and need to do action over and over again
 
-    // controlling on keyboard press
-    document.addEventListener("keydown", (e) => {
+    const keyDown = (e) => {
       if (e.key === " ") {
         if (!video.paused) {
           video.pause();
@@ -124,7 +119,6 @@ const VideoPlayer = () => {
           video.volume = 0;
         }
       }
-      // setting interval if use holding press button and need to do action over and over again
       const keyInterval = setInterval(() => {
         if (e.key === " ") {
           if (!video.paused) {
@@ -158,11 +152,25 @@ const VideoPlayer = () => {
           }
         }
       }, 500);
-      document.addEventListener("keyup", () => {
+      const keyUp = () => {
         // need to stop the interval if use stop pressing the key button
         clearInterval(keyInterval);
-      });
-    });
+      };
+      document.addEventListener("keyup", keyUp);
+    };
+    video.addEventListener("timeupdate", timeUpdate);
+    // hiding and make visible when mouse is out and mouse is move event
+    document.addEventListener("mousemove", mouseMove);
+    document.addEventListener("mouseleave", mouseLeave);
+
+    // controlling on keyboard press
+    document.addEventListener("keydown", keyDown);
+    return () => {
+      video.removeEventListener("timeupdate", timeUpdate);
+      document.removeEventListener("mousemove", mouseMove);
+      document.removeEventListener("mouseleave", mouseLeave);
+      document.removeEventListener("keydown", keyDown);
+    };
   }, []);
   const setVideoTimeOnClick = (event) => {
     try {
