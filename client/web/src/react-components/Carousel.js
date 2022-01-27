@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import App_Icon from "../assets/images/App_Icon.png";
 import { Icon } from "@iconify/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  currentAudioAction,
+  currentVideoAction,
+} from "../services/redux-actions";
 
 const Carousel = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const items = props.carouselItem;
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
   const CarouselIndicatorButton = (props) => {
@@ -47,6 +52,22 @@ const Carousel = (props) => {
             navigate(`/mplayer/${props.item.mediaPath.split("/")[1]}`, {
               state: { from: "url", metaData: props.item },
             });
+
+            const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
+              props.item.mediaPath.split("/")[1]
+            }`;
+            console.log(props.item.mediaType);
+            if (props.item.mediaType === "audio") {
+              dispatch(currentAudioAction(new Audio(url)));
+              navigate(`/mplayer/${props.item.mediaPath.split("/")[1]}`, {
+                state: { from: "url", metaData: props.item },
+              });
+            } else if (props.item.mediaType === "video") {
+              dispatch(currentVideoAction(url));
+              navigate(`/vplayer/${props.item.mediaPath.split("/")[1]}`, {
+                state: { from: "url", metaData: props.item, url: url },
+              });
+            }
           }}
         >
           <div className="Carousel_Image_Filter">

@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { currentAudioAction } from "../services/redux-actions";
+import {
+  currentAudioAction,
+  currentVideoAction,
+} from "../services/redux-actions";
 
 const SongCard = (props) => {
   const navigate = useNavigate();
@@ -14,16 +17,18 @@ const SongCard = (props) => {
         onClick={() => {
           // ater clicking card we will get the api url to get fetch the audio then we will dispatch the audio and store it into the redux state and then on redux reducer we will play the audio and we will navigate to mvplayer page
           // console.log(props.songDetail);
+          console.log("hello");
           const url = `${process.env.REACT_APP_BASE_API_URL}/get/Audio/${
             props.songDetail.mediaPath.split("/")[1]
           }`;
+          console.log(props.songDetail.mediaType);
           if (props.songDetail.mediaType === "audio") {
             dispatch(currentAudioAction(new Audio(url)));
             navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
               state: { from: "url", metaData: props.songDetail },
             });
           } else if (props.songDetail.mediaType === "video") {
-            console.log("hello");
+            dispatch(currentVideoAction(url));
             navigate(`/vplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
               state: { from: "url", metaData: props.songDetail, url: url },
             });

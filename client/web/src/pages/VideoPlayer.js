@@ -5,6 +5,7 @@ import PauseButton from "../assets/svg/PauseButton.svg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import Video01 from "../assets/video/Video01.mp4";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const VideoPlayer = () => {
   const location = useLocation();
@@ -18,7 +19,8 @@ const VideoPlayer = () => {
     volume: false,
     frequency: false,
   });
-  const [video] = useState(document.createElement("video"));
+  const video = useSelector((state) => state.currentVideoReducer);
+  // const [video] = useState(document.createElement("video"));
   const [currentVideoTime, setCurrentVideoTime] = useState(video.currentTime);
   const [totalVideoDuration, setTotalVideoDuration] = useState(0);
   const [mouseMove, setMouseMove] = useState(false);
@@ -49,9 +51,9 @@ const VideoPlayer = () => {
   useEffect(() => {
     // setting attribute for the video element
     //  URL.revokeObjectURL(location.state.url)
-    video.src = location.state.url;
-    video.id = "VideoPlayerPage_VideoPlayer";
-    video.className = "VideoPlayer_Field";
+    // video.src = location.state.url;
+    // video.id = "VideoPlayerPage_VideoPlayer";
+    // video.className = "VideoPlayer_Field";
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];

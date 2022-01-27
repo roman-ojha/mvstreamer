@@ -13,9 +13,6 @@ const NavBarANDMiniplayer = () => {
   const [mediaPlay, setMediaPlay] = useState(false);
   const audio = useSelector((state) => state.currentAudioReducer);
   const dispatch = useDispatch();
-  window.onload = function () {
-    setMediaPlay(false);
-  };
 
   useEffect(() => {
     const totalDegreeToRotate = 120;
@@ -24,7 +21,9 @@ const NavBarANDMiniplayer = () => {
       setMediaPlay(false);
     };
     const updateAudio = () => {
-      setMediaPlay(true);
+      if (mediaPlay === false) {
+        setMediaPlay(true);
+      }
       const progressPercentage = (audio.currentTime / audio.duration) * 100;
       if (
         document.getElementsByClassName("MVstreamer_MiniPlayer")[0] !==

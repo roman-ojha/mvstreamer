@@ -80,12 +80,20 @@ const MusicPlayer = () => {
   };
   var calculateTotalBufferWidth = 0;
   useEffect(() => {
-    var rotateImage = 0;
-    const updateAudio = () => {
+    audio.onpause = function () {
       setButtonValue({
         ...buttonValue,
-        playSong: true,
+        playSong: false,
       });
+    };
+    var rotateImage = 0;
+    const updateAudio = () => {
+      if (buttonValue.playSong === false) {
+        setButtonValue({
+          ...buttonValue,
+          playSong: true,
+        });
+      }
       // upgrading the song current time and lenght of the progressive bar
       var calPercentage = (audio.currentTime / audio.duration) * 100;
       setCurrentSongTime(audio.currentTime);
@@ -111,7 +119,7 @@ const MusicPlayer = () => {
       // removing event after unmunting component
       audio.removeEventListener("timeupdate", updateAudio);
     };
-  }, [audio]);
+  }, []);
 
   const setSongTimeOnClick = (event) => {
     try {
@@ -238,7 +246,7 @@ const MusicPlayer = () => {
           {audioFrom === "local" ? (
             <p></p>
           ) : (
-            <p>{location.state.metaData.singerName}</p>
+            <p>{location.state.metaData.artist}</p>
           )}
         </div>
         <div className="Music_Player_TimeStamp_ProgressBar_Container">

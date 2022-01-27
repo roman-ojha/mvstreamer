@@ -18,3 +18,10 @@ export const currentAudioAction = (value) => {
     payload: value,
   };
 };
+
+export const currentVideoAction = (value) => {
+  return {
+    type: "currentVideo",
+    payload: value,
+  };
+};
