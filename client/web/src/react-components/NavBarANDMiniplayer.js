@@ -14,7 +14,6 @@ const NavBarANDMiniplayer = () => {
   const video = useSelector((state) => state.currentVideoReducer);
 
   useEffect(() => {
-    console.log(location.state.metaData.mediaType);
     const totalDegreeToRotate = 120;
     const intoDecimal = totalDegreeToRotate / 100;
     audio.onpause = function () {
@@ -68,7 +67,7 @@ const NavBarANDMiniplayer = () => {
     audio.addEventListener("timeupdate", updateAudio);
     video.addEventListener("timeupdate", updateVideo);
     return () => {
-      audio.removeEventListener("timeupdate", updateAudio);
+      audio.removeEventListener("timeupdate", updateAudio());
       video.removeEventListener("timeupdate", updateVideo);
     };
   }, []);

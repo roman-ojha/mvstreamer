@@ -21,6 +21,7 @@ const VideoPlayer = () => {
     frequency: false,
   });
   const video = useSelector((state) => state.currentVideoReducer);
+  const audio = useSelector((state) => state.currentAudioReducer);
   // const [video] = useState(document.createElement("video"));
   const [currentVideoTime, setCurrentVideoTime] = useState(video.currentTime);
   const [totalVideoDuration, setTotalVideoDuration] = useState(0);
@@ -49,13 +50,17 @@ const VideoPlayer = () => {
     }
   }
 
+  video.onpause = () => {
+    setButtonValue({
+      ...buttonValue,
+      playVideo: false,
+    });
+  };
   useEffect(() => {
-    video.onpause = () => {
-      setButtonValue({
-        ...buttonValue,
-        playVideo: false,
-      });
-    };
+    // const pauseAudio = () => {
+    //   audio.pause();
+    // };
+    // audio.addEventListener("timeupdate", pauseAudio);
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
@@ -177,6 +182,7 @@ const VideoPlayer = () => {
     document.addEventListener("keydown", keyDown);
     return () => {
       video.removeEventListener("timeupdate", timeUpdate);
+      // audio.removeEventListener("timeupdate", pauseAudio);
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseleave", mouseLeave);
       document.removeEventListener("keydown", keyDown);

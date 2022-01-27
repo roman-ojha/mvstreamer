@@ -17,6 +17,7 @@ const MusicPlayer = () => {
   const audioFrom = location.state.from;
   const { songID } = useParams();
   const audio = useSelector((state) => state.currentAudioReducer);
+  const video = useSelector((state) => state.currentVideoReducer);
   // getting songid from the url parameter
   // let url;
   // if (audioFrom === "local") {
@@ -79,13 +80,13 @@ const MusicPlayer = () => {
     songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
   };
   var calculateTotalBufferWidth = 0;
+  audio.onpause = function () {
+    setButtonValue({
+      ...buttonValue,
+      playSong: false,
+    });
+  };
   useEffect(() => {
-    audio.onpause = function () {
-      setButtonValue({
-        ...buttonValue,
-        playSong: false,
-      });
-    };
     var rotateImage = 0;
     const updateAudio = () => {
       if (buttonValue.playSong === false) {

@@ -1,3 +1,4 @@
+import store from "../redux-store/store";
 export const setUserProfileDetail = (value) => {
   return {
     type: "userProfileDetail",
@@ -13,6 +14,8 @@ export const setHomePageSongsDetail = (value) => {
 };
 
 export const currentAudioAction = (value) => {
+  const videoInstance = store.getState().currentVideoReducer;
+  videoInstance.pause();
   return {
     type: "currentAudio",
     payload: value,
@@ -20,6 +23,8 @@ export const currentAudioAction = (value) => {
 };
 
 export const currentVideoAction = (value) => {
+  const audioInstance = store.getState().currentAudioReducer;
+  audioInstance.pause();
   return {
     type: "currentVideo",
     payload: value,

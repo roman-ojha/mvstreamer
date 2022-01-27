@@ -10,6 +10,7 @@ const SongCard = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const audio = useSelector((state) => state.currentAudioReducer);
+  const video = useSelector((state) => state.currentVideoReducer);
   return (
     <>
       <div
@@ -22,6 +23,10 @@ const SongCard = (props) => {
               props.songDetail.mediaPath.split("/")[1]
             }`;
             dispatch(currentAudioAction(new Audio(url)));
+            // if (video.src !== "") {
+            //   // pausing video to play audio instance
+            //   video.pause();
+            // }
             navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
               state: { from: "url", metaData: props.songDetail },
             });
@@ -30,6 +35,11 @@ const SongCard = (props) => {
               props.songDetail.mediaPath.split("/")[1]
             }`;
             dispatch(currentVideoAction(url));
+            // if (audio.src !== "") {
+            //   // console.log("hello");
+            //   // pausing audio to play video instance
+            //   audio.pause();
+            // }
             navigate(`/vplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
               state: { from: "url", metaData: props.songDetail, url: url },
             });
