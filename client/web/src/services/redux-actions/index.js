@@ -30,3 +30,10 @@ export const currentVideoAction = (value) => {
     payload: value,
   };
 };
+
+export const filePageFolderTreeAction = (value) => {
+  return {
+    type: "filePageFolderTree",
+    payload: value,
+  };
+};

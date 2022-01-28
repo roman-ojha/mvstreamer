@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const VideoPlayer = () => {
+  const userDetail = useSelector((state) => state.userProfileDetail);
   const navigate = useNavigate();
   const location = useLocation();
   const { videoID } = useParams();
@@ -178,6 +179,9 @@ const VideoPlayer = () => {
       };
       document.addEventListener("keyup", keyUp);
     };
+    const clickedVideo = () => {
+      console.log("hello");
+    };
     video.addEventListener("timeupdate", timeUpdate);
     // hiding and make visible when mouse is out and mouse is move event
     document.addEventListener("mousemove", mouseMove);
@@ -251,10 +255,14 @@ const VideoPlayer = () => {
                 }}
               />
               <div className="VideoPlayer_NavBar_TitleSName_Container">
-                <h2>Kavhi Khusi Kavhi Gam</h2>
-                <p>Sonu Nigam</p>
+                <h2>{location.state.metaData.title}</h2>
+                {location.state.from === "local" ? (
+                  ""
+                ) : (
+                  <p>{location.state.metaData.artist}</p>
+                )}
               </div>
-              <img src={User_Image} alt="userimg" />
+              <img src={userDetail.picture} alt="userimg" />
             </div>
             <div className="VideoPlayer_Page_BottomBar_Controller_Container">
               <div className="Video_Player_TimeStamp_ProgressBar_Container">

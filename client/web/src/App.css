@@ -750,7 +750,7 @@ p {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  z-index: 3000;
+  z-index: 1;
   visibility: visible;
 }
 
@@ -779,15 +779,22 @@ p {
   align-items: center;
   font-family: var(--primary-font-family);
   /* border: 1px solid red; */
+  width: 80%;
 }
 .VideoPlayer_NavBar_TitleSName_Container h2 {
   font-size: 1.6rem;
   font-weight: 700;
   margin-top: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .VideoPlayer_NavBar_TitleSName_Container p {
   font-size: 1.3rem;
   font-weight: 700;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .VideoPlayer_Page_BottomBar_Controller_Container {
   width: 70%;
