@@ -10,16 +10,19 @@
 
 ## UI :
 ### Home Page :
-[<img src="design/mobile_home_page.jpg" style="width:20%;" alt="mobileHome"></img>](design/mobile_home_page.jpg)
-[<img src="design/Home_Page.png" style="width:75%;" alt="webHome"></img>](design/Home_Page.png)
+[<img src="design/Home_Page.png" alt="webHome"></img>](design/Home_Page.png)
 ### Video Streamer Page :
-[<img src="design/mobile_videoPlayer.jpg" style="width:20%;" alt="mobileVPlayer"></img>](design/mobile_videoPlayer.jpg)
-[<img src="design/VideoPlayer.png" style="width:75%;" alt="webVplayer"></img>](design/VideoPlayer.png)
+[<img src="design/VideoPlayer.png" alt="webVplayer"></img>](design/VideoPlayer.png)
 ### Music Streamer Page:
-[<img src="design/mobile_musicPlayer.jpg" style="width:20%;" alt="mobileMPlayer"></img>](design/mobile_musicPlayer.jpg)
-[<img src="design/MusicPlayer_Page.png" style="width:75%;height:275px" alt="webMPlayer"></img>](design/MusicPlayer_Page.png)
+[<img src="design/MusicPlayer_Page.png" alt="webMPlayer"></img>](design/MusicPlayer_Page.png)
 ### Local File Page:
 [<img src="design/Local_Page.png" alt="webMPlayer"></img>](design/Local_Page.png)
+
+### Flutter Application:
+
+[<img src="design/mobile_home_page.jpg" style="width:20%;" alt="mobileHome"></img>](design/mobile_home_page.jpg)
+[<img src="design/mobile_musicPlayer.jpg" style="width:20%;" alt="mobileMPlayer"></img>](design/mobile_musicPlayer.jpg)
+[<img src="design/mobile_videoPlayer.jpg" style="width:20%;" alt="mobileVPlayer"></img>](design/mobile_videoPlayer.jpg)
 
 <br/>
 
