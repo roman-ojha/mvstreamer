@@ -54,17 +54,23 @@ const Carousel = (props) => {
                 props.item.mediaPath.split("/")[1]
               }`;
               dispatch(currentAudioAction(new Audio(url)));
-              navigate(`/mplayer/${props.item.mediaPath.split("/")[1]}`, {
-                state: { from: "url", metaData: props.item },
-              });
+              navigate(
+                `/mplayer/${props.item.mediaPath.split("/")[1].split(".")[0]}`,
+                {
+                  state: { from: "url", metaData: props.item },
+                }
+              );
             } else if (props.item.mediaType === "video") {
               const url = `${process.env.REACT_APP_BASE_API_URL}/get/video/${
                 props.item.mediaPath.split("/")[1]
               }`;
               dispatch(currentVideoAction(url));
-              navigate(`/vplayer/${props.item.mediaPath.split("/")[1]}`, {
-                state: { from: "url", metaData: props.item, url: url },
-              });
+              navigate(
+                `/vplayer/${props.item.mediaPath.split("/")[1].split(".")[0]}`,
+                {
+                  state: { from: "url", metaData: props.item, url: url },
+                }
+              );
             }
           }}
         >

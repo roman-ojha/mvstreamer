@@ -22,17 +22,27 @@ const SongCard = (props) => {
               props.songDetail.mediaPath.split("/")[1]
             }`;
             dispatch(currentAudioAction(new Audio(url)));
-            navigate(`/mplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
-              state: { from: "url", metaData: props.songDetail },
-            });
+            navigate(
+              `/mplayer/${
+                props.songDetail.mediaPath.split("/")[1].split(".")[0]
+              }`,
+              {
+                state: { from: "url", metaData: props.songDetail },
+              }
+            );
           } else if (props.songDetail.mediaType === "video") {
             const url = `${process.env.REACT_APP_BASE_API_URL}/get/video/${
               props.songDetail.mediaPath.split("/")[1]
             }`;
             dispatch(currentVideoAction(url));
-            navigate(`/vplayer/${props.songDetail.mediaPath.split("/")[1]}`, {
-              state: { from: "url", metaData: props.songDetail, url: url },
-            });
+            navigate(
+              `/vplayer/${
+                props.songDetail.mediaPath.split("/")[1].split(".")[0]
+              }`,
+              {
+                state: { from: "url", metaData: props.songDetail, url: url },
+              }
+            );
           }
         }}
       >

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  currentAudioAction,
+  currentVideoAction,
+} from "../services/redux-actions";
 
 class FolderNode {
   // Create Node of folder/file to make tree data structure
@@ -24,6 +28,7 @@ class FileNode {
 }
 
 const FilePage = () => {
+  const dispatch = useDispatch();
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
   const navigate = useNavigate();
   const [girdView, setGirdView] = useState(true);
@@ -135,17 +140,20 @@ const FilePage = () => {
         const playAudio = () => {
           // const audioObj = props.Node.file;
           const audioURL = props.Node.fileUrl;
-          navigate("/mplayer", {
-            // navigating to mplayer page to play music
-            state: {
-              from: "local",
-              url: audioURL,
-              metaData: {
-                title: props.Node.name.replace(".mp3" || ".wav", ""),
-                singerName: "NaN",
+          dispatch(currentAudioAction(new Audio(audioURL)));
+          navigate(
+            `/mplayer/${props.Node.name.replace(".mp3" || ".wav", "")}`,
+            {
+              // navigating to mplayer page to play music
+              state: {
+                from: "local",
+                metaData: {
+                  title: props.Node.name.replace(".mp3" || ".wav", ""),
+                  singerName: "NaN",
+                },
               },
-            },
-          });
+            }
+          );
         };
         return (
           <>
@@ -164,17 +172,26 @@ const FilePage = () => {
       } else {
         const playVideo = () => {
           const videoURL = props.Node.fileUrl;
-          navigate("/vplayer", {
-            // navigating to vplayer page to play video
-            state: {
-              from: "local",
-              url: videoURL,
-              metaData: {
-                title: props.Node.name.replace(".mp4" || ".mov" || ".mkv", ""),
-                singerName: "NaN",
+          dispatch(currentVideoAction(videoURL));
+          navigate(
+            `/vplayer/${props.Node.name.replace(
+              ".mp4" || ".mov" || ".mkv",
+              ""
+            )}`,
+            {
+              // navigating to vplayer page to play video
+              state: {
+                from: "local",
+                metaData: {
+                  title: props.Node.name.replace(
+                    ".mp4" || ".mov" || ".mkv",
+                    ""
+                  ),
+                  singerName: "NaN",
+                },
               },
-            },
-          });
+            }
+          );
         };
         return (
           <>
