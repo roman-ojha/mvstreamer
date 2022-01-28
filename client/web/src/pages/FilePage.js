@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   currentAudioAction,
   currentVideoAction,
+  filePageFolderTreeAction,
 } from "../services/redux-actions";
 
 class FolderNode {
@@ -29,11 +30,12 @@ class FileNode {
 
 const FilePage = () => {
   const dispatch = useDispatch();
+  const treeFolder = useSelector((state) => state.filePageFolderTreeReducer);
   const userProfileDetail = useSelector((state) => state.userProfileDetail);
   const navigate = useNavigate();
   const [girdView, setGirdView] = useState(true);
   const [currentDisplayedFileandFolder, setCurrentDisplayedFileandFolder] =
-    useState([]);
+    useState(treeFolder);
   const addFolder = () => {
     const content = document.getElementsByClassName("File_Page_Add_Button")[0]
       .files;
@@ -106,10 +108,7 @@ const FilePage = () => {
         // traversaling to the next subfolder
       }
     }
-    setCurrentDisplayedFileandFolder([
-      ...currentDisplayedFileandFolder,
-      head.subFolder[0],
-    ]);
+    dispatch(filePageFolderTreeAction(head.subFolder[0]));
   };
   const Folder = (props) => {
     // Component
