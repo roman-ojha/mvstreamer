@@ -1,8 +1,7 @@
 import React from "react";
 import Carousel from "../react-components/Carousel";
 import SongCardCarousel from "../react-components/SongCardCarousel";
-import { useDispatch, useSelector } from "react-redux";
-import { setHomePageSongsDetail } from "../services/redux-actions";
+import { useSelector } from "react-redux";
 
 const VideoPage = () => {
   const homePageSongDetailStore = useSelector(

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import Song_Image01 from "../assets/images/carousel_Image_02.jpg";
@@ -7,17 +7,14 @@ import PlayButton from "../assets/svg/PlayButton.svg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import MusicIcon from "../assets/images/App_Icon.png";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { currentAudioAction } from "../services/redux-actions";
+import { useSelector } from "react-redux";
 
 const MusicPlayer = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const audioFrom = location.state.from;
   const { songID } = useParams();
   const audio = useSelector((state) => state.currentAudioReducer);
-  const video = useSelector((state) => state.currentVideoReducer);
 
   const [currentSongTime, setCurrentSongTime] = useState(audio.currentTime);
   const [buttonValue, setButtonValue] = useState({

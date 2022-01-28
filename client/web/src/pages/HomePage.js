@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Carousel from "../react-components/Carousel";
 import SongCardCarousel from "../react-components/SongCardCarousel";
 import { instance as axios } from "../services/axios";

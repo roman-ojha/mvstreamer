@@ -1,9 +1,6 @@
 const initialState = document.createElement("video");
 initialState.id = "VideoPlayerPage_VideoPlayer";
 initialState.className = "VideoPlayer_Field";
-// initialState.setAttribute("onClick", () => {
-//   console.log("hello");
-// });
 
 const currentVideoReducer = (state = initialState, action) => {
   // console.log(store.getState());

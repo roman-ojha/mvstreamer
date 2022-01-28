@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { Icon } from "@iconify/react";
-import User_Image from "../assets/images/user.jpg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import PlayButton from "../assets/svg/PlayButton.svg";
 import { useLocation, useNavigate, useParams } from "react-router-dom";

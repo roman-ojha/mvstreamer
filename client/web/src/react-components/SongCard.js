@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,8 +9,6 @@ import {
 const SongCard = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const audio = useSelector((state) => state.currentAudioReducer);
-  const video = useSelector((state) => state.currentVideoReducer);
   return (
     <>
       <div
