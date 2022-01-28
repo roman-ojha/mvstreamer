@@ -1158,8 +1158,10 @@ p {
     height: 250px;
     bottom: -140px;
     z-index: 1;
+    /* transform: rotate(50deg); */
   }
   .MVstreamer_MiniPlayer_Inner {
+    position: absolute;
     width: 97%;
     height: 97%;
   }

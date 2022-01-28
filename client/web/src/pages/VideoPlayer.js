@@ -85,8 +85,6 @@ const VideoPlayer = () => {
       document.getElementsByClassName(
         "Video_Player_Buffer_Bar"
       )[0].style.width = `${calculateTotalBufferWidth}%`;
-      // console.log(calculateTotalBufferWidth);
-      console.log(videoBufferPercentage);
     };
     const mouseMove = () => {
       var calPercentage = (video.currentTime / video.duration) * 100;

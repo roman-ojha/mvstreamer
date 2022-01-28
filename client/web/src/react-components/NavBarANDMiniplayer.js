@@ -70,6 +70,7 @@ const NavBarANDMiniplayer = () => {
         }deg)`;
       }
     };
+
     document.getElementsByClassName("video_Element_Container")[0].append(video);
     // appending to the dom element to play automatically when this component got render or mount
     try {
@@ -108,9 +109,17 @@ const NavBarANDMiniplayer = () => {
   const navigateToMPlayer = (event) => {
     const elementCName = event.target.className;
     if (elementCName === "MVstreamer_MiniPlayer_Inner") {
-      navigate(`/mplayer/${ID}`, {
-        state: { from: "url", metaData: location.state.metaData },
-      });
+      try {
+        if (location.state.metaData.mediaType === "audio") {
+          navigate(`/mplayer/${ID}`, {
+            state: { from: "url", metaData: location.state.metaData },
+          });
+        } else if (location.state.metaData.mediaType === "video") {
+          navigate(`/vplayer/${ID}`, {
+            state: { from: "url", metaData: location.state.metaData },
+          });
+        }
+      } catch (err) {}
     }
   };
   return (
