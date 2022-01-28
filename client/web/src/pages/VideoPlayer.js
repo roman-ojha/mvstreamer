@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { Icon } from "@iconify/react";
 import User_Image from "../assets/images/user.jpg";
 import PauseButton from "../assets/svg/PauseButton.svg";
 import PlayButton from "../assets/svg/PlayButton.svg";
-import Video01 from "../assets/video/Video01.mp4";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -32,9 +32,6 @@ const VideoPlayer = () => {
   const totalVideoDurationInMin = `${Math.floor(
     totalVideoDuration / 60
   )}:${Math.floor(totalVideoDuration % 60)}`;
-  var songBufferPercentage;
-  var calculateTotalBufferWidth = 0;
-
   function exitHandler() {
     // event triggered when exiting fullscreen
     if (
@@ -56,12 +53,17 @@ const VideoPlayer = () => {
     });
   };
   useEffect(() => {
+    var videoBufferPercentage;
+    var calculateTotalBufferWidth = 0;
+    video.onprogress = function () {
+      // getting the buffer length of song
+      videoBufferPercentage = (video.buffered.end(0) / video.duration) * 100;
+    };
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
     // appending video element
     vContainerElm.append(video);
-    // video.autoplay = true;
     // controlling state on video time update
     const timeUpdate = () => {
       if (!buttonValue.playVideo) {
@@ -73,9 +75,18 @@ const VideoPlayer = () => {
       setTotalVideoDuration(video.duration);
       setCurrentVideoTime(video.currentTime);
       var calPercentage = (video.currentTime / video.duration) * 100;
+      calculateTotalBufferWidth =
+        calPercentage + videoBufferPercentage >= 100
+          ? 100
+          : calPercentage + videoBufferPercentage;
       document.getElementsByClassName(
         "Video_Player_Current_Progress"
       )[0].style.width = `${calPercentage}%`;
+      document.getElementsByClassName(
+        "Video_Player_Buffer_Bar"
+      )[0].style.width = `${calculateTotalBufferWidth}%`;
+      // console.log(calculateTotalBufferWidth);
+      console.log(videoBufferPercentage);
     };
     const mouseMove = () => {
       var calPercentage = (video.currentTime / video.duration) * 100;
@@ -236,9 +247,9 @@ const VideoPlayer = () => {
                   navigate(`/playing/${videoID}`, {
                     state: {
                       metaData: location.state.metaData,
+                      playing: buttonValue.playVideo,
                     },
                   });
-                  video.play();
                 }}
               />
               <div className="VideoPlayer_NavBar_TitleSName_Container">
@@ -279,8 +290,9 @@ const VideoPlayer = () => {
                     alignItems: "center",
                   }}
                 >
-                  {" "}
-                  {totalVideoDurationInMin}
+                  {totalVideoDurationInMin === "NaN:NaN"
+                    ? "0:0"
+                    : totalVideoDurationInMin}
                 </h1>
               </div>
               <div className="VideoPlayer_Pause_Play_Next_Previous_Button_Controller">

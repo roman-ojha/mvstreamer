@@ -37,19 +37,19 @@ const MusicPlayer = () => {
   const currentSongTimeInMin = `${Math.floor(
     currentSongTime / 60
   )}:${Math.floor(currentSongTime % 60)}`;
-  var songBufferPercentage;
-  audio.onprogress = function () {
-    // getting the buffer length of song
-    songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
-  };
-  var calculateTotalBufferWidth = 0;
-  audio.onpause = function () {
-    setButtonValue({
-      ...buttonValue,
-      playSong: false,
-    });
-  };
   useEffect(() => {
+    var songBufferPercentage;
+    var calculateTotalBufferWidth = 0;
+    audio.onprogress = function () {
+      // getting the buffer length of song
+      songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
+    };
+    audio.onpause = function () {
+      setButtonValue({
+        ...buttonValue,
+        playSong: false,
+      });
+    };
     var rotateImage = 0;
     const updateAudio = () => {
       if (buttonValue.playSong === false) {
@@ -157,6 +157,7 @@ const MusicPlayer = () => {
               navigate(`/playing/${songID}`, {
                 state: {
                   metaData: location.state.metaData,
+                  playing: buttonValue.playSong,
                 },
               });
             }}

@@ -136,6 +136,10 @@
   z-index: 2;
   bottom: 0px;
 }
+.video_Element_Container {
+  visibility: hidden;
+  position: absolute;
+}
 .MVstreamer_MiniPlayer {
   background-image: linear-gradient(
     to top,
@@ -820,7 +824,7 @@ p {
 }
 .Video_Player_Buffer_Bar {
   height: 100%;
-  width: 50%;
+  width: 0%;
   border-radius: 10px;
   background-image: linear-gradient(to left, #a82a035b, #226dd049);
   display: flex;

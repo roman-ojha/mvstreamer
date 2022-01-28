@@ -13,6 +13,12 @@ const NavBarANDMiniplayer = () => {
   const audio = useSelector((state) => state.currentAudioReducer);
   const video = useSelector((state) => state.currentVideoReducer);
 
+  window.onload = () => {
+    if (document.URL.includes("playing")) {
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
     const totalDegreeToRotate = 120;
     const intoDecimal = totalDegreeToRotate / 100;
@@ -64,6 +70,25 @@ const NavBarANDMiniplayer = () => {
         }deg)`;
       }
     };
+    document.getElementsByClassName("video_Element_Container")[0].append(video);
+    // appending to the dom element to play automatically when this component got render or mount
+    try {
+      if (document.URL.includes("playing")) {
+        // only run this part of the statement when we are in the /playing url
+        if (
+          location.state.playing !== undefined &&
+          location.state.playing === false
+        ) {
+          updateVideo();
+          setMediaPlay(false);
+        } else if (
+          location.state.playing !== undefined &&
+          location.state.playing === true
+        ) {
+          video.autoplay = true;
+        }
+      }
+    } catch (err) {}
     audio.addEventListener("timeupdate", updateAudio);
     video.addEventListener("timeupdate", updateVideo);
     return () => {
@@ -82,10 +107,6 @@ const NavBarANDMiniplayer = () => {
 
   const navigateToMPlayer = (event) => {
     const elementCName = event.target.className;
-    // MVstreamer_MiniPlayer_previous_Icon
-    // MVstreamer_MiniPlayer_Pause_Icon
-    // MVstreamer_MiniPlayer_Play_Icon
-    // MVstreamer_MiniPlayer_Next_Icon
     if (elementCName === "MVstreamer_MiniPlayer_Inner") {
       navigate(`/mplayer/${ID}`, {
         state: { from: "url", metaData: location.state.metaData },
@@ -95,6 +116,10 @@ const NavBarANDMiniplayer = () => {
   return (
     <>
       <div className="MVstreamer_MiniPlayer_Container">
+        <div
+          className="video_Element_Container"
+          style={{ visibility: "hidden", position: "absolute" }}
+        ></div>
         <div className="MVstreamer_MiniPlayer">
           <div
             className="MVstreamer_MiniPlayer_Inner"
