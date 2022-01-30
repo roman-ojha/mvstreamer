@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'buttom_navigation_bar.dart';
-import 'mini_player.dart';
 import 'min_player.dart';
 import '../screens/video_player_screen.dart';
 
@@ -35,7 +34,6 @@ class _ButtomNavPlayerState extends State<ButtomNavPlayer> {
               },
             ),
           ),
-          // MiniPlayer(),
           const ButtomNavigationBarWidget(),
         ],
       ),
