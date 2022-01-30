@@ -40,17 +40,5 @@ class _ButtomNavPlayerState extends State<ButtomNavPlayer> {
         ],
       ),
     );
-    // return Positioned(
-    //   bottom: 0,
-    //   child: Container(
-    //     width: 100,
-    //     height: 100,
-    //     decoration: BoxDecoration(
-    //       color: Colors.white,
-    //       borderRadius: BorderRadius.circular(100),
-    //       border: Border.all(width: 100, color: Colors.transparent),
-    //     ),
-    //   ),
-    // );
   }
 }

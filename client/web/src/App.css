@@ -874,6 +874,9 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  background-color: white;
+  z-index: 2;
 }
 .FilePage_NavigationBar {
   width: 80%;
@@ -942,6 +945,7 @@ p {
   display: flex;
   /* flex-direction: column; */
   flex-wrap: wrap;
+  padding-top: 7rem;
   justify-content: start;
 }
 .FilePage_Grid_of_Folder_and_File {
@@ -950,6 +954,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
+  padding-top: 7rem;
 }
 
 .FilePage_Folder_Container {
