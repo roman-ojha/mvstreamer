@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../assets/icons/search_icon.dart';
 import '../assets/icons/music_player_icons.dart';
 
@@ -18,9 +15,7 @@ class _FileScreenState extends State<FileScreen> {
 
   Widget _folder() {
     return InkWell(
-      onTap: () {
-        debugPrint("hello");
-      },
+      onTap: () {},
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -54,7 +49,7 @@ class _FileScreenState extends State<FileScreen> {
       children: [
         // Folder File View==================================================================
         Container(
-          padding: const EdgeInsets.only(top: 0, left: 10.0, right: 10.0),
+          padding: const EdgeInsets.only(top: 70.0, left: 10.0, right: 10.0),
           child: GridView.builder(
             scrollDirection: Axis.vertical,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
