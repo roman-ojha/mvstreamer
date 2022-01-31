@@ -14,13 +14,6 @@ class FileScreen extends StatefulWidget {
   _FileScreenState createState() => _FileScreenState();
 }
 
-class FolderNode {
-  final String name;
-  final String type;
-  final List? subFolder;
-  const FolderNode({required this.name, required this.type, this.subFolder});
-}
-
 class FileNode {
   final String name;
   final Directory fileDirectory;
@@ -31,6 +24,18 @@ class FileNode {
       required this.fileDirectory,
       required this.type,
       required this.extention});
+}
+
+class FolderNode {
+  final String name;
+  final String type;
+  final List? subFolder;
+  var file;
+  FolderNode(
+      {required this.name,
+      required this.type,
+      required this.subFolder,
+      this.file});
 }
 
 class _FileScreenState extends State<FileScreen> {
@@ -50,14 +55,14 @@ class _FileScreenState extends State<FileScreen> {
         List _audio = fileFinder.findAll("mp3", sort: false);
         List _video = fileFinder.findAll("mp4", sort: false);
         List _files = List.from(_audio)..addAll(_video);
-        const head = FolderNode(name: "head", type: "root");
+        var head = FolderNode(name: "head", type: "root", subFolder: []);
         for (int fileCount = 0; fileCount < _files.length; fileCount++) {
           File file = _files[fileCount];
           String filePath = file.path;
           var ptr = head;
           List fileDirectory = filePath.split("/");
           final fileExtention = p.extension(filePath);
-          for (int fileDirectoryCount = 0;
+          for (int fileDirectoryCount = 1;
               fileDirectoryCount < fileDirectory.length;
               fileDirectoryCount++) {
             bool include = false;
@@ -73,23 +78,30 @@ class _FileScreenState extends State<FileScreen> {
               isFile = true;
             }
             if (!include && !isFile) {
-              final node = FolderNode(
-                  name: fileDirectory[fileDirectoryCount], type: "folder");
+              var node = FolderNode(
+                  name: fileDirectory[fileDirectoryCount],
+                  type: "folder",
+                  subFolder: []);
               ptr.subFolder?.add(node);
             } else if (!include && isFile) {
-              final node = FileNode(
+              var node = FileNode(
                   name: fileDirectory[fileDirectoryCount],
                   fileDirectory: Directory(filePath),
                   type: "file",
                   extention: fileExtention);
-              ptr.subFolder?.add(node);
+              // ptr.subFolder?.add(node);
+              ptr.file = node;
             }
-            var length = ptr.subFolder?.length;
-            ptr = ptr.subFolder?[length! - 1];
+            if (ptr.subFolder?.length == 0) {
+              // var length = ptr.subFolder?.length;
+              // ptr = ptr.subFolder?[0];
+            } else {
+              var length = ptr.subFolder?.length;
+              ptr = ptr.subFolder?[length! - 1];
+            }
           }
         }
         print("hello");
-        print(head);
       }
     } else {
       // This is ios
