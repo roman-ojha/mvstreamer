@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/SearchIcon.ttf
 ///
-/// 
+///
 ///
 import 'package:flutter/widgets.dart';
 
@@ -21,5 +21,7 @@ class SearchIcon {
   static const _kFontFam = 'SearchIcon';
   static const String? _kFontPkg = null;
 
-  static const IconData search_icon = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData search_icon =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

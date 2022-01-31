@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../assets/icons/mini_player_icons.dart';
 
 class MiniPlayer extends StatefulWidget {
   const MiniPlayer({Key? key}) : super(key: key);

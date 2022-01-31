@@ -53,16 +53,16 @@ class _MainPageState extends State<MainPage> {
         switch (currentNavigationBarIndex) {
           case 0:
             // Home
-            return HomeScreen();
+            return const HomeScreen();
           case 1:
             // Music Screen
-            return MusicScreen();
+            return const MusicScreen();
           case 2:
-            return SettingScreen();
+            return const SettingScreen();
           case 3:
-            return VideoScreen();
+            return const VideoScreen();
           case 4:
-            return FileScreen();
+            return const FileScreen();
           default:
             return Container();
         }

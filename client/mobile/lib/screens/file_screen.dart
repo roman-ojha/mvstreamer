@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import '../assets/icons/search_icon.dart';
 import '../assets/icons/music_player_icons.dart';
 import 'package:file_finder/file_finder.dart';
@@ -30,6 +29,7 @@ class FolderNode {
   final String name;
   final String type;
   final List? subFolder;
+  // ignore: prefer_typing_uninitialized_variables
   var file;
   FolderNode(
       {required this.name,
@@ -92,16 +92,13 @@ class _FileScreenState extends State<FileScreen> {
               // ptr.subFolder?.add(node);
               ptr.file = node;
             }
-            if (ptr.subFolder?.length == 0) {
-              // var length = ptr.subFolder?.length;
-              // ptr = ptr.subFolder?[0];
-            } else {
+            // ignore: prefer_is_empty
+            if (ptr.subFolder?.length != 0) {
               var length = ptr.subFolder?.length;
               ptr = ptr.subFolder?[length! - 1];
             }
           }
         }
-        print("hello");
       }
     } else {
       // This is ios

@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/LoginButtonIcon.ttf
 ///
-/// 
+///
 ///
 import 'package:flutter/widgets.dart';
 
@@ -21,7 +21,13 @@ class LoginButtonIcon {
   static const _kFontFam = 'LoginButtonIcon';
   static const String? _kFontPkg = null;
 
-  static const IconData github_icon = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData facebook_icon = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData google_icon = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData github_icon =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData facebook_icon =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData google_icon =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

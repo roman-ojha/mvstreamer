@@ -1,13 +1,9 @@
 // https://docs.flutter.dev/cookbook/plugins/play-video
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import '../assets/icons/music_player_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/services.dart';
 
 final _fullProgressBar = GlobalKey();
 
@@ -40,7 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   bool _showControllers = true;
 
   final _totalPercentageWidthOfProgressBar = 0.9;
-  final _totalPercentageHeightOfVolumeController = 0.5;
+  // final _totalPercentageHeightOfVolumeController = 0.5;
 
   final _buttonRedColor = const Color.fromRGBO(219, 56, 44, 0.8);
   final _buttonBlueColor = const Color.fromRGBO(25, 117, 210, 0.8);
