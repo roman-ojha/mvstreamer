@@ -52,18 +52,21 @@ const VideoPlayer = () => {
   useEffect(() => {
     var videoBufferPercentage;
     var calculateTotalBufferWidth = 0;
-    var mouseMove = true;
-    video.onprogress = function () {
-      // getting the buffer length of song
-      videoBufferPercentage = (video.buffered.end(0) / video.duration) * 100;
-    };
+    // video.onprogress = function () {
+    //   // getting the buffer length of song
+    //   videoBufferPercentage = (video.buffered.end(0) / video.duration) * 100;
+    // };
     const vContainerElm = document.getElementsByClassName(
       "VideoPlayer_Page_Container"
     )[0];
     // appending video element
     vContainerElm.append(video);
     // controlling state on video time update
+    // updating video controller ========================================================
     const timeUpdate = () => {
+      try {
+        videoBufferPercentage = (video.buffered.end(0) / video.duration) * 100;
+      } catch (e) {}
       if (!buttonValue.playVideo) {
         setButtonValue({
           ...buttonValue,
@@ -84,7 +87,7 @@ const VideoPlayer = () => {
         "Video_Player_Buffer_Bar"
       )[0].style.width = `${calculateTotalBufferWidth}%`;
     };
-
+    //==================================================================
     const keyDown = (e) => {
       if (e.key === " ") {
         if (!video.paused) {
@@ -189,6 +192,7 @@ const VideoPlayer = () => {
     return () => {
       video.removeEventListener("timeupdate", timeUpdate);
       document.removeEventListener("keydown", keyDown);
+      document.removeEventListener("mousemove", updateMouseMove);
       clearInterval(chackMouseMove);
     };
   }, []);

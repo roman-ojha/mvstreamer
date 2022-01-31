@@ -37,10 +37,10 @@ const MusicPlayer = () => {
   useEffect(() => {
     var songBufferPercentage;
     var calculateTotalBufferWidth = 0;
-    audio.onprogress = function () {
-      // getting the buffer length of song
-      songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
-    };
+    // audio.onprogress = function () {
+    //   // getting the buffer length of song
+    //   songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
+    // };
     audio.onpause = function () {
       setButtonValue({
         ...buttonValue,
@@ -49,6 +49,9 @@ const MusicPlayer = () => {
     };
     var rotateImage = 0;
     const updateAudio = () => {
+      try {
+        songBufferPercentage = (audio.buffered.end(0) / audio.duration) * 100;
+      } catch (err) {}
       if (buttonValue.playSong === false) {
         setButtonValue({
           ...buttonValue,
