@@ -21,10 +21,8 @@ const VideoPlayer = () => {
   });
   const video = useSelector((state) => state.currentVideoReducer);
   const audio = useSelector((state) => state.currentAudioReducer);
-  // const [video] = useState(document.createElement("video"));
   const [currentVideoTime, setCurrentVideoTime] = useState(video.currentTime);
   const [totalVideoDuration, setTotalVideoDuration] = useState(0);
-  const [mouseMove, setMouseMove] = useState(false);
   const currentVideoTimeInMin = `${Math.floor(
     currentVideoTime / 60
   )}:${Math.floor(currentVideoTime % 60)}`;
@@ -54,6 +52,7 @@ const VideoPlayer = () => {
   useEffect(() => {
     var videoBufferPercentage;
     var calculateTotalBufferWidth = 0;
+    var mouseMove = true;
     video.onprogress = function () {
       // getting the buffer length of song
       videoBufferPercentage = (video.buffered.end(0) / video.duration) * 100;
@@ -85,26 +84,6 @@ const VideoPlayer = () => {
         "Video_Player_Buffer_Bar"
       )[0].style.width = `${calculateTotalBufferWidth}%`;
     };
-    const mouseMove = () => {
-      var calPercentage = (video.currentTime / video.duration) * 100;
-      document.getElementsByClassName(
-        "Video_Player_Current_Progress"
-      )[0].style.width = `${calPercentage}%`;
-      document.getElementsByClassName(
-        "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-      )[0].style.visibility = "visible";
-    };
-    const mouseLeave = () => {
-      setTimeout(() => {
-        document.getElementsByClassName(
-          "Video_Player_Current_Progress"
-        )[0].style = "transition-duration: 0ms;";
-        document.getElementsByClassName(
-          "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
-        )[0].style.visibility = "hidden";
-      }, 1000);
-    };
-    // setting interval if use holding press button and need to do action over and over again
 
     const keyDown = (e) => {
       if (e.key === " ") {
@@ -177,23 +156,40 @@ const VideoPlayer = () => {
       };
       document.addEventListener("keyup", keyUp);
     };
-    const clickedVideo = () => {
-      console.log("hello");
+    // hiding controller when mouse stop moving ==========================================
+    let mouseMoving = false;
+    const updateMouseMove = () => {
+      mouseMoving = true;
+      var calPercentage = (video.currentTime / video.duration) * 100;
+      document.getElementsByClassName(
+        "Video_Player_Current_Progress"
+      )[0].style.width = `${calPercentage}%`;
+      document.getElementsByClassName(
+        "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+      )[0].style.visibility = "visible";
+      document.removeEventListener("mousemove", updateMouseMove);
     };
+    const chackMouseMove = setInterval(() => {
+      if (!mouseMoving) {
+        document.getElementsByClassName(
+          "Video_Player_Current_Progress"
+        )[0].style = "transition-duration: 0ms;";
+        document.getElementsByClassName(
+          "VideoPlayer_Page_NavBar_Plus_BottomBar_Container"
+        )[0].style.visibility = "hidden";
+      }
+      mouseMoving = false;
+      document.addEventListener("mousemove", updateMouseMove);
+    }, 2000);
+    //===============================================================================
+
     video.addEventListener("timeupdate", timeUpdate);
-    // hiding and make visible when mouse is out and mouse is move event
-    document.addEventListener("mousemove", mouseMove);
-    document.addEventListener("mouseleave", mouseLeave);
     // controlling on keyboard press
     document.addEventListener("keydown", keyDown);
     return () => {
       video.removeEventListener("timeupdate", timeUpdate);
-      // audio.removeEventListener("timeupdate", pauseAudio);
-      document.removeEventListener("mousemove", mouseMove);
-      document.removeEventListener("mouseleave", mouseLeave);
       document.removeEventListener("keydown", keyDown);
-
-      // video.play();
+      clearInterval(chackMouseMove);
     };
   }, []);
   const setVideoTimeOnClick = (event) => {
