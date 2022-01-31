@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../assets/icons/search_icon.dart';
 import '../assets/icons/music_player_icons.dart';
 
@@ -20,10 +21,9 @@ class _FileScreenState extends State<FileScreen> {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Container(
-        width: 70,
-        height: 80,
         decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
         child: Column(
           children: const [
             Icon(
@@ -52,11 +52,14 @@ class _FileScreenState extends State<FileScreen> {
           padding: const EdgeInsets.only(top: 70.0, left: 10.0, right: 10.0),
           child: GridView.builder(
             scrollDirection: Axis.vertical,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              childAspectRatio: 1,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              // maxCrossAxisExtent: 100,
+              // childAspectRatio: 1,
+              // crossAxisSpacing: 20,
+              // mainAxisSpacing: 20,
+              crossAxisCount: 4,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
             ),
             itemCount: 50,
             shrinkWrap: true,
