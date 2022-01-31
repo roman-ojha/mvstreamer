@@ -5,6 +5,7 @@ import '../assets/icons/search_icon.dart';
 import '../assets/icons/music_player_icons.dart';
 import 'package:file_finder/file_finder.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart' as p;
 
 class FileScreen extends StatefulWidget {
   const FileScreen({Key? key}) : super(key: key);
@@ -17,8 +18,7 @@ class FolderNode {
   final String name;
   final String type;
   final List? subFolder;
-  const FolderNode(
-      {required this.name, required this.type, required this.subFolder});
+  const FolderNode({required this.name, required this.type, this.subFolder});
 }
 
 class FileNode {
@@ -39,12 +39,57 @@ class _FileScreenState extends State<FileScreen> {
   var fileFinder = FileFinder();
 
   @override
-  initState() async {
+  initState() {
     super.initState();
+    _getFileFolder();
+  }
+
+  _getFileFolder() async {
     if (Platform.isAndroid) {
       if (await _requestPermission(Permission.storage)) {
-        var _files = fileFinder.findAll("mp4", sort: false);
-        print(_files);
+        List _audio = fileFinder.findAll("mp3", sort: false);
+        List _video = fileFinder.findAll("mp4", sort: false);
+        List _files = List.from(_audio)..addAll(_video);
+        const head = FolderNode(name: "head", type: "root");
+        for (int fileCount = 0; fileCount < _files.length; fileCount++) {
+          File file = _files[fileCount];
+          String filePath = file.path;
+          var ptr = head;
+          List fileDirectory = filePath.split("/");
+          final fileExtention = p.extension(filePath);
+          for (int fileDirectoryCount = 0;
+              fileDirectoryCount < fileDirectory.length;
+              fileDirectoryCount++) {
+            bool include = false;
+            bool isFile = false;
+            ptr.subFolder?.map(
+              (folder) {
+                if (folder.name == fileDirectory[fileDirectoryCount]) {
+                  include = true;
+                }
+              },
+            );
+            if (fileDirectory[fileDirectoryCount].contains(".")) {
+              isFile = true;
+            }
+            if (!include && !isFile) {
+              final node = FolderNode(
+                  name: fileDirectory[fileDirectoryCount], type: "folder");
+              ptr.subFolder?.add(node);
+            } else if (!include && isFile) {
+              final node = FileNode(
+                  name: fileDirectory[fileDirectoryCount],
+                  fileDirectory: Directory(filePath),
+                  type: "file",
+                  extention: fileExtention);
+              ptr.subFolder?.add(node);
+            }
+            var length = ptr.subFolder?.length;
+            ptr = ptr.subFolder?[length! - 1];
+          }
+        }
+        print("hello");
+        print(head);
       }
     } else {
       // This is ios
@@ -109,7 +154,7 @@ class _FileScreenState extends State<FileScreen> {
               // childAspectRatio: 1,
               // crossAxisSpacing: 20,
               // mainAxisSpacing: 20,
-              crossAxisCount: 4,
+              crossAxisCount: 3,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
             ),
