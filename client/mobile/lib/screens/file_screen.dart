@@ -32,13 +32,13 @@ class FolderNode {
   final String name;
   final String type;
   final List? subFolder;
-  // ignore: prefer_typing_uninitialized_variables
-  var file;
+  final List? subFile;
+  // var subFile;
   FolderNode(
       {required this.name,
       required this.type,
       required this.subFolder,
-      this.file});
+      required this.subFile});
 }
 
 class _FileScreenState extends State<FileScreen> {
@@ -58,47 +58,49 @@ class _FileScreenState extends State<FileScreen> {
         List _audio = fileFinder.findAll("mp3", sort: false);
         List _video = fileFinder.findAll("mp4", sort: false);
         List _files = List.from(_audio)..addAll(_video);
-        var head = FolderNode(name: "head", type: "root", subFolder: []);
+        var head =
+            FolderNode(name: "head", type: "root", subFolder: [], subFile: []);
         for (int fileCount = 0; fileCount < _files.length; fileCount++) {
           File file = _files[fileCount];
           String filePath = file.path;
           var ptr = head;
           List fileDirectory = filePath.split("/");
+          // print(fileDirectory);
           final fileExtention = p.extension(filePath);
           for (int fileDirectoryCount = 1;
               fileDirectoryCount < fileDirectory.length;
               fileDirectoryCount++) {
             bool include = false;
             bool isFile = false;
-            ptr.subFolder?.map(
-              (folder) {
-                if (folder.name == fileDirectory[fileDirectoryCount]) {
-                  include = true;
-                }
-              },
-            );
+            ptr.subFolder!.asMap().forEach((index, folder) {
+              // print(folder.name);
+              if (folder.name == fileDirectory[fileDirectoryCount]) {
+                include = true;
+              }
+            });
             if (fileDirectory[fileDirectoryCount].contains(".")) {
               isFile = true;
             }
             if (!include && !isFile) {
               var node = FolderNode(
-                  name: fileDirectory[fileDirectoryCount],
-                  type: "folder",
-                  subFolder: []);
-              ptr.subFolder?.add(node);
+                name: fileDirectory[fileDirectoryCount],
+                type: "folder",
+                subFolder: [],
+                subFile: [],
+              );
+              ptr.subFolder!.add(node);
             } else if (!include && isFile) {
               var node = FileNode(
-                  name: fileDirectory[fileDirectoryCount],
-                  fileDirectory: Directory(filePath),
-                  type: "file",
-                  extention: fileExtention);
-              // ptr.subFolder?.add(node);
-              ptr.file = node;
+                name: fileDirectory[fileDirectoryCount],
+                fileDirectory: Directory(filePath),
+                type: "file",
+                extention: fileExtention,
+              );
+              ptr.subFile!.add(node);
             }
-            // ignore: prefer_is_empty
-            if (ptr.subFolder?.length != 0) {
-              var length = ptr.subFolder?.length;
-              ptr = ptr.subFolder?[length! - 1];
+            if (ptr.subFolder!.isNotEmpty) {
+              var length = ptr.subFolder!.length;
+              ptr = ptr.subFolder![length - 1];
             }
           }
         }
