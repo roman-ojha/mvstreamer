@@ -1,10 +1,10 @@
-import '../redux-reducer/navigationBarIndexReducer.dart';
 import 'package:redux/redux.dart';
 import '../app_state.dart';
+import '../redux-reducer/main.dart';
 
 class ReduxStore {
   final Store<AppState> store = Store<AppState>(
-    navigationBarIndexReducer,
+    appStateReducer,
     initialState: AppState.initialState(),
   );
 }
