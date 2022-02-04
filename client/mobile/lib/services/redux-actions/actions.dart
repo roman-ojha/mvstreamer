@@ -4,6 +4,6 @@ class CurrentNavBarIndexAction {
 }
 
 class LocalFileFolderTreeAction {
-  Object payload;
+  List payload;
   LocalFileFolderTreeAction(this.payload);
 }

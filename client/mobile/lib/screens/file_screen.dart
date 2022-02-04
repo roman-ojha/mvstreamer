@@ -5,6 +5,9 @@ import '../assets/icons/music_player_icons.dart';
 import 'package:file_finder/file_finder.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as p;
+import 'package:flutter_redux/flutter_redux.dart';
+import '../services/app_state.dart';
+import '../services/redux-actions/actions.dart';
 
 class FileScreen extends StatefulWidget {
   const FileScreen({Key? key}) : super(key: key);
@@ -99,6 +102,9 @@ class _FileScreenState extends State<FileScreen> {
             }
           }
         }
+        StoreProvider.of<AppState>(context)
+            .dispatch(LocalFileFolderTreeAction(head.subFolder!));
+        // print(head.subFolder);
       }
     } else {
       // This is ios
@@ -118,7 +124,7 @@ class _FileScreenState extends State<FileScreen> {
     }
   }
 
-  Widget _folder() {
+  Widget _folder({required String name}) {
     return InkWell(
       onTap: () {},
       customBorder: RoundedRectangleBorder(
@@ -130,16 +136,17 @@ class _FileScreenState extends State<FileScreen> {
         ),
         child: GestureDetector(
           child: Column(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.folder,
                 size: 70,
                 color: Color.fromRGBO(94, 138, 189, 1),
               ),
               Text(
-                "Folder Name",
+                name,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    fontSize: 14.0, fontWeight: FontWeight.w600),
               )
             ],
           ),
@@ -154,27 +161,33 @@ class _FileScreenState extends State<FileScreen> {
       alignment: Alignment.topCenter,
       children: [
         // Folder File View==================================================================
-        Container(
-          padding: const EdgeInsets.only(top: 70.0, left: 10.0, right: 10.0),
-          child: GridView.builder(
-            scrollDirection: Axis.vertical,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              // maxCrossAxisExtent: 100,
-              // childAspectRatio: 1,
-              // crossAxisSpacing: 20,
-              // mainAxisSpacing: 20,
-              crossAxisCount: 3,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-            ),
-            itemCount: 50,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext ctx, index) {
-              return _folder();
-            },
-          ),
-        ),
-
+        StoreConnector<AppState, List>(
+            converter: (store) => store.state.localFileFolderTree,
+            builder: (context, List localFileFolderTree) {
+              return Container(
+                padding:
+                    const EdgeInsets.only(top: 70.0, left: 10.0, right: 10.0),
+                child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    // maxCrossAxisExtent: 100,
+                    // childAspectRatio: 1,
+                    // crossAxisSpacing: 20,
+                    // mainAxisSpacing: 20,
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                  ),
+                  itemCount: localFileFolderTree.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return _folder(
+                      name: localFileFolderTree[index].name,
+                    );
+                  },
+                ),
+              );
+            }),
         // Navbar ====================================
         Container(
           width: double.infinity,

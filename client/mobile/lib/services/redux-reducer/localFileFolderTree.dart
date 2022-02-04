@@ -1,7 +1,8 @@
 import '../redux-actions/actions.dart';
 
-Object localFileFolderTreeReducer(Object state, dynamic action) {
+List localFileFolderTreeReducer(List state, dynamic action) {
   if (action is LocalFileFolderTreeAction) {
+    print(action.payload);
     return action.payload;
   }
   return state;
