@@ -126,7 +126,7 @@ class _FileScreenState extends State<FileScreen> {
     }
   }
 
-  Widget _folder({required String name}) {
+  Widget _folder({required folder}) {
     return InkWell(
       onTap: () {},
       customBorder: RoundedRectangleBorder(
@@ -145,10 +145,12 @@ class _FileScreenState extends State<FileScreen> {
                 color: Color.fromRGBO(94, 138, 189, 1),
               ),
               Text(
-                name,
+                folder.name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                    fontSize: 14.0, fontWeight: FontWeight.w600),
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w600,
+                ),
               )
             ],
           ),
@@ -184,7 +186,7 @@ class _FileScreenState extends State<FileScreen> {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext ctx, index) {
                     return _folder(
-                      name: localFileFolderTree[index].name,
+                      folder: localFileFolderTree[index],
                     );
                   },
                 ),
