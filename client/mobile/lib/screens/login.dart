@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
         url,
         forceSafariVC: false,
         forceWebView: false,
+        headers: <String, String>{"auth_From": "mobile"},
       );
     } else {
       Fluttertoast.showToast(

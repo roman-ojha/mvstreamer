@@ -13,7 +13,10 @@ router.use(passport.initialize());
 router.use(passport.session());
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
+  passport.authenticate("google", { scope: ["email", "profile"] }),
+  (req, res) => {
+    console.log(req.headers);
+  }
 );
 
 router.get(
