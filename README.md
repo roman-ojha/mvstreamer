@@ -22,11 +22,11 @@
 [<img src="design/mobile_home_page.jpg" style="width:20%;" alt="mobileHome"></img>](design/mobile_home_page.jpg)
 [<img src="design/mobile_musicPlayer.jpg" style="width:20%;" alt="mobileMPlayer"></img>](design/mobile_musicPlayer.jpg)
 [<img src="design/mobile_videoPlayer.jpg" style="width:20%;" alt="mobileVPlayer"></img>](design/mobile_videoPlayer.jpg)
+[<img src="design/mobile_local_screen.jpg" style="width:20%;" alt="mobileVPlayer"></img>](design/mobile_local_screen.jpg)
 
 <br/>
 
 [<p style="font-size:50px;">Todo</p>](todo.md "Todo")
-<!-- [<a href="todo.md">Todo</a>](todo.md) -->
 
 ## How to run Locally:
 
