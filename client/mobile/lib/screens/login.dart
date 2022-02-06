@@ -1,8 +1,14 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import '../assets/icons/login_button_icon_icons.dart';
 import '../controller/google_login_controller.dart';
 import 'package:get/get.dart';
 import 'main_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../models/environment.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,6 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late FToast fToast;
+
   Color facebookColor = const Color.fromRGBO(19, 93, 189, 100);
   Color googleColor = const Color.fromRGBO(239, 96, 84, 100);
 
@@ -22,6 +30,36 @@ class _LoginPageState extends State<LoginPage> {
       ),
     ),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  Future<void> _googleLogin() async {
+    final String url = "${Environment.apiBaseUrl}/auth/google";
+    // if (await canLaunch(url)) {
+    //   await launch(
+    //     url,
+    //     forceSafariVC: true,
+    //     forceWebView: true,
+    //   );
+    //   Timer(const Duration(seconds: 3), () {
+    //     closeWebView();
+    //   });
+    // } else {
+    //   Fluttertoast.showToast(
+    //     msg: "Sorry!!, Could not open right now, Try it later",
+    //     gravity: ToastGravity.TOP,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: const Color(0xe3f45e6f),
+    //     textColor: Colors.black87,
+    //     fontSize: 15.0,
+    //   );
+    // }
+  }
 
   final controller = Get.put(GoogleLoginController());
   @override
@@ -109,21 +147,20 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 220.0,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  controller.login().then(
-                        (loggedIn) => {
-                          if (loggedIn)
-                            {
-                              // if we will success the login process then we want to nevigate the signin page to Main screen
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const MainPage(),
-                                ),
-                              )
-                            }
-                        },
-                      );
-                },
+                onPressed: _googleLogin,
+                // controller.login().then(
+                //       (loggedIn) => {
+                //         if (loggedIn)
+                //           {
+                //             // if we will success the login process then we want to nevigate the signin page to Main screen
+                //             Navigator.of(context).push(
+                //               MaterialPageRoute(
+                //                 builder: (context) => const MainPage(),
+                //               ),
+                //             )
+                //           }
+                //       },
+                //     );
                 icon: Image.asset(
                   'assets/icons/google_icon.png',
                   width: 20.0,
