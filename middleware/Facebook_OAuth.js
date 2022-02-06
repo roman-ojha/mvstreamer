@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: clientID,
       clientSecret: clientSecret,
-      callbackURL: `https://localhost:${process.env.PORT}/oauth2/redirect/facebook`,
+      callbackURL: `${process.env.API_BASE_URL}/oauth2/redirect/facebook`,
     },
     async function (accessToken, refreshToken, profile, cb) {
       //   db.get(

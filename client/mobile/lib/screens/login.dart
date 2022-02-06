@@ -40,25 +40,22 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _googleLogin() async {
     final String url = "${Environment.apiBaseUrl}/auth/google";
-    // if (await canLaunch(url)) {
-    //   await launch(
-    //     url,
-    //     forceSafariVC: true,
-    //     forceWebView: true,
-    //   );
-    //   Timer(const Duration(seconds: 3), () {
-    //     closeWebView();
-    //   });
-    // } else {
-    //   Fluttertoast.showToast(
-    //     msg: "Sorry!!, Could not open right now, Try it later",
-    //     gravity: ToastGravity.TOP,
-    //     timeInSecForIosWeb: 1,
-    //     backgroundColor: const Color(0xe3f45e6f),
-    //     textColor: Colors.black87,
-    //     fontSize: 15.0,
-    //   );
-    // }
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Sorry!!, Could not open right now, Try it later",
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: const Color(0xe3f45e6f),
+        textColor: Colors.black87,
+        fontSize: 15.0,
+      );
+    }
   }
 
   final controller = Get.put(GoogleLoginController());
