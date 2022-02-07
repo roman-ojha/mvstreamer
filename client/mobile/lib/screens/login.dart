@@ -9,6 +9,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import '../services/redux-actions/actions.dart';
 import '../services/app_state.dart';
 import '../constant/constant.dart';
+import '../api/facebook_signin_api.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -77,6 +78,13 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Future _facebookSignin() async {
+    final user = await FacebookSigninApi().login();
+    if (user != null) {
+      // backend work
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 220.0,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _facebookSignin,
                 icon: Icon(
                   LoginButtonIcon.facebook_icon,
                   color: facebookColor,

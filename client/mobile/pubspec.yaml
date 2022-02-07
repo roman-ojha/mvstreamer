@@ -53,7 +53,7 @@ dependencies:
   permission_handler: ^8.3.0
   url_launcher: ^6.0.18
   fluttertoast: ^8.0.8
-  # flutter_facebook_auth: ^4.0.1
+  flutter_facebook_auth: ^4.0.1
 
 dev_dependencies:
   flutter_test:
