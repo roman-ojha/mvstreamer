@@ -124,7 +124,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         child: Container(
           color: Colors.black,
           alignment: Alignment.center,
-          child: _controller != null && _controller.value.isInitialized
+          // child: _controller != null && _controller.value.isInitialized
+          child: _controller.value.isInitialized
               // playing video after it get initialized
               ? buildVideoPlayer()
               : const SizedBox(

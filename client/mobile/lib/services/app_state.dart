@@ -6,10 +6,10 @@ class AppState {
   AppState({
     this.currentNavigationBarIndex = 0,
     required this.localFileFolderTree,
-    this.isLoggedIn = false,
+    this.isLoggedIn = true,
   });
   AppState.initialState()
       : currentNavigationBarIndex = 0,
         localFileFolderTree = [],
-        isLoggedIn = false;
+        isLoggedIn = true;
 }

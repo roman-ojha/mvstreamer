@@ -16,12 +16,7 @@ import 'login.dart';
 import '../services/redux-actions/actions.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
-
-  // Future<bool> _isLoggedIn = CacheServices().isLoggedIn();
-  // Future<bool> _isLoggedIn() async {
-  //   return
-  // }
+  const MainPage({Key? key}) : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -34,11 +29,6 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     setPotraitMode();
-    // SystemChrome.setEnabledSystemUIMode(
-    //   SystemUiMode.manual,
-    //   overlays: [SystemUiOverlay.top],
-    // );
-    // getSongsData();
   }
 
   updateLogin() async {
@@ -48,9 +38,9 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future getSongsData() async {
-    final resData = await dio.get(apiBaseUrl);
-    final data = await resData.data;
-    final songs = data["songs"];
+    // final resData = await dio.get(apiBaseUrl);
+    // final data = await resData.data;
+    // final songs = data["songs"];
   }
 
   Future setPotraitMode() async {
@@ -108,26 +98,6 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      // body: FutureBuilder<bool>(
-      //   future: widget._isLoggedIn,
-      //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-      //     if (snapshot.hasData) {
-      //       final bool isLoggedIn = snapshot.data!;
-      //       if (isLoggedIn) {
-      //         // if user is logged in showing main page
-      //         return mainPage();
-      //       } else {
-      //         // else showing loginPage;
-      //         return const LoginPage();
-      //       }
-      //     } else {
-      //       return Scaffold(
-      //         body: Container(),
-      //       );
-      //       // showing container until
-      //     }
-      //   },
-      // ),
       body: StoreConnector<AppState, bool>(
         converter: (store) => store.state.isLoggedIn,
         builder: (context, bool isLoggedIn) {
