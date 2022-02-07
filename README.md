@@ -48,4 +48,40 @@
 1. `MVstreamer/client/mobile`
 2. Create .env file in Root Directory
 3. Get all the environment variables which are include in .env.example
-4. Run `flutter run` 
+4. create Firebase app for android and ios google auth and download `google-services.json` & `GoogleServices-info.plist` and copy inside `android/app` & `./ios`
+5. inside `ios/Runner/info.plist` change this line of code:
+6. ```xml
+   <array>
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.</string>
+		</array>
+    ```
+7. create developer Facebook application and create `strings.xml` file inside `android/app/src/main/res/values` and copy this peace of code inside `strings.xml` and copy all the required value from developer facebook
+8. ```xml
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>	
+	<string name="facebook_app_id">1234</string>
+	<string name="fb_login_protocol_scheme">fb1234</string>
+	<string name="facebook_client_token">56789</string>
+	<string name="app_name">app_name</string>
+	</resources>
+	```
+9.  inside `ios/Runner/info.plist` change this like of code with your own value :
+10. ```xml
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>fbAPP-ID</string>
+	</array>
+	</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>APP-ID</string>
+	<key>FacebookClientToken</key>
+	<string>CLIENT-TOKEN</string>
+	<key>FacebookDisplayName</key>
+	<string>APP-NAME</string>
+	```
+10. Run `flutter run` 

@@ -47,6 +47,7 @@
 		<key>CFBundleTypeRole</key>
 		<string>Editor</string>
 		<key>CFBundleURLSchemes</key>
+
 		<array>
 			<!-- TODO Replace this value: -->
 			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
@@ -58,5 +59,23 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs to use Photos</string>
+
+
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <string>fb940456096896629</string>
+  </array>
+  </dict>
+</array>
+<key>FacebookAppID</key>
+<string>940456096896629</string>
+<key>FacebookClientToken</key>
+<string>d7aab05eadb9d7d004270e988f852eff</string>
+<key>FacebookDisplayName</key>
+<string>MVstreamer</string>
+
 </dict>
 </plist>
