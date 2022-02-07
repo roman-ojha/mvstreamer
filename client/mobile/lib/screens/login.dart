@@ -5,6 +5,9 @@ import '../api/google_signin_api.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../services/cache_services.dart';
 import '../services/auth_services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import '../services/redux-actions/actions.dart';
+import '../services/app_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -37,15 +40,20 @@ class _LoginPageState extends State<LoginPage> {
   Future _googleSignin() async {
     final user = await GoogleSignApi().login();
     // sending user data into backend
-    final res = await AuthService().saveGoogleUser(
-      id: user?.id,
-      name: user?.displayName,
-      email: user?.email,
-      picture: user?.photoUrl,
-    );
-    // saving token to the cache memory
-    CacheServices().saveToken(token: res.data["accessToken"]);
-    CacheServices().loggedIn(loggedIn: true);
+    if (user != null) {
+      final res = await AuthService().saveGoogleUser(
+        id: user.id,
+        name: user.displayName,
+        email: user.email,
+        picture: user.photoUrl,
+      );
+      // saving token to the cache memory
+      CacheServices().saveToken(token: res.data["accessToken"]);
+      CacheServices().loggedIn(loggedIn: true);
+      StoreProvider.of<AppState>(context).dispatch(
+        IsLoggedInAction(true),
+      );
+    }
   }
 
   @override

@@ -13,15 +13,20 @@ import 'setting_screen.dart';
 import 'file_screen.dart';
 import '../services/cache_services.dart';
 import 'login.dart';
+import '../services/redux-actions/actions.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
+
+  // Future<bool> _isLoggedIn = CacheServices().isLoggedIn();
+  // Future<bool> _isLoggedIn() async {
+  //   return
+  // }
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  final Future<bool> _isLoggedIn = CacheServices().isLoggedIn();
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
 
@@ -34,6 +39,12 @@ class _MainPageState extends State<MainPage> {
     //   overlays: [SystemUiOverlay.top],
     // );
     // getSongsData();
+  }
+
+  updateLogin() async {
+    StoreProvider.of<AppState>(context).dispatch(
+      IsLoggedInAction(await CacheServices().isLoggedIn()),
+    );
   }
 
   Future getSongsData() async {
@@ -92,27 +103,38 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    updateLogin();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: FutureBuilder<bool>(
-        future: _isLoggedIn,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.hasData) {
-            final bool isLoggedIn = snapshot.data!;
-            if (isLoggedIn) {
-              // if user is logged in showing main page
-              return mainPage();
-            } else {
-              // else showing loginPage;
-              return const LoginPage();
-            }
+      // body: FutureBuilder<bool>(
+      //   future: widget._isLoggedIn,
+      //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+      //     if (snapshot.hasData) {
+      //       final bool isLoggedIn = snapshot.data!;
+      //       if (isLoggedIn) {
+      //         // if user is logged in showing main page
+      //         return mainPage();
+      //       } else {
+      //         // else showing loginPage;
+      //         return const LoginPage();
+      //       }
+      //     } else {
+      //       return Scaffold(
+      //         body: Container(),
+      //       );
+      //       // showing container until
+      //     }
+      //   },
+      // ),
+      body: StoreConnector<AppState, bool>(
+        converter: (store) => store.state.isLoggedIn,
+        builder: (context, bool isLoggedIn) {
+          if (isLoggedIn) {
+            return mainPage();
           } else {
-            return Scaffold(
-              body: Container(),
-            );
-            // showing container until
+            return const LoginPage();
           }
         },
       ),

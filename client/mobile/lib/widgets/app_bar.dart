@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import '../assets/icons/search_icon.dart';
+import '../api/google_signin_api.dart';
+import '../services/cache_services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import '../services/redux-actions/actions.dart';
+import '../services/app_state.dart';
 
 class MVAppBar extends StatefulWidget {
   const MVAppBar({Key? key}) : super(key: key);
@@ -9,6 +14,14 @@ class MVAppBar extends StatefulWidget {
 }
 
 class _MVAppBarState extends State<MVAppBar> {
+  Future _googleLogout() async {
+    // Writing logic for logout in here for right now
+    await GoogleSignApi().logout();
+    CacheServices().saveToken(token: "");
+    CacheServices().loggedIn(loggedIn: false);
+    StoreProvider.of<AppState>(context).dispatch(IsLoggedInAction(false));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,13 +118,6 @@ class _MVAppBarState extends State<MVAppBar> {
                       color: Colors.transparent,
                     ),
                   ),
-                  // border: OutlineInputBorder(
-                  //   borderRadius: BorderRadius.circular(25),
-                  //   borderSide: const BorderSide(
-                  //     color: Colors.transparent,
-                  //   ),
-                  //   gapPadding: 10.0,
-                  // ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(
@@ -125,9 +131,12 @@ class _MVAppBarState extends State<MVAppBar> {
           const SizedBox(
             width: 10.0,
           ),
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/user.jpg'),
-            maxRadius: 21,
+          GestureDetector(
+            child: const CircleAvatar(
+              backgroundImage: AssetImage('assets/images/user.jpg'),
+              maxRadius: 21,
+            ),
+            onTap: _googleLogout,
           ),
           const SizedBox(
             width: 10.0,
