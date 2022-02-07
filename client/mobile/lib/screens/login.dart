@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     );
     // saving token to the cache memory
     CacheServices().saveToken(token: res.data["accessToken"]);
-    await GoogleSignApi().logout();
+    CacheServices().loggedIn(loggedIn: true);
   }
 
   @override
@@ -134,21 +134,6 @@ class _LoginPageState extends State<LoginPage> {
               width: 220.0,
               child: ElevatedButton.icon(
                 onPressed: _googleSignin,
-                // onPressed: () async {
-                //   controller.login().then(
-                //         (loggedIn) => {
-                //           if (loggedIn)
-                //             {
-                //               // if we will success the login process then we want to nevigate the signin page to Main screen
-                //               Navigator.of(context).push(
-                //                 MaterialPageRoute(
-                //                   builder: (context) => const MainPage(),
-                //                 ),
-                //               )
-                //             }
-                //         },
-                //       );
-                // },
                 icon: Image.asset(
                   'assets/icons/google_icon.png',
                   width: 20.0,

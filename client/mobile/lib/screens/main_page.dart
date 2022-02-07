@@ -11,6 +11,8 @@ import 'music_screen.dart';
 import 'video_screen.dart';
 import 'setting_screen.dart';
 import 'file_screen.dart';
+import '../services/cache_services.dart';
+import 'login.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -19,8 +21,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final Future<bool> _isLoggedIn = CacheServices().isLoggedIn();
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
+
+  @override
   void initState() {
     super.initState();
     setPotraitMode();
@@ -70,23 +75,46 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Widget mainPage() {
+    return Stack(
+      children: [
+        navigatingBody(),
+        Transform.translate(
+          offset: Offset(
+            0,
+            MediaQuery.of(context).size.height - 149,
+          ),
+          child: const ButtomNavPlayer(),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Stack(
-        children: [
-          navigatingBody(),
-          Transform.translate(
-            offset: Offset(
-              0,
-              MediaQuery.of(context).size.height - 149,
-            ),
-            child: const ButtomNavPlayer(),
-          ),
-        ],
+      body: FutureBuilder<bool>(
+        future: _isLoggedIn,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasData) {
+            final bool isLoggedIn = snapshot.data!;
+            if (isLoggedIn) {
+              // if user is logged in showing main page
+              return mainPage();
+            } else {
+              // else showing loginPage;
+              return const LoginPage();
+            }
+          } else {
+            return Scaffold(
+              body: Container(),
+            );
+            // showing container until
+          }
+        },
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/main_page.dart';
 import "package:flutter/services.dart";
 import 'services/redux-store/store.dart';
-import 'screens/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +19,7 @@ Future<void> main() async {
 
 class MVstreamer extends StatelessWidget {
   const MVstreamer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _store = ReduxStore();
@@ -37,8 +37,7 @@ class MVstreamer extends StatelessWidget {
       title: 'MVstreamer',
       home: StoreProvider(
         store: _store.store,
-        // child: const MainPage(),
-        child: const LoginPage(),
+        child: const MainPage(),
       ),
       debugShowCheckedModeBanner: false,
     );

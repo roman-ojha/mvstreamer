@@ -15,4 +15,25 @@ class CacheServices {
     box.add(token);
     box.close();
   }
+
+  Future loggedIn({loggedIn}) async {
+    var dir = await getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+    box = await Hive.openBox("loggedIn");
+    await box.clear();
+    box.add(loggedIn);
+    box.close();
+  }
+
+  Future<bool> isLoggedIn() async {
+    var dir = await getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+    box = await Hive.openBox("loggedIn");
+    if (box.values.isEmpty) {
+      // openning app for the first time
+      return false;
+    } else {
+      return box.values.first;
+    }
+  }
 }
