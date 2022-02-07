@@ -5,9 +5,8 @@ import '../models/environment.dart';
 class AuthService {
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
-  signIn({name, email, picture, id}) async {
+  saveGoogleUser({name, email, picture, id}) async {
     var data = {"name": name, "email": email, "picture": picture, "id": id};
-
     try {
       return await dio.post(
         "$apiBaseUrl/signIn",
@@ -17,7 +16,7 @@ class AuthService {
         ),
       );
     } on DioError catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }

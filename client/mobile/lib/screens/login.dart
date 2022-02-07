@@ -1,14 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import '../assets/icons/login_button_icon_icons.dart';
-import '../controller/google_login_controller.dart';
-import 'package:get/get.dart';
-import 'main_page.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../models/environment.dart';
+import '../api/google_signin_api.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
+import '../services/cache_services.dart';
+import '../services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -38,28 +34,20 @@ class _LoginPageState extends State<LoginPage> {
     fToast.init(context);
   }
 
-  Future<void> _googleLogin() async {
-    final String url = "${Environment.apiBaseUrl}/auth/google";
-    if (await canLaunch(url)) {
-      await launch(
-        url,
-        forceSafariVC: false,
-        forceWebView: false,
-        headers: <String, String>{"auth_From": "mobile"},
-      );
-    } else {
-      Fluttertoast.showToast(
-        msg: "Sorry!!, Could not open right now, Try it later",
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: const Color(0xe3f45e6f),
-        textColor: Colors.black87,
-        fontSize: 15.0,
-      );
-    }
+  Future _googleSignin() async {
+    final user = await GoogleSignApi().login();
+    // sending user data into backend
+    final res = await AuthService().saveGoogleUser(
+      id: user?.id,
+      name: user?.displayName,
+      email: user?.email,
+      picture: user?.photoUrl,
+    );
+    // saving token to the cache memory
+    CacheServices().saveToken(token: res.data["accessToken"]);
+    await GoogleSignApi().logout();
   }
 
-  final controller = Get.put(GoogleLoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,20 +133,22 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 220.0,
               child: ElevatedButton.icon(
-                onPressed: _googleLogin,
-                // controller.login().then(
-                //       (loggedIn) => {
-                //         if (loggedIn)
-                //           {
-                //             // if we will success the login process then we want to nevigate the signin page to Main screen
-                //             Navigator.of(context).push(
-                //               MaterialPageRoute(
-                //                 builder: (context) => const MainPage(),
-                //               ),
-                //             )
-                //           }
-                //       },
-                //     );
+                onPressed: _googleSignin,
+                // onPressed: () async {
+                //   controller.login().then(
+                //         (loggedIn) => {
+                //           if (loggedIn)
+                //             {
+                //               // if we will success the login process then we want to nevigate the signin page to Main screen
+                //               Navigator.of(context).push(
+                //                 MaterialPageRoute(
+                //                   builder: (context) => const MainPage(),
+                //                 ),
+                //               )
+                //             }
+                //         },
+                //       );
+                // },
                 icon: Image.asset(
                   'assets/icons/google_icon.png',
                   width: 20.0,
