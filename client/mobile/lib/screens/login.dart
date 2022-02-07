@@ -8,6 +8,7 @@ import '../services/auth_services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import '../services/redux-actions/actions.dart';
 import '../services/app_state.dart';
+import '../constant/constant.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -56,6 +57,26 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future _withoutSignin() async {
+    CacheServices().saveToken(token: "");
+    CacheServices().loggedIn(loggedIn: true);
+    StoreProvider.of<AppState>(context).dispatch(
+      IsLoggedInAction(true),
+    );
+  }
+
+  Future _githubSignin() async {
+    // right now this service is not avilable
+    Fluttertoast.showToast(
+      msg: "Sorry!!, right now this service is not avilable...",
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Constant().toastBackgroundColor,
+      textColor: Colors.black87,
+      fontSize: 15.0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 220.0,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _githubSignin,
                 icon: const Icon(
                   LoginButtonIcon.github_icon,
                   color: Colors.black,
@@ -154,6 +175,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 style: buttonStyle,
+              ),
+            ),
+            TextButton(
+              onPressed: _withoutSignin,
+              child: const Text(
+                "Enter witout Signin",
+                style: TextStyle(
+                  color: Color(0xff5c59ce),
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           ],

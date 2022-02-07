@@ -46,7 +46,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(
-        "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Lakshya_-_Title_Track___Hrithik_Roshan.mp4?alt=media&token=d2d93db3-6893-46cf-8911-232ce081b01b")
+        "https://firebasestorage.googleapis.com/v0/b/mvstreamer.appspot.com/o/Video%2Fd8493fb16c7f89b5041d2334f7f34143.mp4?alt=media&token=70977061-ba5c-4c2d-ba69-ed9b9a93eb64")
       ..addListener(() => setState(() {}))
       ..setLooping(true)
       ..initialize().then((value) => _controller.play());
