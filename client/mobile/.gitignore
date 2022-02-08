@@ -3,6 +3,7 @@
 /android/app/google-services.json
 *.env
 /android/app/src/main/res/values/strings.xml
+/ios/Runner/Info.plist
 
 
 # Miscellaneous
