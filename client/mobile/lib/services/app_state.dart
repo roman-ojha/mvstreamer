@@ -11,5 +11,5 @@ class AppState {
   AppState.initialState()
       : currentNavigationBarIndex = 0,
         localFileFolderTree = [],
-        userLoggedInfo = {"isLoggedIn": true, "from": "", "withOutAuth": true};
+        userLoggedInfo = {"isLoggedIn": true, "from": "", "withOutAuth": false};
 }
