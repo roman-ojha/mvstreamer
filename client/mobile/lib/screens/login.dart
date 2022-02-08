@@ -39,6 +39,25 @@ class _LoginPageState extends State<LoginPage> {
     fToast.init(context);
   }
 
+  Future _facebookSignin() async {
+    final user = await FacebookSigninApi().login();
+    if (user != null) {
+      // saving facebook user to database
+      final res = await AuthService().saveFacebookUser(
+        name: user["name"],
+        id: user["id"],
+        picture: user["picture"]["data"]["url"],
+      );
+      if (res.data["success"] == true) {
+        CacheServices().saveToken(token: res.data["accessToken"]);
+        CacheServices().loggedIn(loggedIn: true);
+        StoreProvider.of<AppState>(context).dispatch(IsLoggedInAction(true));
+      } else {
+        await AuthService().errorToast();
+      }
+    }
+  }
+
   Future _googleSignin() async {
     final user = await GoogleSignApi().login();
     // sending user data into backend
@@ -46,15 +65,19 @@ class _LoginPageState extends State<LoginPage> {
       final res = await AuthService().saveGoogleUser(
         id: user.id,
         name: user.displayName,
-        email: user.email,
+        gmail: user.email,
         picture: user.photoUrl,
       );
-      // saving token to the cache memory
-      CacheServices().saveToken(token: res.data["accessToken"]);
-      CacheServices().loggedIn(loggedIn: true);
-      StoreProvider.of<AppState>(context).dispatch(
-        IsLoggedInAction(true),
-      );
+      if (res.data["success"] == true) {
+        CacheServices().saveToken(token: res.data["accessToken"]);
+        // saving token to the cache memory
+        CacheServices().loggedIn(loggedIn: true);
+        StoreProvider.of<AppState>(context).dispatch(
+          IsLoggedInAction(true),
+        );
+      } else {
+        await AuthService().errorToast();
+      }
     }
   }
 
@@ -76,13 +99,6 @@ class _LoginPageState extends State<LoginPage> {
       textColor: Colors.black87,
       fontSize: 15.0,
     );
-  }
-
-  Future _facebookSignin() async {
-    final user = await FacebookSigninApi().login();
-    if (user != null) {
-      // backend work
-    }
   }
 
   @override

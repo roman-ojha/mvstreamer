@@ -17,6 +17,9 @@ const userDetailSchema = new mongoose.Schema({
   google_id: {
     type: Number,
   },
+  facebook_id: {
+    type: Number,
+  },
   picture: {
     type: String,
   },

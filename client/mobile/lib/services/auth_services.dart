@@ -8,11 +8,22 @@ import 'package:flutter/material.dart';
 class AuthService {
   Dio dio = Dio();
   final apiBaseUrl = Environment.apiBaseUrl;
-  saveGoogleUser({name, email, picture, id}) async {
-    var data = {"name": name, "email": email, "picture": picture, "id": id};
+  errorToast() {
+    Fluttertoast.showToast(
+      msg: "SomeThing went Wrong!!!, Please Try again letter",
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Constant().toastBackgroundColor,
+      textColor: Colors.black87,
+      fontSize: 15.0,
+    );
+  }
+
+  saveGoogleUser({name, gmail, picture, id}) async {
+    var data = {"name": name, "gmail": gmail, "picture": picture, "id": id};
     try {
       return await dio.post(
-        "$apiBaseUrl/signIn",
+        "$apiBaseUrl/m/google/signIn",
         data: data,
         options: Options(
           contentType: Headers.formUrlEncodedContentType,
@@ -20,14 +31,23 @@ class AuthService {
       );
       // ignore: unused_catch_clause
     } on DioError catch (e) {
-      Fluttertoast.showToast(
-        msg: "SomeThing went Wrong!!!, Please Try again letter",
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Constant().toastBackgroundColor,
-        textColor: Colors.black87,
-        fontSize: 15.0,
+      errorToast();
+    }
+  }
+
+  saveFacebookUser({name, id, picture}) async {
+    var data = {"name": name, "id": id, "picture": picture};
+    try {
+      return await dio.post(
+        "$apiBaseUrl/m/facebook/SignIn",
+        data: data,
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+        ),
       );
+      // ignore: unused_catch_clause
+    } on DioError catch (e) {
+      errorToast();
     }
   }
 }

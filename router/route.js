@@ -37,27 +37,28 @@ router.get("/auth", userAuth, async (req, res) => {
     .json({ success: true, user: req.user, msg: "Autorized Successfully" });
 });
 
-// right now this url is use for the flutter google signin
-router.post("/signIn", async (req, res) => {
-  const { name, email, picture, id } = req.body;
+router.post("/m/google/signIn", async (req, res) => {
+  // this url is use for the flutter google signin
+  const { name, gmail, picture, id } = req.body;
   try {
     if (req.body === undefined) {
       return res.status(404).json({ success: false, msg: "Client Error" });
-    } else if (!name && !email) {
+    } else if (!name && !gmail) {
       return res.status(404).json({
         success: false,
         msg: "Name and email doesn't exist, Please try again letter",
       });
     }
     const userDataRes = await userDetail.findOne({
-      email: email,
+      gmail: gmail,
     });
+    console.log(userDataRes);
     if (!userDataRes) {
       // it means user is loging in for the first time so we have to create a account
       const newUser = new userDetail({
-        id: id,
+        google_id: id,
         name: name,
-        email: email,
+        gmail: gmail,
         picture: picture,
       });
       const user = await newUser.save();
@@ -73,9 +74,50 @@ router.post("/signIn", async (req, res) => {
       const token = await userDataRes.generateToken();
       return res
         .status(201)
-        .json({ success: true, msg: "SignIn", accessToken: token });
+        .json({ success: true, msg: "Login Successfully", accessToken: token });
     }
   } catch (err) {
+    return res.status(500).json({
+      success: false,
+      msg: "Server error!!!, please try again letter",
+    });
+  }
+});
+
+router.post("/m/facebook/SignIn", async (req, res) => {
+  try {
+    const { name, id, picture } = req.body;
+    if (req.body === undefined) {
+      return res.status(404).json({ success: false, msg: "Client Error" });
+    } else if (!name) {
+      return res.status(404).json({
+        success: false,
+        msg: "Name doesn't exist Please Try again later",
+      });
+    }
+    const userRes = await userDetail.findOne({ facebook_id: id });
+    if (!userRes) {
+      const newUser = new userDetail({
+        facebook_id: id,
+        name: name,
+        picture: picture,
+      });
+      const saveUserRes = await newUser.save();
+      const token = await saveUserRes.generateToken();
+      return res.status(201).json({
+        success: true,
+        msg: "Creating user successfully",
+        accessToken: token,
+      });
+    } else {
+      const token = await userRes.generateToken();
+      return res.status(201).json({
+        success: true,
+        msg: "Login Successfully",
+        accessToken: token,
+      });
+    }
+  } catch (e) {
     return res.status(500).json({
       success: false,
       msg: "Server error!!!, please try again letter",
