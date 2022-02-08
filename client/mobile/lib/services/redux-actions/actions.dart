@@ -8,7 +8,8 @@ class LocalFileFolderTreeAction {
   LocalFileFolderTreeAction(this.payload);
 }
 
-class IsLoggedInAction {
-  bool payload;
-  IsLoggedInAction(this.payload);
+class UserLoggedInfoAction {
+  // bool payload;
+  Map payload;
+  UserLoggedInfoAction(this.payload);
 }

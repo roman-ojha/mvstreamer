@@ -2,7 +2,7 @@ import 'package:android_ios/services/app_state.dart';
 import '../app_state.dart';
 import 'local_file_folder_tree.dart';
 import 'navigationBarIndexReducer.dart';
-import 'is_logged_in.dart';
+import 'user_logged_info.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
   return AppState(
@@ -10,6 +10,6 @@ AppState appStateReducer(AppState state, dynamic action) {
         navigationBarIndexReducer(state.currentNavigationBarIndex, action),
     localFileFolderTree:
         localFileFolderTreeReducer(state.localFileFolderTree, action),
-    isLoggedIn: isLoggedInReducer(state.isLoggedIn, action),
+    userLoggedInfo: userLoggedInfoReducer(state.userLoggedInfo, action),
   );
 }

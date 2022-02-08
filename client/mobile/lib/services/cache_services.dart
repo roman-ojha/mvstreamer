@@ -16,22 +16,27 @@ class CacheServices {
     box.close();
   }
 
-  Future loggedIn({loggedIn}) async {
+  Future setUserLoginInfo(
+      {required bool isLoggedIn,
+      required String from,
+      required bool withOutAuth}) async {
     var dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    box = await Hive.openBox("loggedIn");
+    // box = await Hive.openBox("loggedIn");
+    box = await Hive.openBox("userLoginInfo");
     await box.clear();
-    box.add(loggedIn);
+    box.add(
+        {"isLoggedIn": isLoggedIn, "from": from, "withOutAuth": withOutAuth});
     box.close();
   }
 
-  Future<bool> isLoggedIn() async {
+  Future<Map> getUserLoginInfo() async {
     var dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    box = await Hive.openBox("loggedIn");
+    box = await Hive.openBox("userLoginInfo");
     if (box.values.isEmpty) {
       // openning app for the first time
-      return false;
+      return {"isLoggedIn": false, "from": "", "withOutAuth": false};
     } else {
       return box.values.first;
     }

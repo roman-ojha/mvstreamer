@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
 
   updateLogin() async {
     StoreProvider.of<AppState>(context).dispatch(
-      IsLoggedInAction(await CacheServices().isLoggedIn()),
+      UserLoggedInfoAction(await CacheServices().getUserLoginInfo()),
     );
   }
 
@@ -98,10 +98,10 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: StoreConnector<AppState, bool>(
-        converter: (store) => store.state.isLoggedIn,
-        builder: (context, bool isLoggedIn) {
-          if (isLoggedIn) {
+      body: StoreConnector<AppState, Map>(
+        converter: (store) => store.state.userLoggedInfo,
+        builder: (context, Map userLoggedInfo) {
+          if (userLoggedInfo["isLoggedIn"]) {
             return mainPage();
           } else {
             return const LoginPage();

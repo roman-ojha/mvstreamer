@@ -50,8 +50,13 @@ class _LoginPageState extends State<LoginPage> {
       );
       if (res.data["success"] == true) {
         CacheServices().saveToken(token: res.data["accessToken"]);
-        CacheServices().loggedIn(loggedIn: true);
-        StoreProvider.of<AppState>(context).dispatch(IsLoggedInAction(true));
+        CacheServices().setUserLoginInfo(
+            isLoggedIn: true, from: "facebook", withOutAuth: false);
+        StoreProvider.of<AppState>(context).dispatch(
+          UserLoggedInfoAction(
+            {"isLoggedIn": true, "from": "google", "withOutAuth": false},
+          ),
+        );
       } else {
         await AuthService().errorToast();
       }
@@ -71,9 +76,11 @@ class _LoginPageState extends State<LoginPage> {
       if (res.data["success"] == true) {
         CacheServices().saveToken(token: res.data["accessToken"]);
         // saving token to the cache memory
-        CacheServices().loggedIn(loggedIn: true);
+        CacheServices().setUserLoginInfo(
+            isLoggedIn: true, from: "google", withOutAuth: false);
         StoreProvider.of<AppState>(context).dispatch(
-          IsLoggedInAction(true),
+          UserLoggedInfoAction(
+              {"isLoggedIn": true, "from": "google", "withOutAuth": false}),
         );
       } else {
         await AuthService().errorToast();
@@ -83,10 +90,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future _withoutSignin() async {
     CacheServices().saveToken(token: "");
-    CacheServices().loggedIn(loggedIn: true);
-    StoreProvider.of<AppState>(context).dispatch(
-      IsLoggedInAction(true),
-    );
+    CacheServices()
+        .setUserLoginInfo(isLoggedIn: true, from: "", withOutAuth: true);
+    StoreProvider.of<AppState>(context).dispatch(UserLoggedInfoAction(
+        {"isLoggedIn": true, "from": "", "withOutAuth": true}));
   }
 
   Future _githubSignin() async {

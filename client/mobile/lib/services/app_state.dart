@@ -2,14 +2,14 @@ class AppState {
   // This store the app State
   int currentNavigationBarIndex;
   List localFileFolderTree;
-  bool isLoggedIn;
+  Map userLoggedInfo;
   AppState({
     this.currentNavigationBarIndex = 0,
     required this.localFileFolderTree,
-    this.isLoggedIn = true,
+    required this.userLoggedInfo,
   });
   AppState.initialState()
       : currentNavigationBarIndex = 0,
         localFileFolderTree = [],
-        isLoggedIn = true;
+        userLoggedInfo = {"isLoggedIn": true, "from": "", "withOutAuth": true};
 }

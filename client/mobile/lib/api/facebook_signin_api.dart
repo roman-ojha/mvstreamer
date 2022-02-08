@@ -6,4 +6,8 @@ class FacebookSigninApi {
     final userData = await FacebookAuth.instance.getUserData();
     return userData;
   }
+
+  Future<void> logout() async {
+    await FacebookAuth.instance.logOut();
+  }
 }

@@ -5,6 +5,7 @@ import '../services/cache_services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import '../services/redux-actions/actions.dart';
 import '../services/app_state.dart';
+import '../api/facebook_signin_api.dart';
 
 class MVAppBar extends StatefulWidget {
   const MVAppBar({Key? key}) : super(key: key);
@@ -14,12 +15,21 @@ class MVAppBar extends StatefulWidget {
 }
 
 class _MVAppBarState extends State<MVAppBar> {
-  Future _googleLogout() async {
+  Future _userLogout() async {
     // Writing logic for logout in here for right now
-    await GoogleSignApi().logout();
+    final userLoginInfo = await CacheServices().getUserLoginInfo();
+    if (userLoginInfo["from"] == "google") {
+      // google user logout
+      await GoogleSignApi().logout();
+    } else if (userLoginInfo["from"] == "facebook") {
+      // facebook user logout
+      await FacebookSigninApi().logout();
+    }
     CacheServices().saveToken(token: "");
-    CacheServices().loggedIn(loggedIn: false);
-    StoreProvider.of<AppState>(context).dispatch(IsLoggedInAction(false));
+    CacheServices()
+        .setUserLoginInfo(isLoggedIn: false, from: "", withOutAuth: false);
+    StoreProvider.of<AppState>(context).dispatch(UserLoggedInfoAction(
+        {"isLoggedIn": false, "from": "", "withOutAuth": false}));
   }
 
   @override
@@ -136,7 +146,7 @@ class _MVAppBarState extends State<MVAppBar> {
               backgroundImage: AssetImage('assets/images/user.jpg'),
               maxRadius: 21,
             ),
-            onTap: _googleLogout,
+            onTap: _userLogout,
           ),
           const SizedBox(
             width: 10.0,
