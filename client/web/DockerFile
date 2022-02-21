@@ -1,8 +1,10 @@
-FROM node:alpine
+FROM node:14.9-alpine AS development
+ENV NODE_ENV development
 WORKDIR /app
 COPY package*.json ./
-RUN yarn
-COPY ./ ./
-ENV PORT=8080
-EXPOSE 8080
-CMD ["npm","start"]
+COPY yarn.lock ./
+RUN yarn install
+COPY . .
+# ENV PORT=8080
+EXPOSE 3000
+CMD ["yarn","start"]

@@ -1,0 +1,14 @@
+version: "3"
+services:
+  frontend:
+    container_name: MVstreamerfrontend-dev
+    image: MVstreamerfrontend-dev
+    build:
+      context: .
+      dockerfile: DockerFile
+      target: development
+  volumes:
+    - "./src:/app/src"
+  ports:
+    - 3000:3000
+  # command: npm start
