@@ -37,24 +37,28 @@
 [<p style="font-size:50px;">Todo</p>](todo.md "Todo")
 
 ## How to run Locally:
+### NOTE: Firstly you need to install Node.js, Flutter in you local computer
 
 ### API:
-1. `MVstreamer`
-2. Create .env file in Root Directory
-3. Get all the environment variables which are include in .env.example
+1. Directory: `MVstreamer`
+2. Create `.env` file in Root Directory
+3. Get all the environment variables which are include in `.env.example`
 4. Get Firebase SDK Service Account Key & Connect MongoDB
-5. Run `npm start` to run the server
+5. Run `npm install --global yarn` to install yarn
+4. Run `npm install -g nodemon` to install nodemon
+5. Run `yarn` to install all packages
+6. Run `yarn start` to run the server
 
 ### React:
-1. `Mvstreamer/client/web`
-2. create '.env' file and add variable value included in '.env.example'
-3. Run `npm install` to install all packages
-4. Run `npm start` to run the server
+1. Directory: `Mvstreamer/client/web`
+2. create `.env` file and add variable value included in `.env.example`
+3. Run `yarn` to install all packages
+4. Run `yarn start` to run the server
 
 ### Flutter:
-1. `MVstreamer/client/mobile`
-2. Create .env file in Root Directory
-3. Get all the environment variables which are include in .env.example
+1. Directory `MVstreamer/client/mobile`
+2. Create `.env` file in Root Directory
+3. Get all the environment variables which are include in `.env.example`
 4. create `Info.plist` file inside `ios/Runner/` and copy given peace of code bellow
 5. create Firebase app for android and ios google auth and download `google-services.json` & `GoogleServices-info.plist` and copy inside `android/app` & `./ios`
 6. inside `ios/Runner/info.plist` change this line of code:
